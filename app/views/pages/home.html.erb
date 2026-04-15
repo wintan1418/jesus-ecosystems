@@ -1,7 +1,7 @@
-<% content_for :title, "#{t('home.headline_1')} #{t('home.headline_2')} · #{t('site.name')}" %>
+<% content_for :title, "#{cms('hero_headline_1', default: t('home.headline_1'))} · #{t('site.name')}" %>
 
 <%
-  hero_video = "https://cdn.jwplayer.com/manifests/zKhUkn1D.m3u8"
+  hero_video = cms("hero_video_url", default: "https://cdn.jwplayer.com/manifests/zKhUkn1D.m3u8")
   hero_slides = [
     "photo-1438232992991-995b7058bbb3",
     "photo-1469571486292-0ba58a3f068b",
@@ -17,6 +17,7 @@
     "three" => "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=900&q=80&auto=format&fit=crop",
     "four"  => "https://images.unsplash.com/photo-1500380804539-4e1e8c1e7118?w=900&q=80&auto=format&fit=crop",
   }
+  hero_rotators = cms_json("hero_rotators", default: t("home.rotators"))
 %>
 
 <%# ─── HERO — Jumbotron + CRT screen ───────────────────────────────────── %>
@@ -32,32 +33,31 @@
     <div class="space-y-7 relative min-w-0">
       <div class="flex items-center gap-4">
         <span class="block size-2 rounded-full bg-eco-green pulse-dot"></span>
-        <p class="eco-eyebrow"><%= t("home.eyebrow") %></p>
+        <p class="eco-eyebrow"><%= cms("hero_eyebrow", default: t("home.eyebrow")) %></p>
       </div>
 
       <h1 class="eco-display" data-controller="char-reveal">
-        Jesus the<br>
-        Designer&rsquo;s Plan<br>
-        <span class="italic font-normal text-eco-green-light">to Change<br>the World.</span>
+        <%= cms("hero_headline_1", default: t("home.headline_1")) %><br>
+        <span class="italic font-normal text-eco-green-light"><%= cms("hero_headline_2", default: t("home.headline_2")) %></span>
       </h1>
 
       <span class="block draw-line" style="width: 80px"></span>
 
       <p class="eco-subhead max-w-lg">
-        <%= t("home.subhead") %>
+        <%= cms("hero_subhead", default: t("home.subhead")) %>
       </p>
 
       <div class="tagline-stack text-xl md:text-2xl max-w-lg"
            data-controller="tagline-rotator"
            data-tagline-rotator-interval-value="2600">
-        <% t("home.rotators").each do |line| %>
+        <% hero_rotators.each do |line| %>
           <span data-tagline-rotator-target="item">“<%= line %>”</span>
         <% end %>
       </div>
 
       <div class="flex flex-wrap items-center gap-4 pt-3">
-        <%= link_to t("home.cta_request"), request_free_copy_path, class: "eco-btn-primary text-sm" %>
-        <%= link_to t("home.cta_listen"),  audiobooks_path,        class: "eco-btn-ghost text-sm" %>
+        <%= link_to cms("hero_cta_primary", default: t("home.cta_request")), request_free_copy_path, class: "eco-btn-primary text-sm" %>
+        <%= link_to cms("hero_cta_ghost",   default: t("home.cta_listen")),  audiobooks_path,        class: "eco-btn-ghost text-sm" %>
       </div>
     </div>
 
@@ -187,19 +187,19 @@
   <div class="relative z-10 max-w-5xl mx-auto px-6 space-y-14">
     <div class="flex items-center gap-4" data-controller="reveal">
       <span class="section-num">— 01</span>
-      <p class="eco-eyebrow"><%= t("home.pillars_title") %></p>
+      <p class="eco-eyebrow"><%= cms("manifesto_headline", default: t("home.pillars_title")) %></p>
     </div>
 
     <p class="font-display text-3xl md:text-5xl leading-[1.15] text-eco-white max-w-4xl"
        data-controller="reveal">
-      <%= t("home.manifesto.one") %>
+      <%= cms("manifesto_one", default: t("home.manifesto.one")) %>
     </p>
 
     <div class="grid md:grid-cols-2 gap-10 pt-4">
-      <% [:two, :three, :four, :five].each do |key| %>
+      <% %w[two three four five].each do |key| %>
         <p class="text-lg text-eco-text-muted leading-relaxed border-l-2 border-eco-green pl-6"
            data-controller="reveal">
-          <%= t("home.manifesto.#{key}") %>
+          <%= cms("manifesto_#{key}", default: t("home.manifesto.#{key}")) %>
         </p>
       <% end %>
     </div>
@@ -280,12 +280,13 @@
 
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
       <% %w[one two three four].each_with_index do |key, i| %>
+        <% pillar_title = cms("pillar_#{key}_title", default: t("home.pillars.#{key}.title")) %>
         <div class="group relative rounded-2xl overflow-hidden border border-eco-border bg-eco-surface hover:border-eco-green transition-all duration-500 hover:-translate-y-1"
              data-controller="reveal"
              style="transition-delay: <%= i * 80 %>ms">
           <div class="aspect-[4/3] overflow-hidden">
             <img src="<%= pillar_images[key] %>"
-                 alt="<%= t("home.pillars.#{key}.title") %>"
+                 alt="<%= pillar_title %>"
                  loading="lazy"
                  class="w-full h-full object-cover opacity-60 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700">
           </div>
@@ -295,10 +296,10 @@
               <div class="size-2 rounded-full bg-eco-green pulse-dot"></div>
             </div>
             <h4 class="font-display text-2xl text-eco-white mb-3">
-              <%= t("home.pillars.#{key}.title") %>
+              <%= pillar_title %>
             </h4>
             <p class="text-eco-text-muted text-sm leading-relaxed">
-              <%= t("home.pillars.#{key}.body") %>
+              <%= cms("pillar_#{key}_body", default: t("home.pillars.#{key}.body")) %>
             </p>
           </div>
         </div>
@@ -314,9 +315,9 @@
   <p class="font-display text-8xl text-eco-green leading-none mb-8 select-none">“</p>
   <blockquote class="font-display italic text-3xl md:text-5xl leading-tight text-eco-white max-w-4xl mx-auto"
               data-controller="reveal">
-    <%= t("home.quote") %>
+    <%= cms("quote", default: t("home.quote")) %>
   </blockquote>
-  <p class="mt-12 eco-eyebrow"><%= t("home.quote_attribution") %></p>
+  <p class="mt-12 eco-eyebrow"><%= cms("quote_attribution", default: t("home.quote_attribution")) %></p>
 </section>
 
 <%# ─── CTA BAND ────────────────────────────────────────────────────────── %>
@@ -332,13 +333,14 @@
       <%= t("free_copy.badge") %>
     </span>
     <h2 class="mt-10 font-display text-5xl md:text-7xl text-eco-white leading-[1.05]">
-      <%= t("home.cta_band.headline") %>
+      <%= cms("cta_headline", default: t("home.cta_band.headline")) %>
     </h2>
     <p class="mt-8 text-eco-text-muted text-lg max-w-xl mx-auto">
-      <%= t("home.cta_band.body") %>
+      <%= cms("cta_body", default: t("home.cta_band.body")) %>
     </p>
     <div class="mt-12">
-      <%= link_to t("home.cta_band.button"), request_free_copy_path, class: "eco-btn-primary text-base" %>
+      <%= link_to cms("cta_button", default: t("home.cta_band.button")),
+                  request_free_copy_path, class: "eco-btn-primary text-base" %>
     </div>
   </div>
 </section>

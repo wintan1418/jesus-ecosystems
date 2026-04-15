@@ -142,20 +142,71 @@ BOOK_DATA.each do |data|
   end
 end
 
-puts "→ Seeding site settings (shoutout + testimonials)…"
-{
-  "shoutout_video_url" => "", # Paste the real video URL in the admin CMS → SiteSettings
+puts "→ Seeding site settings (hero, manifesto, shoutout, testimonials, CTA, footer)…"
+home_content = {
+  # Hero
+  "hero_eyebrow"     => "A Two-Volume Christian Philosophy Series",
+  "hero_headline_1"  => "Jesus the Designer's",
+  "hero_headline_2"  => "Plan to Change the World.",
+  "hero_subhead"     => "A fresh look at how Jesus takes His crew — from chaos into community, from community into world-changing.",
+  "hero_rotators"    => [
+    "from needy to noteworthy",
+    "from mundane to mountain-movers",
+    "from struggling to legendary"
+  ].to_json,
+  "hero_cta_primary" => "Request FREE Hardcopies",
+  "hero_cta_ghost"   => "Listen Free",
+
+  # Manifesto
+  "manifesto_headline" => "Faith, Rewilded.",
+  "manifesto_one"   => "The way Jesus builds world-changers hasn't aged a day. He refines ordinary people for Jesus-sized outcomes. This is a raw and honest look at how Jesus turns chaos into His community.",
+  "manifesto_two"   => "Jesus doesn't build systems. He grows stories that move.",
+  "manifesto_three" => "Jesus restores what structure forgot. Faith rewilded.",
+  "manifesto_four"  => "Where faith stops performing and starts breathing.",
+  "manifesto_five"  => "Jesus redefines growth — from algorithm to organism.",
+
+  # Pillars
+  "pillar_one_title"   => "Living Roots",
+  "pillar_one_body"    => "Communities grow from soil, not from scaffolding.",
+  "pillar_two_title"   => "Open Canopy",
+  "pillar_two_body"    => "Light enters where the structure is held lightly.",
+  "pillar_three_title" => "Wild Order",
+  "pillar_three_body"  => "There is design without control.",
+  "pillar_four_title"  => "Mutual Air",
+  "pillar_four_body"   => "What we breathe out, another breathes in.",
+
+  # Shoutout video
+  "shoutout_video_url"  => "",
   "shoutout_poster_url" => "https://images.unsplash.com/photo-1507692049790-de58290a4334?w=1400&q=80&auto=format&fit=crop",
-  "shoutout_label" => "A word from the author",
-  "shoutout_cta" => "Play the message",
+  "shoutout_label"      => "A word from the author",
+  "shoutout_cta"        => "Play the message",
+
+  # Testimonials
   "testimonials" => [
     { quote: "Jesus doesn't build systems. He grows stories that move.", attribution: "— Volume One" },
     { quote: "Where faith stops performing and starts breathing.", attribution: "— Volume Two" },
     { quote: "Religion is a club, a vibe and rules. Jesus came to blow that up.", attribution: "— From the manifesto" },
     { quote: "Jesus redefines growth — from algorithm to organism.", attribution: "— Volume Two" },
     { quote: "He refines ordinary people for Jesus-sized outcomes.", attribution: "— Volume One" }
-  ].to_json
-}.each do |key, value|
+  ].to_json,
+
+  # Pull quote
+  "quote"             => "Religion is typically about a club, a vibe, and rules — Jesus came to blow that up.",
+  "quote_attribution" => "From Volume One",
+
+  # CTA band
+  "cta_headline" => "Get the books, free, in your hands",
+  "cta_body"     => "100% free hardcopies. Worldwide shipping. No strings.",
+  "cta_button"   => "Request FREE Hardcopies",
+
+  # Footer
+  "footer_tagline"    => "Faith, rewilded.",
+  "footer_manifesto"  => "Jesus restores what structure forgot. Faith rewilded.",
+  "subscribe_heading" => "Get the next volume in your inbox",
+  "subscribe_body"    => "Quarterly dispatches. No spam, ever. Unsubscribe in one click."
+}
+
+home_content.each do |key, value|
   SiteSetting.find_or_initialize_by(key: key).update!(value: value)
 end
 

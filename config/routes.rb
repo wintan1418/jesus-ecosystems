@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   namespace :admin do
     root "dashboard#index", as: :root
 
+    # Dedicated home-page content editor (grouped SiteSetting editor).
+    get   "home",       to: "home_content#edit",   as: :home_content
+    patch "home",       to: "home_content#update"
+
     resources :books do
       resources :book_translations, path: "translations", except: [:show]
       resources :chapters, only: [:new, :create]
@@ -33,6 +37,9 @@ Rails.application.routes.draw do
 
   # ─── Health & ops ──────────────────────────────────────────────────────────
   get "up" => "rails/health#show", as: :rails_health_check
+
+  # ─── Public newsletter subscribe (locale-agnostic) ────────────────────────
+  resources :subscribes, only: [:create]
 
   # ─── Bare root → locale-aware redirect ─────────────────────────────────────
   root to: redirect { |_, req|

@@ -1,0 +1,58 @@
+<% content_for :title, "Home page · Admin" %>
+
+<%= admin_page_header "Home page content",
+      eyebrow: "Site",
+      subtitle: "Edit everything the public sees on /en, /es, /pt. No deploys." do %>
+  <%= link_to "View site →", root_path(locale: "en"),
+              target: "_blank", class: "admin-btn admin-btn--ghost" %>
+<% end %>
+
+<%= form_with url: admin_home_content_path, method: :patch, class: "space-y-6" do |f| %>
+  <% @sections.each_with_index do |section, i| %>
+    <div class="admin-card" id="section-<%= section[:id] %>">
+      <div class="admin-card-header">
+        <div>
+          <p class="admin-eyebrow">— <%= "%02d" % (i + 1) %></p>
+          <h3 class="admin-card-title mt-1"><%= section[:title] %></h3>
+          <p class="text-xs text-eco-text-muted mt-1"><%= section[:subtitle] %></p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5">
+        <% section[:fields].each do |field| %>
+          <div class="admin-field <%= 'md:col-span-2' if field[:kind] == :textarea %>">
+            <label for="site_setting_<%= field[:key] %>" class="admin-field-label">
+              <%= field[:label] %>
+            </label>
+
+            <% case field[:kind]
+               when :textarea %>
+              <%= text_area_tag "site_setting[#{field[:key]}]",
+                                @values[field[:key]] || "",
+                                rows: field[:rows] || 4,
+                                id: "site_setting_#{field[:key]}",
+                                class: "admin-field-textarea" %>
+            <% else %>
+              <%= text_field_tag "site_setting[#{field[:key]}]",
+                                 @values[field[:key]] || "",
+                                 id: "site_setting_#{field[:key]}",
+                                 class: "admin-field-input" %>
+            <% end %>
+
+            <% if field[:help].present? %>
+              <p class="admin-field-help"><%= field[:help] %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="admin-card sticky bottom-6 flex items-center justify-between flex-wrap gap-3">
+    <p class="text-xs text-eco-text-muted">Changes are live immediately on the public site.</p>
+    <div class="flex items-center gap-3">
+      <%= link_to "Cancel", admin_root_path, class: "admin-btn admin-btn--ghost" %>
+      <%= submit_tag "Save all home content", class: "admin-btn admin-btn--primary" %>
+    </div>
+  </div>
+<% end %>
