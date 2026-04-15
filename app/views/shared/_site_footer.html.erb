@@ -1,0 +1,53 @@
+<footer class="relative border-t border-eco-border mt-32 overflow-hidden bg-eco-bg">
+
+  <%# Plant emergence — the soul of the footer %>
+  <div class="relative pt-28 pb-12">
+    <%= render "shared/plant_emergence" %>
+    <p class="text-center mt-6 eco-eyebrow">Faith, rewilded.</p>
+  </div>
+
+  <%# Outline word — editorial signature behind the columns %>
+  <div class="absolute inset-x-0 bottom-32 text-center pointer-events-none select-none opacity-90">
+    <h2 class="outline-word">Ecosystem</h2>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-6 pt-28 pb-14 grid md:grid-cols-12 gap-12">
+    <div class="md:col-span-4 space-y-4">
+      <div class="flex items-center gap-3">
+        <span class="block size-2.5 rounded-full bg-eco-green pulse-dot"></span>
+        <span class="font-display text-xl text-eco-white"><%= t("site.name") %></span>
+      </div>
+      <p class="font-display italic text-eco-text-muted text-lg max-w-xs">
+        <%= t("site.tagline") %>
+      </p>
+      <p class="text-eco-text-muted text-sm max-w-xs leading-relaxed">
+        <%= t("home.manifesto.three") %>
+      </p>
+    </div>
+
+    <div class="md:col-span-2">
+      <p class="eco-eyebrow mb-4">Read</p>
+      <ul class="space-y-2 text-sm">
+        <li><%= link_to t("nav.books"),      books_path,      class: "text-eco-text/80 hover:text-eco-green-light transition" %></li>
+        <li><%= link_to t("nav.audiobooks"), audiobooks_path, class: "text-eco-text/80 hover:text-eco-green-light transition" %></li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-2">
+      <p class="eco-eyebrow mb-4">More</p>
+      <ul class="space-y-2 text-sm">
+        <li><%= link_to t("nav.about"),   "#",                    class: "text-eco-text/80 hover:text-eco-green-light transition" %></li>
+        <li><%= link_to t("nav.contact"), "#",                    class: "text-eco-text/80 hover:text-eco-green-light transition" %></li>
+        <li><%= link_to t("nav.request"), request_free_copy_path, class: "text-eco-text/80 hover:text-eco-green-light transition" %></li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-4">
+      <p class="eco-eyebrow mb-4"><%= t("footer.languages") %></p>
+      <%= render "shared/language_switcher" %>
+      <p class="mt-6 text-xs text-eco-text-muted">
+        © <%= Date.current.year %> <%= t("site.name") %>. <%= t("footer.rights") %>
+      </p>
+    </div>
+  </div>
+</footer>

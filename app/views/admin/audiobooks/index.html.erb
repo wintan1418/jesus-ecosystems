@@ -1,0 +1,43 @@
+<% content_for :title, "Audiobooks · Admin" %>
+
+<%= admin_page_header "Audiobooks", eyebrow: "Content",
+      subtitle: "Narrated editions in every locale." %>
+
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Book</th>
+        <th>Locale</th>
+        <th>Duration</th>
+        <th>Audio</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @audiobooks.any? %>
+        <% @audiobooks.each do |ab| %>
+          <tr>
+            <td><%= link_to ab.title, admin_audiobook_path(ab) %></td>
+            <td class="text-eco-text-muted"><%= ab.book.title.truncate(40) %></td>
+            <td><span class="admin-badge admin-badge--shipped"><%= ab.locale.upcase %></span></td>
+            <td class="font-mono text-xs"><%= ab.duration || "—" %></td>
+            <td>
+              <% if ab.audio_file.attached? %>
+                <span class="admin-badge admin-badge--shipped">attached</span>
+              <% else %>
+                <span class="admin-badge admin-badge--pending">missing</span>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to "Edit", edit_admin_audiobook_path(ab), class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr><td colspan="6" class="admin-table-empty">— No audiobooks yet.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

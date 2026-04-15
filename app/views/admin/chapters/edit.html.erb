@@ -1,0 +1,8 @@
+<% content_for :title, "Edit #{@chapter.title} · Admin" %>
+
+<%= admin_page_header @chapter.title, eyebrow: "Editing chapter",
+      subtitle: "Book: #{@chapter.book.title}" %>
+
+<div class="admin-card">
+  <%= render "form", chapter: @chapter, form_url: admin_chapter_path(@chapter) %>
+</div>

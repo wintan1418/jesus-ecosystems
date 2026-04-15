@@ -1,0 +1,16 @@
+<% content_for :title, "#{@chapter.title} · Admin" %>
+
+<%= admin_page_header @chapter.title,
+      eyebrow: "Chapter ##{@chapter.position} · #{@chapter.locale.upcase}",
+      subtitle: "Book: #{@chapter.book.title}" do %>
+  <%= link_to "Edit", edit_admin_chapter_path(@chapter), class: "admin-btn admin-btn--primary" %>
+  <%= button_to "Delete", admin_chapter_path(@chapter), method: :delete,
+                data: { turbo_confirm: "Delete this chapter?" },
+                class: "admin-btn admin-btn--danger" %>
+<% end %>
+
+<div class="admin-card">
+  <div class="prose-eco" style="max-width:100%; color:var(--color-eco-text)">
+    <%= @chapter.body %>
+  </div>
+</div>

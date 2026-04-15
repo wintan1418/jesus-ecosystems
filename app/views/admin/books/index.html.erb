@@ -1,0 +1,52 @@
+<% content_for :title, "Books · Admin" %>
+
+<%= admin_page_header "Books", eyebrow: "Content",
+      subtitle: "Every volume on the site." do %>
+  <%= link_to "New book", new_admin_book_path, class: "admin-btn admin-btn--primary" %>
+<% end %>
+
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th style="width: 70px">Cover</th>
+        <th>Title</th>
+        <th>Volume</th>
+        <th>Translations</th>
+        <th>Chapters</th>
+        <th>Audiobooks</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @books.any? %>
+        <% @books.each do |book| %>
+          <tr>
+            <td>
+              <% if book.cover_image.attached? %>
+                <%= image_tag book.cover_image, class: "admin-table-cover" %>
+              <% else %>
+                <div class="admin-table-cover bg-eco-bg flex items-center justify-center text-eco-text-muted text-xs">—</div>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to book.title, admin_book_path(book), class: "font-display text-base" %>
+              <% if book.tagline.present? %>
+                <div class="text-xs text-eco-text-muted mt-1"><%= book.tagline %></div>
+              <% end %>
+            </td>
+            <td><span class="admin-badge admin-badge--shipped"><%= book.volume_number %></span></td>
+            <td><%= book.translations.size %></td>
+            <td><%= book.chapters.size %></td>
+            <td><%= book.audiobooks.size %></td>
+            <td>
+              <%= link_to "Edit", edit_admin_book_path(book), class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr><td colspan="7" class="admin-table-empty">— No books yet.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

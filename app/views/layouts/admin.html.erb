@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-eco-bg">
+  <head>
+    <title><%= content_for(:title) || "Admin · #{t('site.name')}" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#1c2015">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-eco-bg text-eco-text font-sans antialiased min-h-screen">
+    <div class="admin-shell">
+      <%= render "admin/shared/sidebar" %>
+
+      <div class="admin-main">
+        <% if notice.present? %>
+          <div class="admin-flash admin-flash--notice"><%= notice %></div>
+        <% end %>
+        <% if alert.present? %>
+          <div class="admin-flash admin-flash--alert"><%= alert %></div>
+        <% end %>
+
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

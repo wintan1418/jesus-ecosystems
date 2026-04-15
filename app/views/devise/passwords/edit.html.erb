@@ -1,0 +1,36 @@
+<% content_for :title, "Change password · #{t('site.name')}" %>
+
+<section class="relative w-full max-w-md" data-controller="reveal">
+  <div class="relative rounded-3xl border border-eco-border bg-eco-surface/70 backdrop-blur-xl p-10 md:p-12 shadow-[0_60px_160px_-40px_rgba(163,191,100,0.35)]">
+    <div class="text-center mb-10">
+      <p class="eco-eyebrow">— New password</p>
+      <h1 class="mt-4 font-display text-4xl md:text-5xl text-eco-white leading-[1.05]">
+        Pick a new<br>
+        <span class="italic font-normal text-eco-green-light">key.</span>
+      </h1>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name),
+                 html: { method: :put, class: "space-y-5" }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <%= f.hidden_field :reset_password_token %>
+
+      <div>
+        <%= f.label :password, "New password", class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2" %>
+        <%= f.password_field :password, autofocus: true, autocomplete: "new-password",
+                             class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/30 transition" %>
+      </div>
+
+      <div>
+        <%= f.label :password_confirmation, "Confirm password", class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password",
+                             class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/30 transition" %>
+      </div>
+
+      <div class="pt-3">
+        <%= f.submit "Change password →",
+                     class: "w-full eco-btn-primary justify-center text-sm !py-4 tracking-wider uppercase" %>
+      </div>
+    <% end %>
+  </div>
+</section>

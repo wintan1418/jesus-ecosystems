@@ -1,0 +1,107 @@
+<% content_for :title, "#{t('audiobooks.index.heading_1')} #{t('audiobooks.index.heading_2')} · #{t('site.name')}" %>
+
+<%
+  # Demo MP3s while real audiobook files are still being mastered.
+  # Different track per audiobook so each sounds distinct on the player.
+  demo_audio_for = ->(audiobook) {
+    n = ((audiobook.id.to_i - 1) % 6) + 1
+    "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-#{n}.mp3"
+  }
+%>
+
+<section class="relative pt-40 pb-24 overflow-hidden bg-mesh">
+  <div class="absolute -top-32 -left-32 size-[36rem] rounded-full bg-eco-green/10 blur-[140px] pointer-events-none"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-3xl mx-auto mb-16" data-controller="reveal">
+      <div class="flex items-center justify-center gap-4 mb-5">
+        <span class="section-num">— 02</span>
+        <p class="eco-eyebrow"><%= t("audiobooks.index.eyebrow") %></p>
+      </div>
+      <h1 class="font-display text-5xl md:text-7xl text-eco-white leading-tight">
+        <%= t("audiobooks.index.heading_1") %><br>
+        <span class="italic font-normal text-eco-green-light"><%= t("audiobooks.index.heading_2") %></span>
+      </h1>
+      <p class="mt-6 eco-subhead max-w-xl mx-auto">
+        <%= t("audiobooks.index.subhead") %>
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-10" data-controller="audio-player">
+      <%# Player panel %>
+      <div class="lg:col-span-7">
+        <div class="rounded-3xl border border-eco-border bg-eco-surface p-10 md:p-14 relative overflow-hidden eco-float">
+          <div class="absolute -top-24 -right-24 size-[28rem] rounded-full bg-eco-green/10 blur-[100px] pointer-events-none"></div>
+
+          <div class="relative">
+            <p class="eco-eyebrow flex items-center gap-3">
+              <span><%= t("audiobooks.show.now_playing") %></span>
+              <span class="text-[10px] tracking-[0.25em] text-eco-text-muted normal-case font-mono"
+                    data-audio-player-target="status">idle</span>
+            </p>
+            <h2 class="font-display text-3xl md:text-4xl text-eco-white mt-3" data-audio-player-target="title">
+              <%= @current&.title || "—" %>
+            </h2>
+
+            <%# Big play button %>
+            <div class="mt-12 flex items-center gap-6">
+              <button type="button"
+                      class="size-20 rounded-full bg-eco-green text-eco-bg flex items-center justify-center text-2xl shadow-[0_18px_60px_-10px_rgba(163,191,100,0.7)] hover:scale-105 transition"
+                      data-action="click->audio-player#toggle"
+                      data-audio-player-target="playBtn"
+                      aria-label="Play / pause">
+                <span data-audio-player-target="playIcon">▶</span>
+              </button>
+              <div class="flex-1 min-w-0">
+                <div class="h-1.5 rounded-full bg-eco-border overflow-hidden cursor-pointer relative"
+                     data-audio-player-target="progress"
+                     data-action="click->audio-player#seek">
+                  <div class="h-full bg-gradient-to-r from-eco-green to-eco-green-light"
+                       data-audio-player-target="fill"
+                       style="width: 0"></div>
+                </div>
+                <div class="flex items-center justify-between mt-3 font-mono text-xs text-eco-text-muted">
+                  <span data-audio-player-target="elapsed">0:00</span>
+                  <span data-audio-player-target="remaining">-0:00</span>
+                </div>
+              </div>
+            </div>
+
+            <audio data-audio-player-target="audio" preload="metadata"></audio>
+          </div>
+        </div>
+      </div>
+
+      <%# Track list %>
+      <div class="lg:col-span-5">
+        <p class="eco-eyebrow mb-4"><%= t("audiobooks.show.tracks") %></p>
+        <ul class="space-y-3">
+          <% @audiobooks.each do |ab| %>
+            <li>
+              <button type="button"
+                      class="w-full text-left rounded-2xl border border-eco-border bg-eco-surface px-5 py-4 flex items-center justify-between gap-4 hover:border-eco-green transition group"
+                      data-audio-track
+                      data-audio-id="<%= ab.id %>"
+                      data-audio-url="<%= demo_audio_for.call(ab) %>"
+                      data-audio-title="<%= ab.title %>"
+                      data-action="click->audio-player#load">
+                <div class="flex items-center gap-4 min-w-0">
+                  <span class="font-display italic text-eco-green text-lg shrink-0 w-8 text-center">
+                    <%= ab.book.volume_number == 1 ? "I" : "II" %>
+                  </span>
+                  <div class="min-w-0">
+                    <p class="font-display text-eco-white text-lg truncate"><%= ab.book.localized_title(I18n.locale) %></p>
+                    <p class="text-xs tracking-wider uppercase text-eco-text-muted mt-1">
+                      <%= ab.locale.upcase %> · <%= ab.duration %>
+                    </p>
+                  </div>
+                </div>
+                <span class="size-9 rounded-full border border-eco-border flex items-center justify-center text-eco-green-light text-sm group-hover:bg-eco-green group-hover:text-eco-bg group-hover:border-eco-green transition">▶</span>
+              </button>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

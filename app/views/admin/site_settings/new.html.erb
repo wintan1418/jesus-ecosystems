@@ -1,0 +1,7 @@
+<% content_for :title, "New setting · Admin" %>
+
+<%= admin_page_header "New setting", eyebrow: "Site settings" %>
+
+<div class="admin-card">
+  <%= render "form", setting: @setting %>
+</div>

@@ -1,0 +1,101 @@
+<%= form_with model: [:admin, request], class: "admin-form" do |f| %>
+  <% if request.errors.any? %>
+    <div class="admin-flash admin-flash--alert">
+      <strong><%= pluralize(request.errors.count, "error") %>:</strong>
+      <%= request.errors.full_messages.to_sentence %>
+    </div>
+  <% end %>
+
+  <div class="admin-form-grid-2">
+    <div class="admin-field">
+      <%= f.label :first_name, class: "admin-field-label" %>
+      <%= f.text_field :first_name, class: "admin-field-input", required: true %>
+    </div>
+    <div class="admin-field">
+      <%= f.label :last_name, class: "admin-field-label" %>
+      <%= f.text_field :last_name, class: "admin-field-input", required: true %>
+    </div>
+  </div>
+
+  <div class="admin-form-grid-2">
+    <div class="admin-field">
+      <%= f.label :email, class: "admin-field-label" %>
+      <%= f.email_field :email, class: "admin-field-input", required: true %>
+    </div>
+    <div class="admin-field">
+      <%= f.label :phone, class: "admin-field-label" %>
+      <%= f.text_field :phone, class: "admin-field-input" %>
+    </div>
+  </div>
+
+  <div class="admin-field">
+    <%= f.label :address_line_1, "Address", class: "admin-field-label" %>
+    <%= f.text_field :address_line_1, class: "admin-field-input", required: true %>
+  </div>
+  <div class="admin-field">
+    <%= f.label :address_line_2, "Address line 2", class: "admin-field-label" %>
+    <%= f.text_field :address_line_2, class: "admin-field-input" %>
+  </div>
+
+  <div class="admin-form-grid-2">
+    <div class="admin-field">
+      <%= f.label :city, class: "admin-field-label" %>
+      <%= f.text_field :city, class: "admin-field-input", required: true %>
+    </div>
+    <div class="admin-field">
+      <%= f.label :state_province, "State / Province", class: "admin-field-label" %>
+      <%= f.text_field :state_province, class: "admin-field-input", required: true %>
+    </div>
+  </div>
+
+  <div class="admin-form-grid-2">
+    <div class="admin-field">
+      <%= f.label :postal_code, class: "admin-field-label" %>
+      <%= f.text_field :postal_code, class: "admin-field-input", required: true %>
+    </div>
+    <div class="admin-field">
+      <%= f.label :country, class: "admin-field-label" %>
+      <%= f.text_field :country, class: "admin-field-input", required: true %>
+    </div>
+  </div>
+
+  <div class="admin-form-grid-2">
+    <div class="admin-field">
+      <%= f.label :locale, class: "admin-field-label" %>
+      <%= f.select :locale,
+                   [["English", "en"], ["Español", "es"], ["Português", "pt"]],
+                   {}, class: "admin-field-select" %>
+    </div>
+    <div class="admin-field">
+      <%= f.label :status, class: "admin-field-label" %>
+      <%= f.select :status,
+                   FreeCopyRequest::STATUSES.map { |s| [s.humanize, s] },
+                   {}, class: "admin-field-select" %>
+    </div>
+  </div>
+
+  <div class="admin-field">
+    <%= f.label :volumes_requested, "Volumes requested", class: "admin-field-label" %>
+    <div class="flex gap-4">
+      <% %w[1 2].each do |v| %>
+        <label class="admin-checkbox">
+          <%= check_box_tag "free_copy_request[volumes_requested][]",
+                            v,
+                            Array(request.volumes_requested).include?(v) %>
+          <span>Volume <%= v %></span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="admin-field">
+    <%= f.label :notes, class: "admin-field-label" %>
+    <%= f.text_area :notes, class: "admin-field-textarea", rows: 4 %>
+  </div>
+
+  <div class="admin-form-actions">
+    <%= f.submit request.persisted? ? "Save changes" : "Create request", class: "admin-btn admin-btn--primary" %>
+    <%= link_to "Cancel", request.persisted? ? admin_free_copy_request_path(request) : admin_free_copy_requests_path,
+                class: "admin-btn admin-btn--ghost" %>
+  </div>
+<% end %>

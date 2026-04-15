@@ -1,0 +1,120 @@
+<% content_for :title, "Dashboard · Admin" %>
+
+<%= admin_page_header "Overview", eyebrow: "Dashboard",
+      subtitle: "Live snapshot of the ecosystem." do %>
+  <%= link_to "New request", new_admin_free_copy_request_path, class: "admin-btn admin-btn--primary" %>
+<% end %>
+
+<div class="admin-stat-grid">
+  <div class="admin-stat admin-stat--accent">
+    <p class="admin-stat-label">Pending</p>
+    <p class="admin-stat-value"><%= @stats[:pending] %></p>
+    <p class="admin-stat-hint">Waiting to be fulfilled</p>
+  </div>
+  <div class="admin-stat">
+    <p class="admin-stat-label">Fulfilling</p>
+    <p class="admin-stat-value"><%= @stats[:fulfilling] %></p>
+    <p class="admin-stat-hint">In pick / pack / ship</p>
+  </div>
+  <div class="admin-stat">
+    <p class="admin-stat-label">Shipped · 24h</p>
+    <p class="admin-stat-value"><%= @stats[:shipped_24] %></p>
+    <p class="admin-stat-hint">Went out today</p>
+  </div>
+  <div class="admin-stat">
+    <p class="admin-stat-label">Subscribers</p>
+    <p class="admin-stat-value"><%= @stats[:subscribers] %></p>
+    <p class="admin-stat-hint">Confirmed and subscribed</p>
+  </div>
+
+  <div class="admin-stat">
+    <p class="admin-stat-label">Volumes</p>
+    <p class="admin-stat-value"><%= @stats[:books] %></p>
+    <p class="admin-stat-hint">Published books</p>
+  </div>
+  <div class="admin-stat">
+    <p class="admin-stat-label">Chapters</p>
+    <p class="admin-stat-value"><%= @stats[:chapters] %></p>
+    <p class="admin-stat-hint">Across all locales</p>
+  </div>
+  <div class="admin-stat">
+    <p class="admin-stat-label">Preview</p>
+    <p class="admin-stat-value"><%= @stats[:preview] %></p>
+    <p class="admin-stat-hint">Open to the public</p>
+  </div>
+  <div class="admin-stat">
+    <p class="admin-stat-label">Audiobooks</p>
+    <p class="admin-stat-value"><%= @stats[:audiobooks] %></p>
+    <p class="admin-stat-hint">Tracks available</p>
+  </div>
+</div>
+
+<div class="grid lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-2">
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h3 class="admin-card-title">Latest free-copy requests</h3>
+        <%= link_to "View all →", admin_free_copy_requests_path,
+                    class: "text-xs text-eco-green-light hover:text-eco-green tracking-[0.2em] uppercase" %>
+      </div>
+      <% if @recent_requests.any? %>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Received</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @recent_requests.each do |req| %>
+                <tr>
+                  <td><%= status_badge(req.status) %></td>
+                  <td>
+                    <%= link_to req.full_name, admin_free_copy_request_path(req) %>
+                    <div class="text-xs text-eco-text-muted"><%= req.email %></div>
+                  </td>
+                  <td><%= req.country %></td>
+                  <td class="text-xs text-eco-text-muted"><%= time_ago_in_words(req.created_at) %> ago</td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div class="admin-table-wrap">
+          <div class="admin-table-empty">— No requests yet. They'll land here the moment someone asks.</div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h3 class="admin-card-title">New subscribers</h3>
+      </div>
+      <% if @recent_subscribers.any? %>
+        <ul class="space-y-3">
+          <% @recent_subscribers.each do |sub| %>
+            <li class="flex items-center justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-sm text-eco-white truncate"><%= sub.email %></p>
+                <p class="text-xs text-eco-text-muted">
+                  <%= sub.locale.to_s.upcase %> · <%= time_ago_in_words(sub.created_at) %> ago
+                </p>
+              </div>
+              <span class="admin-badge <%= sub.confirmed? ? 'admin-badge--shipped' : 'admin-badge--pending' %>">
+                <%= sub.confirmed? ? "Confirmed" : "Pending" %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <div class="admin-table-empty">— No subscribers yet.</div>
+      <% end %>
+    </div>
+  </div>
+</div>

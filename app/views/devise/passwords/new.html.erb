@@ -1,0 +1,40 @@
+<% content_for :title, "Reset password · #{t('site.name')}" %>
+
+<section class="relative w-full max-w-md" data-controller="reveal">
+  <div class="relative rounded-3xl border border-eco-border bg-eco-surface/70 backdrop-blur-xl p-10 md:p-12 shadow-[0_60px_160px_-40px_rgba(163,191,100,0.35)]">
+    <div class="text-center mb-10">
+      <p class="eco-eyebrow">— Password reset</p>
+      <h1 class="mt-4 font-display text-4xl md:text-5xl text-eco-white leading-[1.05]">
+        Reset<br>
+        <span class="italic font-normal text-eco-green-light">your access.</span>
+      </h1>
+      <p class="mt-4 text-sm text-eco-text-muted">
+        We'll email you a reset link.
+      </p>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name),
+                 html: { method: :post, class: "space-y-5" }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div>
+        <%= f.label :email, class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2" %>
+        <%= f.email_field :email,
+                          autofocus: true,
+                          autocomplete: "email",
+                          placeholder: "you@systemorecosystem.com",
+                          class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white placeholder:text-eco-text-muted/50 focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/30 transition" %>
+      </div>
+
+      <div class="pt-3">
+        <%= f.submit "Send reset link →",
+                     class: "w-full eco-btn-primary justify-center text-sm !py-4 tracking-wider uppercase" %>
+      </div>
+    <% end %>
+
+    <div class="mt-8 pt-6 border-t border-eco-border flex items-center justify-between text-xs">
+      <%= link_to "← Sign in", new_session_path(resource_name), class: "text-eco-text-muted hover:text-eco-green-light transition" %>
+      <%= link_to "Back to site", root_path, class: "text-eco-text-muted hover:text-eco-green-light transition" %>
+    </div>
+  </div>
+</section>

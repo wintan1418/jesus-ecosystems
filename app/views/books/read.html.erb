@@ -1,0 +1,146 @@
+<% content_for :title, "#{@book.localized_title(I18n.locale)} — Reader" %>
+
+<%
+  # Compose the leaves of the book. Each leaf has a front face and a back face.
+  # leaf 0 front = cover, back = title page
+  # leaf N front = chapter N right side, back = chapter N continuation/blank
+  # final leaf front = "end" + back = "the end" or empty
+  leaves = []
+
+  leaves << {
+    front: { kind: :cover },
+    back:  { kind: :title }
+  }
+
+  @chapters.each_with_index do |chapter, i|
+    leaves << {
+      front: { kind: :chapter, chapter: chapter, side: :right },
+      back:  { kind: :chapter, chapter: chapter, side: :left }
+    }
+  end
+
+  leaves << {
+    front: { kind: :end },
+    back:  { kind: :blank }
+  }
+%>
+
+<section class="flex-1 flex flex-col items-center justify-center px-4 py-10 bg-eco-bg relative overflow-hidden"
+         data-controller="flip-book">
+
+  <%# Ambient glow %>
+  <div class="absolute -top-32 -left-32 size-[36rem] rounded-full bg-eco-green/10 blur-[140px] pointer-events-none"></div>
+  <div class="absolute -bottom-40 right-0 size-[28rem] rounded-full bg-eco-green/[0.08] blur-[120px] pointer-events-none"></div>
+
+  <%# Top chrome — close button + book title %>
+  <div class="relative w-full max-w-7xl mx-auto flex items-center justify-between mb-8 px-2">
+    <%= link_to book_path(@book.slug), class: "text-eco-text-muted hover:text-eco-green-light text-xs tracking-[0.3em] uppercase inline-flex items-center gap-2 transition" do %>
+      <span>←</span> Close book
+    <% end %>
+    <p class="font-display italic text-eco-text-muted text-sm hidden md:block">
+      <%= @book.localized_title(I18n.locale) %>
+    </p>
+    <p class="text-xs tracking-[0.3em] uppercase text-eco-text-muted">
+      Vol. <%= @book.volume_number %>
+    </p>
+  </div>
+
+  <%# The book %>
+  <div class="book-stage relative w-full">
+    <div class="book" data-flip-book-target="book">
+      <div class="book-back"></div>
+
+      <% leaves.each_with_index do |leaf, i| %>
+        <div class="leaf" data-flip-book-target="leaf">
+          <%# Front face — visible on the right side of the open book %>
+          <div class="page front <%= 'cover' if leaf[:front][:kind] == :cover %>">
+            <% case leaf[:front][:kind] %>
+            <% when :cover %>
+              <div class="h-full flex flex-col justify-between">
+                <div>
+                  <p class="text-xs tracking-[0.3em] uppercase text-eco-green-light/80">
+                    <%= t("site.name") %>
+                  </p>
+                </div>
+                <div>
+                  <p class="font-display italic text-eco-green text-sm">— Volume <%= @book.volume_number %></p>
+                  <h2 class="font-display text-eco-white mt-3" style="font-size: clamp(1.75rem, 3.5vw, 3rem); line-height: 1.05;">
+                    <%= @book.localized_title(I18n.locale) %>
+                  </h2>
+                  <p class="font-display italic text-eco-green-light text-lg mt-4">
+                    <%= @book.localized_tagline(I18n.locale) %>
+                  </p>
+                </div>
+                <div class="text-xs tracking-[0.3em] uppercase text-eco-green-light/60">
+                  Open the book
+                </div>
+              </div>
+            <% when :end %>
+              <div class="h-full flex flex-col items-center justify-center text-center">
+                <p class="font-display italic text-eco-green text-sm">— Fin</p>
+                <h2 class="font-display mt-4">Thank you for reading.</h2>
+                <p class="mt-4">
+                  Get the full hardcopy, free, in your hands.
+                </p>
+                <%= link_to t("home.cta_request"),
+                            request_free_copy_path,
+                            class: "mt-6 inline-flex items-center justify-center rounded-full bg-eco-green text-eco-bg px-6 py-3 text-sm font-medium tracking-wider uppercase no-underline" %>
+              </div>
+            <% when :chapter %>
+              <% chapter = leaf[:front][:chapter] %>
+              <span class="chapter-num">— Chapter <%= "%02d" % chapter.position %></span>
+              <h2><%= chapter.title %></h2>
+              <% if chapter.is_preview? %>
+                <%= chapter.body %>
+              <% else %>
+                <p>This chapter is sealed in the printed volume.</p>
+                <p>Order a free hardcopy and keep reading on the page where it belongs.</p>
+                <span class="lock-mark">🔒 Locked chapter</span>
+              <% end %>
+            <% end %>
+            <span class="page-num"><%= (i * 2) + 1 %></span>
+          </div>
+
+          <%# Back face — visible on the left side once the leaf is flipped %>
+          <div class="page back">
+            <% case leaf[:back][:kind] %>
+            <% when :title %>
+              <div class="h-full flex flex-col justify-center text-center">
+                <p class="font-display italic text-eco-green text-sm">— Title page</p>
+                <h2 class="mt-4"><%= @book.localized_title(I18n.locale) %></h2>
+                <p class="font-display italic mt-4 text-lg" style="color: rgba(13,26,18,0.6);">
+                  <%= @book.localized_tagline(I18n.locale) %>
+                </p>
+              </div>
+            <% when :chapter %>
+              <% chapter = leaf[:back][:chapter] %>
+              <p class="font-display italic text-sm" style="color: rgba(13,26,18,0.5);">
+                — Continued
+              </p>
+              <p class="mt-2 text-xs tracking-[0.3em] uppercase" style="color: rgba(13,26,18,0.4);">
+                <%= chapter.title %>
+              </p>
+              <p class="mt-6">Turn the page.</p>
+            <% when :blank %>
+              <div class="h-full flex items-center justify-center">
+                <span class="font-display italic" style="color: rgba(13,26,18,0.25);">— end —</span>
+              </div>
+            <% end %>
+            <span class="page-num"><%= (i * 2) + 2 %></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%# Reader controls %>
+  <div class="reader-controls">
+    <button type="button" class="reader-btn" data-flip-book-target="prev" data-action="click->flip-book#prev" aria-label="Previous page">
+      ←
+    </button>
+    <span data-flip-book-target="counter">0 / <%= leaves.length %></span>
+    <button type="button" class="reader-btn" data-flip-book-target="next" data-action="click->flip-book#next" aria-label="Next page">
+      →
+    </button>
+  </div>
+</section>

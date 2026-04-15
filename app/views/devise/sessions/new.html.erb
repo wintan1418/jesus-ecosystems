@@ -1,0 +1,68 @@
+<% content_for :title, "Sign in · #{t('site.name')}" %>
+
+<section class="relative w-full max-w-md" data-controller="reveal">
+  <%# Signature mark %>
+  <div class="absolute -top-16 left-1/2 -translate-x-1/2 size-32 opacity-80 pointer-events-none">
+    <%= render "shared/sigil_ring" %>
+  </div>
+
+  <div class="relative rounded-3xl border border-eco-border bg-eco-surface/70 backdrop-blur-xl p-10 md:p-12 shadow-[0_60px_160px_-40px_rgba(163,191,100,0.35)]">
+
+    <div class="text-center mb-10">
+      <p class="eco-eyebrow">— Private access</p>
+      <h1 class="mt-4 font-display text-4xl md:text-5xl text-eco-white leading-[1.05]">
+        The gate<br>
+        <span class="italic font-normal text-eco-green-light">to the ecosystem.</span>
+      </h1>
+      <p class="mt-4 text-sm text-eco-text-muted">
+        Sign in with your admin credentials.
+      </p>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name),
+                 html: { class: "space-y-5", autocomplete: "off" }) do |f| %>
+
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div>
+        <%= f.label :email, class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2" %>
+        <%= f.email_field :email,
+                          autofocus: true,
+                          autocomplete: "email",
+                          placeholder: "you@systemorecosystem.com",
+                          class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white placeholder:text-eco-text-muted/50 font-sans focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/30 transition" %>
+      </div>
+
+      <div>
+        <%= f.label :password, class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2" %>
+        <%= f.password_field :password,
+                             autocomplete: "current-password",
+                             placeholder: "•••••••••",
+                             class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white placeholder:text-eco-text-muted/40 font-sans focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/30 transition" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <label class="flex items-center gap-3 text-sm text-eco-text-muted cursor-pointer select-none group">
+          <%= f.check_box :remember_me,
+                          class: "size-4 rounded border-eco-border bg-eco-bg/50 accent-eco-green focus:ring-eco-green/30" %>
+          <span class="group-hover:text-eco-green-light transition">Remember me for a week</span>
+        </label>
+      <% end %>
+
+      <div class="pt-3">
+        <%= f.submit "Enter the admin →",
+                     class: "w-full eco-btn-primary justify-center text-sm !py-4 tracking-wider uppercase" %>
+      </div>
+    <% end %>
+
+    <div class="mt-8 pt-6 border-t border-eco-border flex items-center justify-between text-xs">
+      <%= link_to "Forgot password?", new_password_path(resource_name), class: "text-eco-text-muted hover:text-eco-green-light transition" %>
+      <%= link_to "← Back to site", root_path, class: "text-eco-text-muted hover:text-eco-green-light transition" %>
+    </div>
+  </div>
+
+  <%# Bottom signature %>
+  <p class="text-center mt-8 font-mono text-[10px] tracking-[0.3em] uppercase text-eco-text-muted/60">
+    <%= t("site.name") %> · Authorized personnel only
+  </p>
+</section>

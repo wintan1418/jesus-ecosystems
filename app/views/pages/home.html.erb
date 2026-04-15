@@ -1,0 +1,344 @@
+<% content_for :title, "#{t('home.headline_1')} #{t('home.headline_2')} · #{t('site.name')}" %>
+
+<%
+  hero_video = "https://cdn.jwplayer.com/manifests/zKhUkn1D.m3u8"
+  hero_slides = [
+    "photo-1438232992991-995b7058bbb3",
+    "photo-1469571486292-0ba58a3f068b",
+    "photo-1507692049790-de58290a4334",
+    "photo-1490127252417-7c393f993ee4",
+    "photo-1466442929976-97f336a657be",
+  ].map { |id| "https://images.unsplash.com/#{id}?w=2000&q=80&auto=format&fit=crop" }
+  manifesto_image = "https://images.unsplash.com/photo-1455218873509-8097305ee378?w=1800&q=80&auto=format&fit=crop"
+  cta_image       = "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1800&q=80&auto=format&fit=crop"
+  pillar_images = {
+    "one"   => "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=900&q=80&auto=format&fit=crop",
+    "two"   => "https://images.unsplash.com/photo-1485463611174-f302f6a5c1c9?w=900&q=80&auto=format&fit=crop",
+    "three" => "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=900&q=80&auto=format&fit=crop",
+    "four"  => "https://images.unsplash.com/photo-1500380804539-4e1e8c1e7118?w=900&q=80&auto=format&fit=crop",
+  }
+%>
+
+<%# ─── HERO — Jumbotron + CRT screen ───────────────────────────────────── %>
+<section id="hero" data-rail-label="Intro" class="relative min-h-[100svh] overflow-hidden bg-eco-bg bg-mesh">
+
+  <%# Ambient floating accents %>
+  <div class="absolute -top-32 -left-32 size-[36rem] rounded-full bg-eco-green/10 blur-[140px] pointer-events-none"></div>
+  <div class="absolute -bottom-40 right-0 size-[28rem] rounded-full bg-eco-green/[0.08] blur-[120px] pointer-events-none"></div>
+
+  <div class="relative max-w-[1400px] mx-auto px-6 pt-36 pb-24 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[100svh]">
+
+    <%# ── Jumbotron text — left half ────────────────────────────────── %>
+    <div class="space-y-7 relative min-w-0">
+      <div class="flex items-center gap-4">
+        <span class="block size-2 rounded-full bg-eco-green pulse-dot"></span>
+        <p class="eco-eyebrow"><%= t("home.eyebrow") %></p>
+      </div>
+
+      <h1 class="eco-display" data-controller="char-reveal">
+        Jesus the<br>
+        Designer&rsquo;s Plan<br>
+        <span class="italic font-normal text-eco-green-light">to Change<br>the World.</span>
+      </h1>
+
+      <span class="block draw-line" style="width: 80px"></span>
+
+      <p class="eco-subhead max-w-lg">
+        <%= t("home.subhead") %>
+      </p>
+
+      <div class="tagline-stack text-xl md:text-2xl max-w-lg"
+           data-controller="tagline-rotator"
+           data-tagline-rotator-interval-value="2600">
+        <% t("home.rotators").each do |line| %>
+          <span data-tagline-rotator-target="item">“<%= line %>”</span>
+        <% end %>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4 pt-3">
+        <%= link_to t("home.cta_request"), request_free_copy_path, class: "eco-btn-primary text-sm" %>
+        <%= link_to t("home.cta_listen"),  audiobooks_path,        class: "eco-btn-ghost text-sm" %>
+      </div>
+    </div>
+
+    <%# ── CRT screen — right half, large and centered ─────────────── %>
+    <div class="relative w-full min-w-0" data-controller="reveal">
+      <div class="crt-device w-full max-w-[680px] mx-auto"
+           data-controller="hls-video"
+           data-hls-video-src-value="<%= hero_video %>">
+
+        <%# Top bezel chrome strip %>
+        <div class="flex items-center justify-between mb-5 px-2 font-mono text-[9px] tracking-[0.3em] uppercase text-eco-text-muted">
+          <span class="crt-led">
+            <span class="crt-led-dot"></span>
+            On Air
+          </span>
+          <span class="text-eco-green-light"><%= t("site.name") %> · LIVE FEED</span>
+          <span>SIG · 100%</span>
+        </div>
+
+        <%# The screen %>
+        <div class="crt-screen">
+          <%# Viewfinder corner brackets %>
+          <span class="crt-bracket tl"></span>
+          <span class="crt-bracket tr"></span>
+          <span class="crt-bracket bl"></span>
+          <span class="crt-bracket br"></span>
+
+          <%# REC + timecode pill %>
+          <div class="crt-rec">
+            <span class="crt-rec-dot"></span>
+            <span>REC</span>
+            <span class="opacity-60">· 00:24:11</span>
+          </div>
+
+          <%# Slideshow as poster while video buffers %>
+          <div data-controller="ken-burns" class="absolute inset-0 z-1">
+            <% hero_slides.each_with_index do |url, i| %>
+              <div class="hero-slide"
+                   data-ken-burns-target="slide"
+                   style="background-image: url('<%= url %>')"
+                   <%= 'data-active="true"'.html_safe if i.zero? %>></div>
+            <% end %>
+          </div>
+
+          <video class="hero-video"
+                 data-hls-video-target="video"
+                 muted playsinline preload="metadata" disablepictureinpicture></video>
+
+          <%# Tap-to-play fallback %>
+          <div class="tap-hint" data-hls-video-target="tapHint"
+               data-action="click->hls-video#toggleMute">
+            <button class="rounded-full bg-eco-green text-eco-bg font-medium px-8 py-3.5 shadow-[0_12px_40px_-8px_rgba(163,191,100,0.7)] tracking-wide text-base">
+              ▶  Tap to play
+            </button>
+          </div>
+
+          <%# Diagonal glass sheen %>
+          <span class="crt-sheen"></span>
+        </div>
+
+        <%# Bottom chrome row %>
+        <div class="crt-chrome">
+          <span>CH 01 · 24P · 1080</span>
+          <button type="button"
+                  class="rounded-full border border-eco-border bg-eco-bg/50 backdrop-blur-md size-10 flex items-center justify-center text-lg hover:border-eco-green transition"
+                  data-action="click->hls-video#toggleMute"
+                  data-hls-video-target="muteIcon"
+                  aria-label="Toggle sound">🔇</button>
+          <span>HD · STEREO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 text-eco-text-muted text-[10px] tracking-[0.4em] uppercase eco-float flex flex-col items-center gap-2">
+    <span>Scroll</span>
+    <span class="block w-px h-8 bg-eco-green/50"></span>
+  </div>
+</section>
+
+<%# ─── COUNTERS ────────────────────────────────────────────────────────── %>
+<section id="stats" data-rail-label="Stats" class="border-y border-eco-border bg-eco-bg/95 py-20">
+  <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+    <% [
+      { to: 2,    suffix: "",  label: t("home.stats.volumes") },
+      { to: 3,    suffix: "",  label: t("home.stats.languages") },
+      { to: 100,  suffix: "%", label: t("free_copy.badge") },
+      { to: 360,  suffix: "°", label: t("home.pillars_title") },
+    ].each do |c| %>
+      <div data-controller="counter"
+           data-counter-to-value="<%= c[:to] %>"
+           data-counter-suffix-value="<%= c[:suffix] %>">
+        <p class="font-display text-6xl md:text-7xl text-eco-white">
+          <span data-counter-target="value">0</span>
+        </p>
+        <p class="mt-3 eco-eyebrow"><%= c[:label] %></p>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<%# ─── MARQUEE BAND ────────────────────────────────────────────────────── %>
+<section class="border-b border-eco-border bg-eco-bg overflow-hidden py-8">
+  <div class="marquee-track text-eco-text-muted font-display italic text-3xl">
+    <% 2.times do %>
+      <span><%= t("home.rotators").first %></span>
+      <span class="text-eco-green">✦</span>
+      <span><%= t("home.rotators").second %></span>
+      <span class="text-eco-green">✦</span>
+      <span><%= t("home.rotators").last %></span>
+      <span class="text-eco-green">✦</span>
+    <% end %>
+  </div>
+</section>
+
+<%# ─── MANIFESTO BAND with parallax image ───────────────────────────────── %>
+<section id="manifesto" data-rail-label="Manifesto"
+         class="relative py-40 overflow-hidden bg-mesh"
+         data-controller="parallax">
+  <div class="absolute inset-0 z-0 opacity-30"
+       data-parallax-target="layer"
+       data-depth="0.4"
+       style="background-image: url('<%= manifesto_image %>'); background-size: cover; background-position: center;"></div>
+  <div class="absolute inset-0 z-0"
+       style="background: linear-gradient(180deg, rgba(28,32,21,0.78) 0%, rgba(28,32,21,0.55) 50%, rgba(28,32,21,0.88) 100%);"></div>
+
+  <div class="relative z-10 max-w-5xl mx-auto px-6 space-y-14">
+    <div class="flex items-center gap-4" data-controller="reveal">
+      <span class="section-num">— 01</span>
+      <p class="eco-eyebrow"><%= t("home.pillars_title") %></p>
+    </div>
+
+    <p class="font-display text-3xl md:text-5xl leading-[1.15] text-eco-white max-w-4xl"
+       data-controller="reveal">
+      <%= t("home.manifesto.one") %>
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-10 pt-4">
+      <% [:two, :three, :four, :five].each do |key| %>
+        <p class="text-lg text-eco-text-muted leading-relaxed border-l-2 border-eco-green pl-6"
+           data-controller="reveal">
+          <%= t("home.manifesto.#{key}") %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<%= render "shared/shoutout_band" %>
+
+<%# ─── BOOK VOLUMES ────────────────────────────────────────────────────── %>
+<section id="volumes" data-rail-label="Volumes"
+         class="relative max-w-6xl mx-auto px-6 py-40">
+  <div class="mb-20 flex items-end justify-between flex-wrap gap-6" data-controller="reveal">
+    <div>
+      <div class="flex items-center gap-4 mb-4">
+        <span class="section-num">— 02</span>
+        <p class="eco-eyebrow"><%= t("home.stats.volumes") %></p>
+      </div>
+      <h2 class="font-display text-5xl md:text-7xl text-eco-white leading-tight">
+        The Two<br>
+        <span class="italic font-normal text-eco-green-light">Volumes.</span>
+      </h2>
+    </div>
+    <p class="max-w-md text-eco-text-muted text-lg">
+      <%= t("home.manifesto.two") %>
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-10" data-controller="parallax">
+    <% [
+      { num: "I",  key: :one, image: "/source-assets/volume-1.jpg" },
+      { num: "II", key: :two, image: "/source-assets/volume-2.jpg" },
+    ].each_with_index do |vol, i| %>
+      <article class="group relative rounded-3xl overflow-hidden border border-eco-border bg-eco-surface eco-float"
+               style="animation-delay: <%= i * 0.6 %>s"
+               data-controller="reveal">
+        <div class="aspect-[4/5] overflow-hidden relative">
+          <img src="<%= vol[:image] %>"
+               alt="<%= t("home.volumes.#{vol[:key]}") %>"
+               loading="lazy"
+               class="w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-110"
+               data-parallax-target="layer"
+               data-depth="0.15">
+          <div class="absolute top-6 left-6 size-14 rounded-full border border-eco-green/40 bg-eco-bg/50 backdrop-blur-md flex items-center justify-center font-display italic text-2xl text-eco-green-light">
+            <%= vol[:num] %>
+          </div>
+        </div>
+        <div class="p-10 border-t border-eco-border">
+          <p class="eco-eyebrow">Volume <%= vol[:num] %></p>
+          <h3 class="font-display text-4xl text-eco-white mt-3">
+            <%= t("home.volumes.#{vol[:key]}") %>
+          </h3>
+          <p class="text-eco-text-muted mt-5 leading-relaxed">
+            <%= t("home.subhead") %>
+          </p>
+          <span class="mt-8 inline-flex items-center text-eco-green text-sm font-medium tracking-wider uppercase gap-2 group-hover:gap-4 transition-all">
+            <%= t("home.volumes.read_more") %> <span>→</span>
+          </span>
+        </div>
+      </article>
+    <% end %>
+  </div>
+</section>
+
+<%# ─── PILLARS ─────────────────────────────────────────────────────────── %>
+<section id="pillars" data-rail-label="Pillars"
+         class="border-y border-eco-border bg-eco-surface/30">
+  <div class="max-w-6xl mx-auto px-6 py-40">
+    <div class="text-center max-w-2xl mx-auto mb-20" data-controller="reveal">
+      <div class="flex items-center justify-center gap-4 mb-4">
+        <span class="section-num">— 03</span>
+        <p class="eco-eyebrow"><%= t("home.pillars_title") %></p>
+      </div>
+      <h2 class="font-display text-5xl md:text-7xl text-eco-white leading-tight">
+        Faith,<br>
+        <span class="italic font-normal text-eco-green-light">Rewilded.</span>
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <% %w[one two three four].each_with_index do |key, i| %>
+        <div class="group relative rounded-2xl overflow-hidden border border-eco-border bg-eco-surface hover:border-eco-green transition-all duration-500 hover:-translate-y-1"
+             data-controller="reveal"
+             style="transition-delay: <%= i * 80 %>ms">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img src="<%= pillar_images[key] %>"
+                 alt="<%= t("home.pillars.#{key}.title") %>"
+                 loading="lazy"
+                 class="w-full h-full object-cover opacity-60 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700">
+          </div>
+          <div class="p-7">
+            <div class="flex items-center justify-between mb-4">
+              <span class="font-display italic text-eco-green text-sm">— 0<%= i + 1 %></span>
+              <div class="size-2 rounded-full bg-eco-green pulse-dot"></div>
+            </div>
+            <h4 class="font-display text-2xl text-eco-white mb-3">
+              <%= t("home.pillars.#{key}.title") %>
+            </h4>
+            <p class="text-eco-text-muted text-sm leading-relaxed">
+              <%= t("home.pillars.#{key}.body") %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<%# ─── PULL QUOTE ──────────────────────────────────────────────────────── %>
+<section id="quote" data-rail-label="Quote"
+         class="relative max-w-5xl mx-auto px-6 py-44 text-center">
+  <div class="absolute inset-0 -z-10 bg-mesh opacity-60"></div>
+  <p class="font-display text-8xl text-eco-green leading-none mb-8 select-none">“</p>
+  <blockquote class="font-display italic text-3xl md:text-5xl leading-tight text-eco-white max-w-4xl mx-auto"
+              data-controller="reveal">
+    <%= t("home.quote") %>
+  </blockquote>
+  <p class="mt-12 eco-eyebrow"><%= t("home.quote_attribution") %></p>
+</section>
+
+<%# ─── CTA BAND ────────────────────────────────────────────────────────── %>
+<section id="cta" data-rail-label="Get the Books"
+         class="relative overflow-hidden border-t border-eco-border">
+  <div class="absolute inset-0 z-0 opacity-25"
+       style="background-image: url('<%= cta_image %>'); background-size: cover; background-position: center;"></div>
+  <div class="absolute inset-0 z-0"
+       style="background: linear-gradient(180deg, rgba(28,32,21,0.85) 0%, rgba(28,32,21,0.65) 50%, rgba(28,32,21,0.92) 100%);"></div>
+
+  <div class="relative z-10 max-w-3xl mx-auto px-6 py-40 text-center" data-controller="reveal">
+    <span class="inline-block rounded-full border border-eco-green/40 bg-eco-green-muted px-5 py-2 text-xs tracking-[0.25em] uppercase text-eco-green-light">
+      <%= t("free_copy.badge") %>
+    </span>
+    <h2 class="mt-10 font-display text-5xl md:text-7xl text-eco-white leading-[1.05]">
+      <%= t("home.cta_band.headline") %>
+    </h2>
+    <p class="mt-8 text-eco-text-muted text-lg max-w-xl mx-auto">
+      <%= t("home.cta_band.body") %>
+    </p>
+    <div class="mt-12">
+      <%= link_to t("home.cta_band.button"), request_free_copy_path, class: "eco-btn-primary text-base" %>
+    </div>
+  </div>
+</section>

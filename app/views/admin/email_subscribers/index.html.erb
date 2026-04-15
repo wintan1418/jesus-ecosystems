@@ -1,0 +1,55 @@
+<% content_for :title, "Subscribers · Admin" %>
+
+<%= admin_page_header "Email subscribers", eyebrow: "Fulfillment",
+      subtitle: "Your mailing list." %>
+
+<div class="admin-filter-bar">
+  <%= form_with url: admin_email_subscribers_path, method: :get, class: "flex-1 flex" do |f| %>
+    <%= f.text_field :q, value: params[:q], placeholder: "Search by email or name…", class: "admin-search" %>
+  <% end %>
+</div>
+
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Locale</th>
+        <th>Source</th>
+        <th>Status</th>
+        <th>Joined</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @subscribers.any? %>
+        <% @subscribers.each do |s| %>
+          <tr>
+            <td><%= link_to s.email, admin_email_subscriber_path(s) %></td>
+            <td class="text-eco-text"><%= s.first_name.presence || "—" %></td>
+            <td><span class="admin-badge admin-badge--shipped"><%= s.locale.upcase %></span></td>
+            <td class="text-xs text-eco-text-muted font-mono"><%= s.source.presence || "—" %></td>
+            <td>
+              <% if s.unsubscribed? %>
+                <span class="admin-badge admin-badge--cancelled">Unsubscribed</span>
+              <% elsif s.confirmed? %>
+                <span class="admin-badge admin-badge--shipped">Confirmed</span>
+              <% else %>
+                <span class="admin-badge admin-badge--pending">Pending</span>
+              <% end %>
+            </td>
+            <td class="text-xs text-eco-text-muted"><%= time_ago_in_words(s.created_at) %> ago</td>
+            <td>
+              <%= button_to "×", admin_email_subscriber_path(s), method: :delete,
+                            data: { turbo_confirm: "Remove this subscriber?" },
+                            class: "admin-btn admin-btn--danger admin-btn--xs" %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr><td colspan="7" class="admin-table-empty">— No subscribers yet.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

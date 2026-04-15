@@ -1,0 +1,11 @@
+<% content_for :title, "New chapter · Admin" %>
+
+<%= admin_page_header "New chapter",
+      eyebrow: @book ? "Book: #{@book.title}" : "Chapters",
+      subtitle: "Write a new chapter." %>
+
+<div class="admin-card">
+  <%= render "form",
+             chapter: @chapter,
+             form_url: @book ? admin_book_chapters_path(@book) : admin_chapters_path %>
+</div>

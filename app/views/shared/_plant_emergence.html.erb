@@ -1,0 +1,29 @@
+<%# Hand-drawn SVG sprout — soil line, stem draws upward, two leaves unfurl,
+    seed dot pops at the crown. All stroke-draw animations live in app.css and
+    fire when the wrapper gets [data-plant-grown="true"] from the
+    plant-grow Stimulus controller. %>
+<div data-controller="plant-grow" class="relative w-full max-w-[260px] mx-auto">
+  <svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+    <%# Soil line %>
+    <line x1="20" y1="220" x2="180" y2="220" class="plant-soil"/>
+    <line x1="30" y1="230" x2="170" y2="230" class="plant-soil" stroke-opacity="0.4"/>
+
+    <%# Stem — gentle S-curve from soil to crown %>
+    <path d="M 100 220 C 96 180, 108 150, 100 110 S 92 60, 100 30"
+          class="plant-stem"/>
+
+    <%# Left leaf — teardrop %>
+    <path d="M 100 130 C 70 120, 55 95, 60 70 C 80 80, 95 105, 100 130 Z"
+          class="plant-leaf-l"/>
+
+    <%# Right leaf — teardrop %>
+    <path d="M 100 95 C 130 85, 145 60, 140 35 C 120 45, 105 70, 100 95 Z"
+          class="plant-leaf-r"/>
+
+    <%# Seed / crown dot %>
+    <circle cx="100" cy="28" r="6" class="plant-seed"/>
+
+    <%# Soft halo behind the seed %>
+    <circle cx="100" cy="28" r="14" fill="none" stroke="#4ecb71" stroke-opacity="0.18" stroke-width="1"/>
+  </svg>
+</div>

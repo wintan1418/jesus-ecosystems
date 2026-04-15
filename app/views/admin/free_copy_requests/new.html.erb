@@ -1,0 +1,7 @@
+<% content_for :title, "New request · Admin" %>
+
+<%= admin_page_header "New free copy request", eyebrow: "Fulfillment" %>
+
+<div class="admin-card">
+  <%= render "form", request: @request %>
+</div>

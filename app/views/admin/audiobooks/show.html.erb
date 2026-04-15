@@ -1,0 +1,18 @@
+<% content_for :title, "#{@audiobook.title} · Admin" %>
+
+<%= admin_page_header @audiobook.title,
+      eyebrow: "#{@audiobook.locale.upcase} · #{@audiobook.duration || '—'}",
+      subtitle: "Book: #{@audiobook.book.title}" do %>
+  <%= link_to "Edit", edit_admin_audiobook_path(@audiobook), class: "admin-btn admin-btn--primary" %>
+  <%= button_to "Delete", admin_audiobook_path(@audiobook), method: :delete,
+                data: { turbo_confirm: "Delete this audiobook?" },
+                class: "admin-btn admin-btn--danger" %>
+<% end %>
+
+<div class="admin-card">
+  <% if @audiobook.audio_file.attached? %>
+    <audio controls src="<%= url_for(@audiobook.audio_file) %>" class="w-full"></audio>
+  <% else %>
+    <p class="admin-field-help">No audio file attached yet. Upload one via Edit.</p>
+  <% end %>
+</div>

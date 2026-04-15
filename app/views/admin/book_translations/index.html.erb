@@ -1,0 +1,29 @@
+<% content_for :title, "Translations · Admin" %>
+
+<%= admin_page_header "Translations", eyebrow: "Book: #{@book.title}" do %>
+  <%= link_to "+ New", new_admin_book_book_translation_path(@book), class: "admin-btn admin-btn--primary" %>
+<% end %>
+
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr><th>Locale</th><th>Title</th><th>Slug</th><th></th></tr>
+    </thead>
+    <tbody>
+      <% if @translations.any? %>
+        <% @translations.each do |t| %>
+          <tr>
+            <td><span class="admin-badge admin-badge--shipped"><%= t.locale.upcase %></span></td>
+            <td><%= t.title %></td>
+            <td class="font-mono text-xs text-eco-text-muted"><%= t.slug %></td>
+            <td>
+              <%= link_to "Edit", edit_admin_book_book_translation_path(@book, t), class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr><td colspan="4" class="admin-table-empty">— No translations yet.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,12 @@
+<% content_for :title, "#{t('free_copy.thank_you.heading')} · #{t('site.name')}" %>
+
+<section class="max-w-2xl mx-auto px-6 pt-44 pb-32 text-center" data-controller="reveal">
+  <p class="font-display text-7xl text-eco-green leading-none">✓</p>
+  <h1 class="mt-8 font-display text-5xl md:text-6xl text-eco-white leading-tight">
+    <%= t("free_copy.thank_you.heading") %>
+  </h1>
+  <p class="mt-6 eco-subhead">
+    <%= t("free_copy.thank_you.body") %>
+  </p>
+  <%= link_to t("nav.home"), root_path, class: "mt-12 eco-btn-ghost text-sm inline-flex" %>
+</section>

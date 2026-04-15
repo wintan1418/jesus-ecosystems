@@ -1,0 +1,9 @@
+<% content_for :title, "Edit translation · Admin" %>
+
+<%= admin_page_header "Edit #{@translation.locale.upcase}",
+      eyebrow: "Book: #{@book.title}",
+      subtitle: @translation.title %>
+
+<div class="admin-card">
+  <%= render "form", translation: @translation %>
+</div>

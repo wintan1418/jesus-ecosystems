@@ -1,0 +1,19 @@
+test:
+  service: Disk
+  root: <%= Rails.root.join("tmp/storage") %>
+
+local:
+  service: Disk
+  root: <%= Rails.root.join("storage") %>
+
+# Cloudflare R2 — S3-compatible. Set CLOUDFLARE_R2_* in production env / Kamal secrets.
+cloudflare:
+  service: S3
+  access_key_id: <%= ENV["CLOUDFLARE_R2_ACCESS_KEY_ID"] %>
+  secret_access_key: <%= ENV["CLOUDFLARE_R2_SECRET_ACCESS_KEY"] %>
+  endpoint: <%= ENV["CLOUDFLARE_R2_ENDPOINT"] %>
+  region: auto
+  bucket: <%= ENV["CLOUDFLARE_R2_BUCKET"] %>
+  force_path_style: true
+  request_checksum_calculation: when_required
+  response_checksum_validation: when_required

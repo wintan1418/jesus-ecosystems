@@ -1,0 +1,23 @@
+<% content_for :title, "#{t('free_copy.new.heading_1')} #{t('free_copy.new.heading_2')} · #{t('site.name')}" %>
+
+<section class="relative pt-40 pb-32 overflow-hidden bg-mesh">
+  <div class="absolute -top-32 -left-32 size-[36rem] rounded-full bg-eco-green/10 blur-[140px] pointer-events-none"></div>
+
+  <div class="relative max-w-3xl mx-auto px-6 text-center" data-controller="reveal">
+    <span class="inline-block rounded-full border border-eco-green/40 bg-eco-green-muted px-5 py-2 text-xs tracking-[0.25em] uppercase text-eco-green-light">
+      <%= t("free_copy.badge") %>
+    </span>
+    <h1 class="mt-10 font-display text-5xl md:text-7xl text-eco-white leading-[1.05]">
+      <%= t("free_copy.new.heading_1") %><br>
+      <span class="italic font-normal text-eco-green-light"><%= t("free_copy.new.heading_2") %></span>
+    </h1>
+    <p class="mt-8 eco-subhead max-w-xl mx-auto">
+      <%= t("free_copy.new.subhead") %>
+    </p>
+
+    <div class="mt-12 inline-flex items-center gap-3 rounded-full border border-eco-border bg-eco-surface px-5 py-3 text-xs tracking-wider uppercase text-eco-text-muted">
+      <span class="size-1.5 rounded-full bg-eco-green pulse-dot"></span>
+      <%= t("free_copy.new.coming_soon") %>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+<header class="fixed top-0 inset-x-0 z-50 eco-nav-glass">
+  <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+    <%= link_to root_path, class: "group flex items-center gap-3" do %>
+      <span class="relative block size-2.5 rounded-full bg-eco-green pulse-dot"></span>
+      <span class="font-display text-lg text-eco-white tracking-tight">
+        <%= t("site.name") %>
+      </span>
+    <% end %>
+
+    <nav class="hidden md:flex items-center gap-10 text-sm">
+      <%= link_to t("nav.books"),       books_path,             class: "text-eco-text/80 hover:text-eco-green-light transition" %>
+      <%= link_to t("nav.audiobooks"),  audiobooks_path,        class: "text-eco-text/80 hover:text-eco-green-light transition" %>
+      <%= link_to t("nav.request"),     request_free_copy_path, class: "text-eco-text/80 hover:text-eco-green-light transition" %>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <%= render "shared/language_switcher" %>
+      <%= link_to t("nav.request"), request_free_copy_path,
+                  class: "hidden lg:inline-flex eco-btn-primary !py-2.5 !px-5 text-xs tracking-wider uppercase" %>
+    </div>
+  </div>
+</header>

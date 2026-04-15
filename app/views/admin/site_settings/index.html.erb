@@ -1,0 +1,40 @@
+<% content_for :title, "Site settings · Admin" %>
+
+<%= admin_page_header "Site settings", eyebrow: "System",
+      subtitle: "Edit home-page content without a deploy." do %>
+  <%= link_to "New setting", new_admin_site_setting_path, class: "admin-btn admin-btn--primary" %>
+<% end %>
+
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Value</th>
+        <th>Updated</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @settings.any? %>
+        <% @settings.each do |s| %>
+          <tr>
+            <td class="font-mono text-xs text-eco-green-light"><%= s.key %></td>
+            <td>
+              <div class="max-w-lg text-xs text-eco-text-muted truncate"><%= s.value.to_s.truncate(120) %></div>
+            </td>
+            <td class="text-xs text-eco-text-muted"><%= time_ago_in_words(s.updated_at) %> ago</td>
+            <td>
+              <%= link_to "Edit", edit_admin_site_setting_path(s), class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+              <%= button_to "×", admin_site_setting_path(s), method: :delete,
+                            data: { turbo_confirm: "Delete this setting?" },
+                            class: "admin-btn admin-btn--danger admin-btn--xs" %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr><td colspan="4" class="admin-table-empty">— No settings yet.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

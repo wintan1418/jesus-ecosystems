@@ -1,0 +1,8 @@
+<% content_for :title, "New book · Admin" %>
+
+<%= admin_page_header "New book", eyebrow: "Books",
+      subtitle: "Add a new volume to the ecosystem." %>
+
+<div class="admin-card">
+  <%= render "form", book: @book %>
+</div>

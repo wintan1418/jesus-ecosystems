@@ -1,0 +1,8 @@
+<div class="flex items-center gap-1 rounded-full border border-eco-border bg-eco-bg/40 backdrop-blur-md p-1 text-xs">
+  <% available_locales.each do |loc| %>
+    <% active = (loc == I18n.locale) %>
+    <%= link_to loc.to_s.upcase,
+                url_for(locale: loc, only_path: true),
+                class: "px-3 py-1.5 rounded-full font-semibold tracking-wider transition #{active ? 'bg-eco-green text-eco-bg shadow-[0_0_18px_rgba(163,191,100,0.4)]' : 'text-eco-text-muted hover:text-eco-white'}" %>
+  <% end %>
+</div>

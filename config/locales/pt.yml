@@ -1,0 +1,104 @@
+pt:
+  site:
+    name: "SystemOrEcosystem"
+    tagline: "Fé, reflorestada."
+  nav:
+    home: "Início"
+    books: "Livros"
+    volume_one: "Volume 1"
+    volume_two: "Volume 2"
+    audiobooks: "Audiolivros"
+    request: "Solicitar cópia GRÁTIS"
+    about: "Sobre"
+    contact: "Contato"
+  home:
+    eyebrow: "Uma série de filosofia cristã em dois volumes"
+    headline_1: "O Plano do Designer Jesus"
+    headline_2: "para Mudar o Mundo"
+    subhead: "Um olhar fresco sobre como Jesus pega Sua gente…"
+    rotators:
+      - "de necessitados a notáveis"
+      - "de comuns a movedores de montanhas"
+      - "de em-luta a lendários"
+    cta_explore: "Explore os livros"
+    cta_listen: "Ouça grátis"
+    cta_request: "Solicitar cópia GRÁTIS"
+    manifesto:
+      one: "A maneira como Jesus forma quem muda o mundo não envelheceu um dia sequer. Ele refina pessoas comuns para resultados do tamanho de Jesus. Este é um olhar cru e honesto de como Jesus transforma o caos em Sua comunidade."
+      two: "Jesus não constrói sistemas. Ele cultiva histórias que se movem."
+      three: "Jesus restaura o que a estrutura esqueceu. Fé reflorestada."
+      four: "Onde a fé para de performar e começa a respirar."
+      five: "Jesus redefine o crescimento — do algoritmo ao organismo."
+    stats:
+      volumes: "2 Volumes"
+      languages: "3 Idiomas"
+      free: "Cópias grátis no mundo todo"
+    pillars_title: "Fé Reflorestada"
+    pillars:
+      one:
+        title: "Raízes Vivas"
+        body:  "Comunidades crescem do solo, não do andaime."
+      two:
+        title: "Dossel Aberto"
+        body:  "A luz entra onde a estrutura é mantida com leveza."
+      three:
+        title: "Ordem Selvagem"
+        body:  "Há desenho sem controle."
+      four:
+        title: "Ar Mútuo"
+        body:  "O que exalamos, outro respira."
+    quote: "Religião costuma ser um clube, um vibe e regras — Jesus veio para explodir isso."
+    quote_attribution: "Do Volume Um"
+    cta_band:
+      headline: "Receba os livros, grátis, nas suas mãos"
+      body: "Cópias impressas 100% grátis. Envio mundial. Sem compromisso."
+      button: "Solicitar cópia GRÁTIS"
+    volumes:
+      one: "Volume Um"
+      two: "Volume Dois"
+      read_more: "Ler mais"
+  footer:
+    rights: "Todos os direitos reservados."
+    languages: "Idiomas"
+  free_copy:
+    badge: "100% Grátis · Sem compromisso"
+  books:
+    index:
+      eyebrow: "Dois Volumes"
+      heading_1: "Os"
+      heading_2: "livros."
+      subhead: "Dois volumes. Três idiomas. Uma história de ecossistema."
+    show:
+      chapters_heading: "Dentro do volume"
+      chapters_helper: "Capítulos de prévia são abertos. Os bloqueados desbloqueiam com sua cópia grátis."
+      gated: "Bloqueado"
+      preview: "Prévia"
+      read: "Ler"
+      unlock: "Desbloquear"
+      audiobook_heading: "Escute no lugar."
+      audiobook_helper: "O volume inteiro, narrado e grátis, no seu idioma."
+  chapters:
+    show:
+      back: "Voltar ao volume"
+      preview_badge: "Capítulo de prévia"
+  audiobooks:
+    index:
+      eyebrow: "Audiolivros"
+      heading_1: "Escute,"
+      heading_2: "em qualquer lugar."
+      subhead: "Todos os volumes, todos os idiomas. Escolha uma faixa e dê play."
+    show:
+      now_playing: "Tocando agora"
+      tracks: "Faixas"
+  free_copy:
+    badge: "100% Grátis · Sem compromisso"
+    new:
+      heading_1: "Receba os livros"
+      heading_2: "nas suas mãos."
+      subhead: "Envio mundial. 100% grátis. O formulário completo chega em breve."
+      coming_soon: "Em breve"
+    thank_you:
+      heading: "A caminho."
+      body: "Obrigado. Sua cópia grátis está sendo processada."
+  errors:
+    not_found: "Página não encontrada"

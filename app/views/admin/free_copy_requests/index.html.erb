@@ -1,0 +1,67 @@
+<% content_for :title, "Free copy requests · Admin" %>
+
+<%= admin_page_header "Free copy requests", eyebrow: "Fulfillment",
+      subtitle: "Everyone who asked for a hardcopy." do %>
+  <%= link_to "New request", new_admin_free_copy_request_path, class: "admin-btn admin-btn--primary" %>
+<% end %>
+
+<div class="admin-filter-bar">
+  <%= link_to admin_free_copy_requests_path,
+              class: "admin-filter-pill #{'admin-filter-pill--active' if params[:status].blank?}" do %>
+    All <span class="admin-filter-pill-count">· <%= @counts.values.sum %></span>
+  <% end %>
+  <% %w[pending fulfilling shipped cancelled].each do |s| %>
+    <%= link_to admin_free_copy_requests_path(status: s),
+                class: "admin-filter-pill #{'admin-filter-pill--active' if params[:status] == s}" do %>
+      <%= s.humanize %> <span class="admin-filter-pill-count">· <%= @counts[s] || 0 %></span>
+    <% end %>
+  <% end %>
+
+  <%= form_with url: admin_free_copy_requests_path, method: :get, class: "flex-1 flex justify-end" do |f| %>
+    <%= f.text_field :q, value: params[:q], placeholder: "Search email, name, city…", class: "admin-search" %>
+    <% if params[:status].present? %>
+      <%= f.hidden_field :status, value: params[:status] %>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Name</th>
+        <th>Destination</th>
+        <th>Volumes</th>
+        <th>Locale</th>
+        <th>Received</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @requests.any? %>
+        <% @requests.each do |r| %>
+          <tr>
+            <td><%= status_badge(r.status) %></td>
+            <td>
+              <%= link_to r.full_name, admin_free_copy_request_path(r) %>
+              <div class="text-xs text-eco-text-muted"><%= r.email %></div>
+            </td>
+            <td>
+              <div class="text-sm"><%= r.city %>, <%= r.country %></div>
+              <div class="text-xs text-eco-text-muted"><%= r.postal_code %></div>
+            </td>
+            <td class="font-mono text-xs"><%= Array(r.volumes_requested).join(", ") %></td>
+            <td><span class="admin-badge admin-badge--shipped"><%= r.locale.upcase %></span></td>
+            <td class="text-xs text-eco-text-muted"><%= time_ago_in_words(r.created_at) %> ago</td>
+            <td>
+              <%= link_to "Open", admin_free_copy_request_path(r), class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr><td colspan="7" class="admin-table-empty">— No requests match.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

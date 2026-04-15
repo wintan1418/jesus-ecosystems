@@ -1,0 +1,104 @@
+es:
+  site:
+    name: "SystemOrEcosystem"
+    tagline: "Fe, resilvestrada."
+  nav:
+    home: "Inicio"
+    books: "Libros"
+    volume_one: "Volumen 1"
+    volume_two: "Volumen 2"
+    audiobooks: "Audiolibros"
+    request: "Solicitar copia GRATIS"
+    about: "Acerca"
+    contact: "Contacto"
+  home:
+    eyebrow: "Una serie de filosofía cristiana en dos volúmenes"
+    headline_1: "El Plan del Diseñador Jesús"
+    headline_2: "para Cambiar el Mundo"
+    subhead: "Una mirada fresca a cómo Jesús toma a Su gente…"
+    rotators:
+      - "de necesitados a notables"
+      - "de comunes a mueve-montañas"
+      - "de luchadores a legendarios"
+    cta_explore: "Explora los libros"
+    cta_listen: "Escucha gratis"
+    cta_request: "Solicitar copia GRATIS"
+    manifesto:
+      one: "La manera en que Jesús forma a quienes cambian el mundo no ha envejecido un solo día. Refina a personas comunes para resultados del tamaño de Jesús. Esta es una mirada cruda y honesta a cómo Jesús convierte el caos en Su comunidad."
+      two: "Jesús no construye sistemas. Cultiva historias que se mueven."
+      three: "Jesús restaura lo que la estructura olvidó. Fe resilvestrada."
+      four: "Donde la fe deja de actuar y empieza a respirar."
+      five: "Jesús redefine el crecimiento — del algoritmo al organismo."
+    stats:
+      volumes: "2 Volúmenes"
+      languages: "3 Idiomas"
+      free: "Copias gratis en todo el mundo"
+    pillars_title: "Fe Resilvestrada"
+    pillars:
+      one:
+        title: "Raíces Vivas"
+        body:  "Las comunidades crecen del suelo, no del andamio."
+      two:
+        title: "Dosel Abierto"
+        body:  "La luz entra donde la estructura se sostiene con ligereza."
+      three:
+        title: "Orden Salvaje"
+        body:  "Hay diseño sin control."
+      four:
+        title: "Aire Mutuo"
+        body:  "Lo que exhalamos, otro lo respira."
+    quote: "La religión suele ser un club, una vibra y unas reglas — Jesús vino a volar eso por los aires."
+    quote_attribution: "Del Volumen Uno"
+    cta_band:
+      headline: "Recibe los libros, gratis, en tus manos"
+      body: "Copias impresas 100% gratis. Envío mundial. Sin compromiso."
+      button: "Solicitar copia GRATIS"
+    volumes:
+      one: "Volumen Uno"
+      two: "Volumen Dos"
+      read_more: "Leer más"
+  footer:
+    rights: "Todos los derechos reservados."
+    languages: "Idiomas"
+  free_copy:
+    badge: "100% Gratis · Sin compromiso"
+  books:
+    index:
+      eyebrow: "Dos Volúmenes"
+      heading_1: "Los"
+      heading_2: "libros."
+      subhead: "Dos volúmenes. Tres idiomas. Una historia de ecosistema."
+    show:
+      chapters_heading: "Dentro del volumen"
+      chapters_helper: "Los capítulos de vista previa son abiertos. Los bloqueados se desbloquean con tu copia gratis."
+      gated: "Bloqueado"
+      preview: "Vista previa"
+      read: "Leer"
+      unlock: "Desbloquear"
+      audiobook_heading: "Escucha en su lugar."
+      audiobook_helper: "El volumen completo, narrado y gratis, en tu idioma."
+  chapters:
+    show:
+      back: "Volver al volumen"
+      preview_badge: "Capítulo de vista previa"
+  audiobooks:
+    index:
+      eyebrow: "Audiolibros"
+      heading_1: "Escucha,"
+      heading_2: "donde sea."
+      subhead: "Todos los volúmenes, todos los idiomas. Elige una pista y dale play."
+    show:
+      now_playing: "Reproduciendo"
+      tracks: "Pistas"
+  free_copy:
+    badge: "100% Gratis · Sin compromiso"
+    new:
+      heading_1: "Recibe los libros"
+      heading_2: "en tus manos."
+      subhead: "Envío mundial. 100% gratis. El formulario completo llega pronto."
+      coming_soon: "Próximamente"
+    thank_you:
+      heading: "En camino."
+      body: "Gracias. Tu copia gratis está siendo procesada."
+  errors:
+    not_found: "Página no encontrada"

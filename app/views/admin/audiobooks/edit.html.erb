@@ -1,0 +1,11 @@
+<% content_for :title, "Edit #{@audiobook.title} · Admin" %>
+
+<%= admin_page_header @audiobook.title, eyebrow: "Editing audiobook",
+      subtitle: "Book: #{@audiobook.book.title}" %>
+
+<div class="admin-card">
+  <%= render "form",
+             audiobook: @audiobook,
+             form_url: admin_audiobook_path(@audiobook),
+             form_method: :patch %>
+</div>

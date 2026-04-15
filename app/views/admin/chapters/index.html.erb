@@ -1,0 +1,52 @@
+<% content_for :title, "Chapters · Admin" %>
+
+<%= admin_page_header "Chapters", eyebrow: "Content",
+      subtitle: "All chapters across every volume and locale." %>
+
+<div class="admin-filter-bar">
+  <%= link_to "All", admin_chapters_path,
+              class: "admin-filter-pill #{'admin-filter-pill--active' if params[:locale].blank?}" %>
+  <% %w[en es pt].each do |loc| %>
+    <%= link_to loc.upcase, admin_chapters_path(locale: loc),
+                class: "admin-filter-pill #{'admin-filter-pill--active' if params[:locale] == loc}" %>
+  <% end %>
+</div>
+
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Book</th>
+        <th>Locale</th>
+        <th>Preview</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @chapters.any? %>
+        <% @chapters.each do |c| %>
+          <tr>
+            <td class="font-mono text-xs text-eco-green">#<%= c.position %></td>
+            <td><%= link_to c.title, admin_chapter_path(c) %></td>
+            <td class="text-eco-text-muted"><%= c.book.title.truncate(40) %></td>
+            <td><span class="admin-badge admin-badge--shipped"><%= c.locale.upcase %></span></td>
+            <td>
+              <% if c.is_preview? %>
+                <span class="admin-badge admin-badge--shipped">Open</span>
+              <% else %>
+                <span class="admin-badge admin-badge--cancelled">Locked</span>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to "Edit", edit_admin_chapter_path(c), class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr><td colspan="6" class="admin-table-empty">— No chapters match.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

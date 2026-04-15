@@ -1,0 +1,16 @@
+<header class="admin-page-header">
+  <div>
+    <% if eyebrow.present? %>
+      <p class="admin-eyebrow">— <%= eyebrow %></p>
+    <% end %>
+    <h1 class="admin-page-title"><%= title %></h1>
+    <% if subtitle.present? %>
+      <p class="admin-page-subtitle"><%= subtitle %></p>
+    <% end %>
+  </div>
+  <% if action_block %>
+    <div class="admin-page-actions">
+      <%= capture(&action_block) %>
+    </div>
+  <% end %>
+</header>

@@ -1,0 +1,8 @@
+<% content_for :title, "Edit request · Admin" %>
+
+<%= admin_page_header "Edit request", eyebrow: "Request ##{@request.id}",
+      subtitle: @request.email %>
+
+<div class="admin-card">
+  <%= render "form", request: @request %>
+</div>

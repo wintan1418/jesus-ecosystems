@@ -1,0 +1,39 @@
+<%# Animated SVG signature mark — two counter-rotating rings of dotted glyphs.
+    Used as a giant ambient motif behind the hero headline. %>
+<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg"
+     class="absolute inset-0 w-full h-full">
+  <defs>
+    <radialGradient id="ringGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#4ecb71" stop-opacity="0.4"/>
+      <stop offset="60%" stop-color="#4ecb71" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#4ecb71" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <%# Soft glow disc %>
+  <circle cx="200" cy="200" r="190" fill="url(#ringGlow)"/>
+
+  <%# Outer rotating ring %>
+  <g class="sigil-ring" style="transform-box: fill-box; transform-origin: 50% 50%;">
+    <circle cx="200" cy="200" r="180" stroke="#4ecb71" stroke-opacity="0.2" stroke-width="1" fill="none"/>
+    <circle cx="200" cy="200" r="180" stroke="#4ecb71" stroke-opacity="0.55" stroke-width="1.5" fill="none"
+            stroke-dasharray="2 14"/>
+  </g>
+
+  <%# Mid counter-rotating ring %>
+  <g class="sigil-ring-counter" style="transform-box: fill-box; transform-origin: 50% 50%;">
+    <circle cx="200" cy="200" r="150" stroke="#b8e8c4" stroke-opacity="0.35" stroke-width="1" fill="none"
+            stroke-dasharray="1 8"/>
+  </g>
+
+  <%# Inner static ring %>
+  <circle cx="200" cy="200" r="120" stroke="#4ecb71" stroke-opacity="0.18" stroke-width="1" fill="none"/>
+
+  <%# Cardinal marks %>
+  <g stroke="#4ecb71" stroke-width="1.5" stroke-opacity="0.6">
+    <line x1="200" y1="14"  x2="200" y2="28"/>
+    <line x1="200" y1="372" x2="200" y2="386"/>
+    <line x1="14"  y1="200" x2="28"  y2="200"/>
+    <line x1="372" y1="200" x2="386" y2="200"/>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+<% content_for :title, "Edit #{@setting.key} · Admin" %>
+
+<%= admin_page_header @setting.key, eyebrow: "Editing setting" %>
+
+<div class="admin-card">
+  <%= render "form", setting: @setting %>
+</div>

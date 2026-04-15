@@ -1,0 +1,104 @@
+<% content_for :title, "#{@book.title} · Admin" %>
+
+<%= admin_page_header @book.title, eyebrow: "Volume #{@book.volume_number}",
+      subtitle: @book.tagline do %>
+  <%= link_to "Edit", edit_admin_book_path(@book), class: "admin-btn admin-btn--ghost" %>
+  <%= button_to "Delete", admin_book_path(@book), method: :delete,
+                data: { turbo_confirm: "Delete this book and everything inside?" },
+                class: "admin-btn admin-btn--danger" %>
+<% end %>
+
+<div class="grid lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-1">
+    <div class="admin-card">
+      <% if @book.cover_image.attached? %>
+        <%= image_tag @book.cover_image, class: "w-full rounded-xl border border-eco-border" %>
+      <% end %>
+      <div class="mt-5 space-y-3 text-sm">
+        <div><span class="admin-field-label">Slug</span><div class="text-eco-white font-mono text-xs mt-1"><%= @book.slug %></div></div>
+        <div><span class="admin-field-label">Published</span><div class="text-eco-white mt-1"><%= @book.published_at&.to_date || "—" %></div></div>
+        <div><span class="admin-field-label">Position</span><div class="text-eco-white mt-1"><%= @book.position %></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lg:col-span-2 space-y-6">
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h3 class="admin-card-title">Translations</h3>
+        <%= link_to "+ Add", new_admin_book_book_translation_path(@book), class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+      </div>
+      <% if @translations.any? %>
+        <ul class="divide-y divide-eco-border">
+          <% @translations.each do |t| %>
+            <li class="py-3 flex items-center justify-between gap-3">
+              <div>
+                <span class="admin-badge admin-badge--shipped"><%= t.locale.upcase %></span>
+                <span class="ml-2 text-eco-white"><%= t.title %></span>
+              </div>
+              <div class="flex gap-2">
+                <%= link_to "Edit", edit_admin_book_book_translation_path(@book, t), class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+                <%= button_to "×", admin_book_book_translation_path(@book, t), method: :delete,
+                              data: { turbo_confirm: "Remove this translation?" },
+                              class: "admin-btn admin-btn--danger admin-btn--xs" %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="admin-field-help">No translations yet.</p>
+      <% end %>
+    </div>
+
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h3 class="admin-card-title">Chapters</h3>
+        <%= link_to "+ Add", new_admin_book_chapter_path(@book), class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+      </div>
+      <% if @chapters.any? %>
+        <ul class="divide-y divide-eco-border">
+          <% @chapters.each do |c| %>
+            <li class="py-3 flex items-center justify-between gap-3">
+              <div class="min-w-0">
+                <span class="font-mono text-xs text-eco-green">#<%= c.position %></span>
+                <span class="ml-2 admin-badge admin-badge--shipped"><%= c.locale.upcase %></span>
+                <%= link_to c.title, admin_chapter_path(c), class: "ml-2 text-eco-white hover:text-eco-green-light" %>
+                <% if c.is_preview? %>
+                  <span class="ml-2 text-xs text-eco-green-light">preview</span>
+                <% end %>
+              </div>
+              <div class="flex gap-2">
+                <%= link_to "Edit", edit_admin_chapter_path(c), class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="admin-field-help">No chapters yet.</p>
+      <% end %>
+    </div>
+
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h3 class="admin-card-title">Audiobooks</h3>
+        <%= link_to "+ Add", new_admin_book_audiobook_path(@book), class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+      </div>
+      <% if @audiobooks.any? %>
+        <ul class="divide-y divide-eco-border">
+          <% @audiobooks.each do |ab| %>
+            <li class="py-3 flex items-center justify-between gap-3">
+              <div>
+                <span class="admin-badge admin-badge--shipped"><%= ab.locale.upcase %></span>
+                <span class="ml-2 text-eco-white"><%= ab.title %></span>
+                <span class="ml-2 text-xs text-eco-text-muted"><%= ab.duration %></span>
+              </div>
+              <%= link_to "Edit", edit_admin_audiobook_path(ab), class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="admin-field-help">No audiobooks yet.</p>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+en:
+  site:
+    name: "SystemOrEcosystem"
+    tagline: "Faith, rewilded."
+  nav:
+    home: "Home"
+    books: "Books"
+    volume_one: "Volume 1"
+    volume_two: "Volume 2"
+    audiobooks: "Audiobooks"
+    request: "Request FREE Hardcopies"
+    about: "About"
+    contact: "Contact"
+  home:
+    eyebrow: "A Two-Volume Christian Philosophy Series"
+    headline_1: "Jesus the Designer's"
+    headline_2: "Plan to Change the World"
+    subhead: "A fresh look at how Jesus takes His crew…"
+    rotators:
+      - "from needy to noteworthy"
+      - "from mundane to mountain-movers"
+      - "from struggling to legendary"
+    cta_explore: "Explore the Books"
+    cta_listen: "Listen Free"
+    cta_request: "Request FREE Hardcopies"
+    manifesto:
+      one: "The way Jesus builds world-changers hasn't aged a day. He refines ordinary people for Jesus-sized outcomes. This is a raw and honest look at how Jesus turns chaos into His community."
+      two: "Jesus doesn't build systems. He grows stories that move."
+      three: "Jesus restores what structure forgot. Faith rewilded."
+      four: "Where faith stops performing and starts breathing."
+      five: "Jesus redefines growth — from algorithm to organism."
+    stats:
+      volumes: "2 Volumes"
+      languages: "3 Languages"
+      free: "Free copies worldwide"
+    pillars_title: "Faith Rewilded"
+    pillars:
+      one:
+        title: "Living Roots"
+        body:  "Communities grow from soil, not from scaffolding."
+      two:
+        title: "Open Canopy"
+        body:  "Light enters where the structure is held lightly."
+      three:
+        title: "Wild Order"
+        body:  "There is design without control."
+      four:
+        title: "Mutual Air"
+        body:  "What we breathe out, another breathes in."
+    quote: "Religion is typically about a club, a vibe, and rules — Jesus came to blow that up."
+    quote_attribution: "From Volume One"
+    cta_band:
+      headline: "Get the books, free, in your hands"
+      body: "100% free hardcopies. Worldwide shipping. No strings."
+      button: "Request FREE Hardcopies"
+    volumes:
+      one: "Volume One"
+      two: "Volume Two"
+      read_more: "Read more"
+  footer:
+    rights: "All rights reserved."
+    languages: "Languages"
+  free_copy:
+    badge: "100% Free · No strings"
+  books:
+    index:
+      eyebrow: "Two Volumes"
+      heading_1: "The"
+      heading_2: "books."
+      subhead: "Two volumes. Three languages. One ecosystem story."
+      meta_title: "The Books"
+    show:
+      chapters_heading: "Inside the volume"
+      chapters_helper: "Preview chapters are open to everyone. Locked chapters unlock when you receive a free hardcopy."
+      gated: "Locked"
+      preview: "Preview"
+      read: "Read"
+      unlock: "Unlock"
+      audiobook_heading: "Listen instead."
+      audiobook_helper: "The full volume, narrated and free, in your language."
+  chapters:
+    show:
+      back: "Back to volume"
+      preview_badge: "Preview chapter"
+  audiobooks:
+    index:
+      eyebrow: "Audiobooks"
+      heading_1: "Listen,"
+      heading_2: "anywhere."
+      subhead: "All volumes, all languages. Pick a track and press play."
+    show:
+      now_playing: "Now playing"
+      tracks: "Tracks"
+  free_copy:
+    badge: "100% Free · No strings"
+    new:
+      heading_1: "Get the books"
+      heading_2: "in your hands."
+      subhead: "Worldwide shipping. 100% free. The full multi-step request form is coming soon — leave us your email and we'll let you know when it goes live."
+      coming_soon: "Coming soon"
+    thank_you:
+      heading: "On its way."
+      body: "Thank you. Your free copy is being processed and we'll email you when it ships."
+  errors:
+    not_found: "Page not found"

@@ -1,0 +1,9 @@
+<% content_for :title, "#{@setting.key} · Admin" %>
+
+<%= admin_page_header @setting.key, eyebrow: "Site setting" do %>
+  <%= link_to "Edit", edit_admin_site_setting_path(@setting), class: "admin-btn admin-btn--primary" %>
+<% end %>
+
+<div class="admin-card max-w-3xl">
+  <pre class="text-xs font-mono text-eco-text whitespace-pre-wrap break-all"><%= @setting.value %></pre>
+</div>

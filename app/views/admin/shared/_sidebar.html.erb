@@ -1,0 +1,67 @@
+<aside class="admin-sidebar">
+  <div class="admin-brand">
+    <%= link_to admin_root_path, class: "flex items-center gap-3 group" do %>
+      <span class="block size-2.5 rounded-full bg-eco-green pulse-dot"></span>
+      <span class="font-display text-lg text-eco-white tracking-tight">
+        <%= t("site.name") %>
+      </span>
+    <% end %>
+    <p class="mt-2 text-[10px] tracking-[0.3em] uppercase text-eco-text-muted font-mono">
+      Admin · CMS
+    </p>
+  </div>
+
+  <nav class="admin-nav">
+    <div class="admin-nav-group">
+      <p class="admin-nav-group-label">Overview</p>
+      <%= link_to admin_root_path, class: admin_nav_class(controller_name == "dashboard") do %>
+        <span class="admin-nav-icon">◎</span> Dashboard
+      <% end %>
+    </div>
+
+    <div class="admin-nav-group">
+      <p class="admin-nav-group-label">Content</p>
+      <%= link_to admin_books_path, class: admin_nav_class(controller_name.in?(%w[books book_translations])) do %>
+        <span class="admin-nav-icon">❖</span> Books
+      <% end %>
+      <%= link_to admin_chapters_path, class: admin_nav_class(controller_name == "chapters") do %>
+        <span class="admin-nav-icon">¶</span> Chapters
+      <% end %>
+      <%= link_to admin_audiobooks_path, class: admin_nav_class(controller_name == "audiobooks") do %>
+        <span class="admin-nav-icon">♪</span> Audiobooks
+      <% end %>
+    </div>
+
+    <div class="admin-nav-group">
+      <p class="admin-nav-group-label">Fulfillment</p>
+      <%= link_to admin_free_copy_requests_path, class: admin_nav_class(controller_name == "free_copy_requests") do %>
+        <span class="admin-nav-icon">✦</span> Free copy requests
+        <% pending = FreeCopyRequest.where(status: "pending").count rescue 0 %>
+        <% if pending > 0 %>
+          <span class="admin-nav-badge"><%= pending %></span>
+        <% end %>
+      <% end %>
+      <%= link_to admin_email_subscribers_path, class: admin_nav_class(controller_name == "email_subscribers") do %>
+        <span class="admin-nav-icon">✉</span> Subscribers
+      <% end %>
+    </div>
+
+    <div class="admin-nav-group">
+      <p class="admin-nav-group-label">System</p>
+      <%= link_to admin_site_settings_path, class: admin_nav_class(controller_name == "site_settings") do %>
+        <span class="admin-nav-icon">⚙</span> Site settings
+      <% end %>
+      <%= link_to root_path(locale: "en"), target: "_blank", class: "admin-nav-link" do %>
+        <span class="admin-nav-icon">↗</span> View site
+      <% end %>
+    </div>
+  </nav>
+
+  <div class="admin-footer">
+    <p class="text-[10px] tracking-[0.25em] uppercase text-eco-text-muted font-mono mb-2">Signed in</p>
+    <p class="text-sm text-eco-white truncate"><%= current_admin.email %></p>
+    <%= button_to destroy_admin_session_path, method: :delete, class: "admin-signout" do %>
+      Sign out →
+    <% end %>
+  </div>
+</aside>

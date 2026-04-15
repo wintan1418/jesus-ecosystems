@@ -1,0 +1,43 @@
+<% content_for :title, "#{@chapter.title} · #{@book.localized_title(I18n.locale)}" %>
+
+<article class="relative max-w-3xl mx-auto px-6 pt-40 pb-32">
+  <nav class="flex items-center gap-2 text-xs tracking-wider uppercase text-eco-text-muted mb-12">
+    <%= link_to t("nav.home"),  root_path,                class: "hover:text-eco-green-light" %>
+    <span>/</span>
+    <%= link_to t("nav.books"), books_path,               class: "hover:text-eco-green-light" %>
+    <span>/</span>
+    <%= link_to "Vol. #{@book.volume_number}", book_path(@book.slug), class: "hover:text-eco-green-light" %>
+    <span>/</span>
+    <span class="text-eco-green-light truncate"><%= @chapter.title %></span>
+  </nav>
+
+  <header class="mb-16 space-y-6" data-controller="reveal">
+    <p class="eco-eyebrow"><%= t("chapters.show.preview_badge") %></p>
+
+    <div class="flex items-baseline gap-6">
+      <span class="font-display italic text-eco-green text-5xl shrink-0">
+        <%= "%02d" % @chapter.position %>
+      </span>
+      <h1 class="font-display text-4xl md:text-6xl text-eco-white leading-[1.1]">
+        <%= @chapter.title %>
+      </h1>
+    </div>
+
+    <span class="block draw-line" style="width: 64px"></span>
+  </header>
+
+  <div class="prose-eco" data-controller="reveal">
+    <% if @chapter.body.body.present? %>
+      <%= @chapter.body %>
+    <% else %>
+      <p class="text-eco-text-muted italic">— No body content yet.</p>
+    <% end %>
+  </div>
+
+  <footer class="mt-20 pt-10 border-t border-eco-border flex items-center justify-between">
+    <%= link_to book_path(@book.slug), class: "text-eco-text-muted hover:text-eco-green-light text-sm tracking-wider uppercase inline-flex items-center gap-2" do %>
+      <span>←</span> <%= t("chapters.show.back") %>
+    <% end %>
+    <%= link_to t("home.cta_request"), request_free_copy_path, class: "eco-btn-primary text-sm" %>
+  </footer>
+</article>

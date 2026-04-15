@@ -1,0 +1,82 @@
+<% content_for :title, "#{@request.full_name} · Admin" %>
+
+<%= admin_page_header @request.full_name,
+      eyebrow: "Request ##{@request.id}",
+      subtitle: @request.email do %>
+  <%= link_to "Edit", edit_admin_free_copy_request_path(@request), class: "admin-btn admin-btn--ghost" %>
+  <%= button_to "Delete", admin_free_copy_request_path(@request), method: :delete,
+                data: { turbo_confirm: "Delete this request?" },
+                class: "admin-btn admin-btn--danger" %>
+<% end %>
+
+<div class="grid lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-2 space-y-6">
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h3 class="admin-card-title">Shipping address</h3>
+      </div>
+      <div class="space-y-2 font-display text-lg">
+        <p class="text-eco-white"><%= @request.first_name %> <%= @request.last_name %></p>
+        <p class="text-eco-text"><%= @request.address_line_1 %></p>
+        <% if @request.address_line_2.present? %>
+          <p class="text-eco-text"><%= @request.address_line_2 %></p>
+        <% end %>
+        <p class="text-eco-text"><%= @request.city %>, <%= @request.state_province %> <%= @request.postal_code %></p>
+        <p class="text-eco-green-light font-mono text-sm"><%= @request.country %></p>
+      </div>
+      <div class="mt-6 pt-4 border-t border-eco-border grid grid-cols-2 gap-4 text-sm">
+        <div>
+          <p class="admin-field-label">Email</p>
+          <p class="text-eco-white mt-1"><%= @request.email %></p>
+        </div>
+        <div>
+          <p class="admin-field-label">Phone</p>
+          <p class="text-eco-white mt-1"><%= @request.phone.presence || "—" %></p>
+        </div>
+        <div>
+          <p class="admin-field-label">Volumes</p>
+          <p class="text-eco-white mt-1 font-mono"><%= Array(@request.volumes_requested).join(", ") %></p>
+        </div>
+        <div>
+          <p class="admin-field-label">Locale</p>
+          <p class="text-eco-white mt-1"><%= @request.locale.upcase %></p>
+        </div>
+      </div>
+    </div>
+
+    <% if @request.notes.present? %>
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h3 class="admin-card-title">Notes</h3>
+        </div>
+        <p class="text-eco-text leading-relaxed whitespace-pre-wrap"><%= @request.notes %></p>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h3 class="admin-card-title">Status</h3>
+        <%= status_badge(@request.status) %>
+      </div>
+      <div class="space-y-2 mt-4">
+        <% FreeCopyRequest::STATUSES.each do |s| %>
+          <% next if @request.status == s %>
+          <%= button_to "Mark as #{s}",
+                        update_status_admin_free_copy_request_path(@request),
+                        method: :patch,
+                        params: { status: s },
+                        class: "admin-btn admin-btn--ghost w-full justify-start" %>
+        <% end %>
+      </div>
+      <div class="mt-6 pt-4 border-t border-eco-border text-xs text-eco-text-muted space-y-1">
+        <p>Received: <%= @request.created_at.to_formatted_s(:long) %></p>
+        <p>Updated: <%= @request.updated_at.to_formatted_s(:long) %></p>
+        <% if @request.ip_address %>
+          <p class="font-mono">IP: <%= @request.ip_address %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

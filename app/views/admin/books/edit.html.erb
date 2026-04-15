@@ -1,0 +1,8 @@
+<% content_for :title, "Edit #{@book.title} · Admin" %>
+
+<%= admin_page_header @book.title, eyebrow: "Editing book",
+      subtitle: @book.tagline %>
+
+<div class="admin-card">
+  <%= render "form", book: @book %>
+</div>

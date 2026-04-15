@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>" class="bg-eco-bg" data-controller="cursor-spotlight scroll-progress">
+  <head>
+    <title><%= content_for(:title) || t("site.name") %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="<%= t('site.name') %>">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1c2015">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-eco-bg text-eco-text font-sans antialiased min-h-screen flex flex-col">
+    <div class="scroll-progress"></div>
+    <div class="cursor-spotlight"></div>
+
+    <%= render "shared/site_header" %>
+    <%= render "shared/section_rail" %>
+
+    <main class="flex-1">
+      <% if notice.present? %>
+        <div class="max-w-6xl mx-auto px-6 mt-6 rounded-xl border border-eco-border bg-eco-surface px-5 py-3 text-eco-green-light">
+          <%= notice %>
+        </div>
+      <% end %>
+      <% if alert.present? %>
+        <div class="max-w-6xl mx-auto px-6 mt-6 rounded-xl border border-red-500/30 bg-red-950/30 px-5 py-3 text-red-200">
+          <%= alert %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+
+    <%= render "shared/site_footer" %>
+  </body>
+</html>

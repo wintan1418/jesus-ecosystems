@@ -1,0 +1,33 @@
+<% content_for :title, "#{@subscriber.email} · Admin" %>
+
+<%= admin_page_header @subscriber.email, eyebrow: "Subscriber",
+      subtitle: @subscriber.first_name %>
+
+<div class="admin-card max-w-xl">
+  <dl class="space-y-4">
+    <div>
+      <dt class="admin-field-label">Email</dt>
+      <dd class="text-eco-white mt-1"><%= @subscriber.email %></dd>
+    </div>
+    <div>
+      <dt class="admin-field-label">First name</dt>
+      <dd class="text-eco-white mt-1"><%= @subscriber.first_name.presence || "—" %></dd>
+    </div>
+    <div>
+      <dt class="admin-field-label">Locale</dt>
+      <dd class="text-eco-white mt-1"><%= @subscriber.locale.upcase %></dd>
+    </div>
+    <div>
+      <dt class="admin-field-label">Source</dt>
+      <dd class="text-eco-white mt-1 font-mono text-sm"><%= @subscriber.source.presence || "—" %></dd>
+    </div>
+    <div>
+      <dt class="admin-field-label">Confirmed</dt>
+      <dd class="text-eco-white mt-1"><%= @subscriber.confirmed_at&.to_formatted_s(:long) || "—" %></dd>
+    </div>
+    <div>
+      <dt class="admin-field-label">Joined</dt>
+      <dd class="text-eco-white mt-1"><%= @subscriber.created_at.to_formatted_s(:long) %></dd>
+    </div>
+  </dl>
+</div>
