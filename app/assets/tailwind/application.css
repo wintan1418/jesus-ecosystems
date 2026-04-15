@@ -200,6 +200,7 @@ body {
   transform: scale(1.04);
   transition: opacity 1.6s ease-out, transform 12s ease-out;
   filter: saturate(1.2) contrast(1.08) brightness(0.98);
+  z-index: 3; /* above slideshow (z:1) and below the vignette (z:4) + scanlines (z:5) */
 }
 
 .crt-screen .hero-video.is-playing {
@@ -251,9 +252,20 @@ body {
   animation: ken-burns 9s ease-out forwards;
 }
 
-.crt-screen[data-state="playing"] .hero-slide {
+/* Once the video is playing, the slideshow must fully fade out so photos
+   don't bleed through the live feed.
+   NOTE: the hls-video Stimulus controller sets data-state="playing" on the
+   .crt-device (not .crt-screen), so we match via the ancestor selector. */
+.crt-device[data-state="playing"] .crt-screen .hero-slide {
   opacity: 0 !important;
-  transition: opacity 2s ease-in-out;
+  transition: opacity 1.4s ease-in-out;
+}
+
+/* Also hide slides when the :has selector works (modern browsers) as a
+   second belt — matches the moment the <video> element gets .is-playing. */
+.crt-screen:has(.hero-video.is-playing) .hero-slide {
+  opacity: 0 !important;
+  transition: opacity 1.4s ease-in-out;
 }
 
 [data-controller~="hls-video"].hls-failed .hero-video {
