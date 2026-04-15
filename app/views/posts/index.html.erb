@@ -1,0 +1,76 @@
+<% content_for :title, "Journal · #{t('site.name')}" %>
+
+<section class="relative pt-40 pb-24 overflow-hidden bg-mesh">
+  <div class="absolute -top-32 -left-32 size-[36rem] rounded-full bg-eco-green/10 blur-[140px] pointer-events-none"></div>
+
+  <div class="relative max-w-4xl mx-auto px-6 text-center" data-controller="reveal">
+    <p class="eco-eyebrow">— The Journal</p>
+    <h1 class="mt-6 font-display text-5xl md:text-7xl text-eco-white leading-[1.05]">
+      Fragments,<br>
+      <span class="italic font-normal text-eco-green-light">discoveries, corrections.</span>
+    </h1>
+    <p class="mt-6 eco-subhead max-w-xl mx-auto">
+      Between volumes, the author writes here — short pieces, second thoughts, and field notes from the ecosystem.
+    </p>
+    <%= link_to "RSS feed", journal_rss_path,
+                class: "mt-8 inline-flex items-center gap-2 text-xs tracking-[0.25em] uppercase text-eco-text-muted hover:text-eco-green-light transition" %>
+  </div>
+</section>
+
+<section class="max-w-5xl mx-auto px-6 pb-32">
+  <% if @posts.any? %>
+    <div class="grid md:grid-cols-2 gap-8">
+      <% @posts.each_with_index do |post, i| %>
+        <%= link_to post_path(post.slug), class: "group block", data: { controller: "reveal" } do %>
+          <article class="relative rounded-3xl overflow-hidden border border-eco-border bg-eco-surface transition-all duration-500 hover:border-eco-green hover:-translate-y-1">
+            <% if post.featured_image.attached? %>
+              <div class="aspect-[16/10] overflow-hidden">
+                <%= image_tag post.featured_image,
+                              alt: post.title,
+                              loading: "lazy",
+                              class: "w-full h-full object-cover opacity-75 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" %>
+              </div>
+            <% else %>
+              <div class="aspect-[16/10] bg-gradient-to-br from-eco-green/20 via-eco-surface to-eco-bg relative">
+                <div class="absolute inset-0 bg-mesh opacity-60"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <span class="font-display italic text-eco-green text-4xl">— <%= "%02d" % (i + 1) %></span>
+                </div>
+              </div>
+            <% end %>
+
+            <div class="p-8">
+              <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-eco-text-muted">
+                <%= post.published_at.strftime("%b %d, %Y") %> · <%= post.reading_time %>
+              </p>
+              <h2 class="mt-3 font-display text-2xl md:text-3xl text-eco-white leading-tight group-hover:text-eco-green-light transition">
+                <%= post.title %>
+              </h2>
+              <% if post.excerpt.present? %>
+                <p class="mt-4 text-eco-text-muted leading-relaxed">
+                  <%= post.excerpt %>
+                </p>
+              <% end %>
+              <% if post.tag_list.any? %>
+                <div class="mt-5 flex flex-wrap gap-2">
+                  <% post.tag_list.each do |tag| %>
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full border border-eco-border text-[10px] tracking-wider uppercase text-eco-text-muted font-mono">
+                      #<%= tag %>
+                    </span>
+                  <% end %>
+                </div>
+              <% end %>
+              <span class="mt-6 inline-flex items-center text-eco-green text-xs tracking-[0.2em] uppercase gap-2 group-hover:gap-4 transition-all">
+                Read <span>→</span>
+              </span>
+            </div>
+          </article>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-24">
+      <p class="font-display italic text-eco-text-muted text-2xl">— Nothing published yet.</p>
+    </div>
+  <% end %>
+</section>

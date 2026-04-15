@@ -203,11 +203,57 @@ home_content = {
   "footer_tagline"    => "Faith, rewilded.",
   "footer_manifesto"  => "Jesus restores what structure forgot. Faith rewilded.",
   "subscribe_heading" => "Get the next volume in your inbox",
-  "subscribe_body"    => "Quarterly dispatches. No spam, ever. Unsubscribe in one click."
+  "subscribe_body"    => "Quarterly dispatches. No spam, ever. Unsubscribe in one click.",
+
+  # Author / About page
+  "author_name"      => "SystemOrEcosystem",
+  "author_title"     => "Author · Builder · Witness",
+  "author_photo_url" => "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80&auto=format&fit=crop",
+  "author_bio"       => "I write about Jesus the way a gardener talks about soil — more about what keeps things alive than what makes them measurable. These volumes are field notes from a movement that refuses to be a system.",
+  "author_quote"     => "I'd rather plant one thing that grows wild than scaffold a hundred things that never breathe.",
+  "author_journey"   => "Started writing Volume One in 2023 between two lives — a quiet one and a loud one — and finished Volume Two in the margins of both. Neither feels finished. That might be the point."
 }
 
 home_content.each do |key, value|
   SiteSetting.find_or_initialize_by(key: key).update!(value: value)
+end
+
+puts "→ Seeding journal posts…"
+[
+  {
+    title: "Why an ecosystem, not a system",
+    excerpt: "Systems measure. Ecosystems belong. Here's why the distinction is the whole book.",
+    body: "<p>Systems measure. Ecosystems belong. When Jesus picks His crew, He isn't building a pipeline — He's planting a grove.</p><p>The grove grows slower than the pipeline. But it grows <em>from the inside out</em>, and nothing the pipeline produces can survive a drought. We're learning this again the hard way.</p><p>This journal is where I'll think out loud between volumes — fragments, discoveries, corrections. You're welcome here.</p>",
+    reading_minutes: 4,
+    tags: "manifesto, ecosystem, preface"
+  },
+  {
+    title: "On writing in the wild",
+    excerpt: "Notes on a process that refuses to be a product.",
+    body: "<p>I wrote the first volume in coffee shops and living rooms. I'm writing the second one in the margins of a life that is louder than it was.</p><p>Both feel true. Neither feels finished. That might be the point.</p>",
+    reading_minutes: 3,
+    tags: "process, writing"
+  },
+  {
+    title: "The disciples were not employees",
+    excerpt: "A short meditation on the crew Jesus actually picked.",
+    body: "<p>He didn't interview them. He didn't check credentials. He walked past boats and tax booths and said <em>follow</em>, and they did.</p><p>Imagine building your company like that. Imagine being so sure of the soil that the seeds almost picked themselves.</p>",
+    reading_minutes: 2,
+    tags: "volume-one, community"
+  }
+].each_with_index do |data, i|
+  post = Post.find_or_initialize_by(slug: data[:title].parameterize)
+  post.title           = data[:title]
+  post.locale          = "en"
+  post.excerpt         = data[:excerpt]
+  post.reading_minutes = data[:reading_minutes]
+  post.author_name     = "SystemOrEcosystem"
+  post.tags            = data[:tags]
+  post.published_at    ||= (i + 1).days.ago
+  post.position        = i
+  post.save!
+  post.body = data[:body] if post.body.body.blank?
+  post.save!
 end
 
 puts "→ Seeding admin user…"
@@ -216,4 +262,4 @@ admin = Admin.find_or_initialize_by(email: admin_email)
 admin.password = ENV.fetch("ADMIN_PASSWORD", "changeme123")
 admin.save!
 
-puts "✓ Done. #{Book.count} books · #{Chapter.count} chapters · #{Audiobook.count} audiobooks · #{Admin.count} admin"
+puts "✓ Done. #{Book.count} books · #{Chapter.count} chapters · #{Audiobook.count} audiobooks · #{Post.count} posts · #{Admin.count} admin"

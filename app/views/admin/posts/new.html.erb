@@ -1,0 +1,8 @@
+<% content_for :title, "New post · Admin" %>
+
+<%= admin_page_header "New post", eyebrow: "Journal",
+      subtitle: "Write a new journal entry." %>
+
+<div class="admin-card">
+  <%= render "form", post: @post %>
+</div>

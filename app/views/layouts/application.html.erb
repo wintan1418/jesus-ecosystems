@@ -1,7 +1,22 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>" class="bg-eco-bg" data-controller="cursor-spotlight scroll-progress">
   <head>
-    <title><%= content_for(:title) || t("site.name") %></title>
+    <%= display_meta_tags(
+          site:         t("site.name"),
+          title:        content_for(:title).presence || cms("hero_headline_1", default: t("site.name")),
+          reverse:      true,
+          separator:    "·",
+          description:  cms("hero_subhead", default: t("home.subhead", default: t("site.name"))),
+          canonical:    request.original_url,
+          og: {
+            type:  "website",
+            url:   request.original_url,
+            site_name: t("site.name"),
+            image: cms("og_image_url", default: "#{request.base_url}/source-assets/volume-1.jpg"),
+            locale: I18n.locale.to_s
+          },
+          twitter: { card: "summary_large_image" }
+        ) %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="<%= t('site.name') %>">
@@ -9,6 +24,8 @@
     <meta name="theme-color" content="#1c2015">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <%= hreflang_tags %>
 
     <%= yield :head %>
 

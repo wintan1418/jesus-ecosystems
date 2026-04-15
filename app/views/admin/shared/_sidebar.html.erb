@@ -33,6 +33,9 @@
       <%= link_to admin_audiobooks_path, class: admin_nav_class(controller_name == "audiobooks") do %>
         <span class="admin-nav-icon">♪</span> Audiobooks
       <% end %>
+      <%= link_to admin_posts_path, class: admin_nav_class(controller_name == "posts") do %>
+        <span class="admin-nav-icon">✒</span> Journal
+      <% end %>
     </div>
 
     <div class="admin-nav-group">

@@ -96,6 +96,19 @@ class Admin::HomeContentController < Admin::BaseController
         { key: "subscribe_heading", label: "Subscribe heading", kind: :text },
         { key: "subscribe_body",    label: "Subscribe body",    kind: :textarea, rows: 2 }
       ]
+    },
+    {
+      id: "author",
+      title: "About / Author page",
+      subtitle: "The /about page — the face of the movement.",
+      fields: [
+        { key: "author_name",      label: "Author name",           kind: :text },
+        { key: "author_title",     label: "Title / role line",     kind: :text },
+        { key: "author_photo_url", label: "Photo URL",             kind: :text, help: "Direct URL to a portrait image." },
+        { key: "author_bio",       label: "Short bio",             kind: :textarea, rows: 4 },
+        { key: "author_quote",     label: "Signature quote",       kind: :textarea, rows: 3 },
+        { key: "author_journey",   label: "The journey narrative", kind: :textarea, rows: 4 }
+      ]
     }
   ].freeze
 

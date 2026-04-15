@@ -1,0 +1,33 @@
+<% content_for :title, "#{@post.title} · Admin" %>
+
+<%= admin_page_header @post.title,
+      eyebrow: "#{@post.locale.upcase} · #{@post.published? ? @post.published_at.strftime('%b %-d, %Y') : 'Draft'}",
+      subtitle: @post.excerpt do %>
+  <%= link_to "View →", post_path(@post.slug, locale: @post.locale),
+              target: "_blank", class: "admin-btn admin-btn--ghost" %>
+  <%= link_to "Edit", edit_admin_post_path(@post), class: "admin-btn admin-btn--primary" %>
+  <%= button_to "Delete", admin_post_path(@post), method: :delete,
+                data: { turbo_confirm: "Delete this post?" },
+                class: "admin-btn admin-btn--danger" %>
+<% end %>
+
+<% if @post.featured_image.attached? %>
+  <div class="admin-card mb-6">
+    <%= image_tag @post.featured_image, class: "w-full rounded-xl" %>
+  </div>
+<% end %>
+
+<div class="admin-card">
+  <div class="prose-eco" style="max-width: 100%; color: var(--color-eco-text)">
+    <%= @post.body %>
+  </div>
+  <% if @post.tag_list.any? %>
+    <div class="mt-10 pt-6 border-t border-eco-border flex flex-wrap gap-2">
+      <% @post.tag_list.each do |tag| %>
+        <span class="inline-flex items-center px-3 py-1 rounded-full border border-eco-border text-[10px] tracking-wider uppercase text-eco-text-muted font-mono">
+          #<%= tag %>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
+</div>
