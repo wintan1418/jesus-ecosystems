@@ -440,8 +440,8 @@ GEM
       logger
     safely_block (1.0.0)
     securerandom (0.4.1)
-    shoulda-matchers (6.5.0)
-      activesupport (>= 5.2.0)
+    shoulda-matchers (7.0.1)
+      activesupport (>= 7.1)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
     solid_cable (3.0.12)
@@ -555,7 +555,7 @@ DEPENDENCIES
   resend
   rspec-rails (~> 8.0)
   rubocop-rails-omakase
-  shoulda-matchers (~> 6.0)
+  shoulda-matchers (~> 7.0)
   sitemap_generator
   solid_cable
   solid_cache
