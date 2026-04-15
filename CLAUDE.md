@@ -6,7 +6,9 @@
 
 ## 1. Mission
 
-Rebuild **systemorecosystem.com** as a production-grade, multilingual, content-first platform for the two-volume Christian philosophy series *The System or The Ecosystem*. The current site is flat and static; this rebuild must feel like a **living editorial journal meets a faith movement** — dark, organic, deliberate, alive.
+Rebuild **systemorecosystem.com** as a production-grade, multilingual, content-first platform for the two-volume Christian **action toolkit** *The System or The Ecosystem*. The current site is flat and static; this rebuild must feel like a **living editorial journal meets a faith movement** — dark, organic, deliberate, alive.
+
+> **Language rule:** the books are **not** "philosophy." Never describe them as philosophy, a philosophy series, or a philosophical work. Always use **"action toolkit"** or a near synonym (field guide, playbook, practical handbook). The designer was explicit about this on 2026-04-16.
 
 **Primary jobs of the site:**
 1. Present the two books (Vol 1, Vol 2) with depth, excerpts, and preview chapters.

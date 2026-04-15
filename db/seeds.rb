@@ -10,7 +10,7 @@ BOOK_DATA = [
     volume_number: 1,
     title:    "The System or The Ecosystem — Volume One",
     tagline:  "From needy to noteworthy.",
-    description: "How Jesus refines ordinary people for Jesus-sized outcomes. A raw and honest look at how Jesus turns chaos into His community — without algorithms, club rules, or scaffolding.",
+    description: "An action toolkit for how Jesus refines ordinary people for Jesus-sized outcomes. A raw and honest look at how Jesus turns chaos into His community — without algorithms, club rules, or scaffolding.",
     cover_path: Rails.root.join("public/source-assets/volume-1.jpg"),
     translations: {
       "en" => { title: "The System or The Ecosystem — Volume One",
@@ -145,7 +145,7 @@ end
 puts "→ Seeding site settings (hero, manifesto, shoutout, testimonials, CTA, footer)…"
 home_content = {
   # Hero
-  "hero_eyebrow"     => "A Two-Volume Christian Philosophy Series",
+  "hero_eyebrow"     => "A Two-Volume Christian Action Toolkit",
   "hero_headline_1"  => "Jesus the Designer's",
   "hero_headline_2"  => "Plan to Change the World.",
   "hero_subhead"     => "A fresh look at how Jesus takes His crew — from chaos into community, from community into world-changing.",
