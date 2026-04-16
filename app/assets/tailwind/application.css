@@ -2,14 +2,14 @@
 
 /* ─── Design tokens (Tailwind 4 @theme) — warm olive palette ─────────────── */
 @theme {
-  --color-eco-bg: #1c2015;          /* warm olive-dark, less night, more living soil */
-  --color-eco-surface: #272b1c;     /* olive-leaf surface */
-  --color-eco-border: rgba(245, 240, 220, 0.10);
+  --color-eco-bg: #262b1c;          /* warm mid-olive, toned down from #1c2015 */
+  --color-eco-surface: #313625;     /* olive-leaf surface, lifted from #272b1c */
+  --color-eco-border: rgba(245, 240, 220, 0.12);
   --color-eco-green: #a3bf64;       /* warm sage — less neon, more alive */
   --color-eco-green-light: #d1dba0; /* pale olive */
   --color-eco-green-muted: rgba(163, 191, 100, 0.12);
   --color-eco-text: #ece6d3;        /* parchment cream */
-  --color-eco-text-muted: rgba(236, 230, 211, 0.6);
+  --color-eco-text-muted: rgba(236, 230, 211, 0.65);
   --color-eco-white: #f5f0dc;       /* warm bone white */
 
   --font-display: "Playfair Display", ui-serif, Georgia, serif;
