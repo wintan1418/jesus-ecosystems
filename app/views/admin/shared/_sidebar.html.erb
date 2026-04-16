@@ -54,16 +54,6 @@
     </div>
 
     <div class="admin-nav-group">
-      <p class="admin-nav-group-label">Drafts · Hidden from public</p>
-      <%= link_to admin_posts_path, class: admin_nav_class(controller_name == "posts") do %>
-        <span class="admin-nav-icon">✒</span> Journal
-      <% end %>
-      <%= link_to admin_episodes_path, class: admin_nav_class(controller_name == "episodes") do %>
-        <span class="admin-nav-icon">◉</span> Podcast
-      <% end %>
-    </div>
-
-    <div class="admin-nav-group">
       <p class="admin-nav-group-label">System</p>
       <%= link_to admin_site_settings_path, class: admin_nav_class(controller_name == "site_settings") do %>
         <span class="admin-nav-icon">⚙</span> Site settings

@@ -36,3 +36,20 @@
   </div>
 </header>
 
+<script>
+  (function(){
+    const hdr = document.querySelector('.eco-nav-glass');
+    if (!hdr) return;
+    const mark = 50;
+    let ticking = false;
+    window.addEventListener('scroll', function(){
+      if (!ticking) {
+        requestAnimationFrame(function(){
+          hdr.classList.toggle('is-scrolled', window.scrollY > mark);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, {passive: true});
+  })();
+</script>

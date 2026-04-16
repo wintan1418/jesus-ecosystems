@@ -179,25 +179,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_16_162606) do
     t.index ["source"], name: "index_email_subscribers_on_source"
   end
 
-  create_table "episodes", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.text "description"
-    t.integer "duration_seconds"
-    t.boolean "explicit", default: false, null: false
-    t.string "locale", default: "en", null: false
-    t.integer "number"
-    t.integer "position", default: 0, null: false
-    t.datetime "published_at"
-    t.integer "season", default: 1, null: false
-    t.string "slug", null: false
-    t.string "title", null: false
-    t.datetime "updated_at", null: false
-    t.index ["locale"], name: "index_episodes_on_locale"
-    t.index ["published_at"], name: "index_episodes_on_published_at"
-    t.index ["season", "number"], name: "index_episodes_on_season_and_number"
-    t.index ["slug"], name: "index_episodes_on_slug", unique: true
-  end
-
   create_table "free_copy_requests", force: :cascade do |t|
     t.string "address_line_1", null: false
     t.string "address_line_2"
@@ -274,21 +255,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_16_162606) do
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_noticed_notifications_on_event_id"
     t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
-  end
-
-  create_table "posts", force: :cascade do |t|
-    t.string "author_name"
-    t.datetime "created_at", null: false
-    t.text "excerpt"
-    t.string "locale"
-    t.integer "position"
-    t.datetime "published_at"
-    t.integer "reading_minutes"
-    t.string "slug"
-    t.string "tags"
-    t.string "title"
-    t.datetime "updated_at", null: false
-    t.index ["slug"], name: "index_posts_on_slug", unique: true
   end
 
   create_table "site_settings", force: :cascade do |t|

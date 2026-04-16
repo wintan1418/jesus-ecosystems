@@ -3,12 +3,11 @@ SitemapGenerator::Sitemap.default_host = ENV.fetch("SITE_URL", "https://systemor
 SitemapGenerator::Sitemap.create do
   %w[en es pt].each do |loc|
     # Root + static pages
-    add "/#{loc}",           changefreq: "weekly", priority: 1.0,  alternates: alternate_locales_for("/")
-    add "/#{loc}/about",     changefreq: "monthly", priority: 0.6, alternates: alternate_locales_for("/about")
-    add "/#{loc}/journal",   changefreq: "daily",   priority: 0.9, alternates: alternate_locales_for("/journal")
-    add "/#{loc}/books",     changefreq: "weekly",  priority: 0.9, alternates: alternate_locales_for("/books")
-    add "/#{loc}/audiobooks",changefreq: "weekly",  priority: 0.8, alternates: alternate_locales_for("/audiobooks")
-    add "/#{loc}/request-free-copy", changefreq: "monthly", priority: 0.7
+    add "/#{loc}",           changefreq: "weekly",  priority: 1.0,  alternates: alternate_locales_for("/")
+    add "/#{loc}/about",     changefreq: "monthly", priority: 0.7,  alternates: alternate_locales_for("/about")
+    add "/#{loc}/books",     changefreq: "weekly",  priority: 0.9,  alternates: alternate_locales_for("/books")
+    add "/#{loc}/audiobooks", changefreq: "weekly", priority: 0.8,  alternates: alternate_locales_for("/audiobooks")
+    add "/#{loc}/request-free-copy", changefreq: "monthly", priority: 0.8
 
     # Books (slugs are the same across locales, localized content via translations)
     Book.published.each do |book|
@@ -19,13 +18,6 @@ SitemapGenerator::Sitemap.create do
         add "/#{loc}/books/#{book.slug}/chapters/#{chapter.slug}",
             changefreq: "monthly", priority: 0.5
       end
-    end
-
-    # Journal posts (locale-scoped)
-    Post.published.for_locale(loc).find_each do |post|
-      add "/#{loc}/journal/#{post.slug}",
-          changefreq: "monthly", priority: 0.7,
-          lastmod: post.updated_at
     end
 
     # Audiobooks

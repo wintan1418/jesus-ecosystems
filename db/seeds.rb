@@ -219,100 +219,10 @@ home_content.each do |key, value|
   SiteSetting.find_or_initialize_by(key: key).update!(value: value)
 end
 
-puts "→ Seeding journal posts…"
-[
-  {
-    title: "Why an ecosystem, not a system",
-    excerpt: "Systems measure. Ecosystems belong. Here's why the distinction is the whole book.",
-    body: "<p>Systems measure. Ecosystems belong. When Jesus picks His crew, He isn't building a pipeline — He's planting a grove.</p><p>The grove grows slower than the pipeline. But it grows <em>from the inside out</em>, and nothing the pipeline produces can survive a drought. We're learning this again the hard way.</p><p>This journal is where I'll think out loud between volumes — fragments, discoveries, corrections. You're welcome here.</p>",
-    reading_minutes: 4,
-    tags: "manifesto, ecosystem, preface"
-  },
-  {
-    title: "On writing in the wild",
-    excerpt: "Notes on a process that refuses to be a product.",
-    body: "<p>I wrote the first volume in coffee shops and living rooms. I'm writing the second one in the margins of a life that is louder than it was.</p><p>Both feel true. Neither feels finished. That might be the point.</p>",
-    reading_minutes: 3,
-    tags: "process, writing"
-  },
-  {
-    title: "The disciples were not employees",
-    excerpt: "A short meditation on the crew Jesus actually picked.",
-    body: "<p>He didn't interview them. He didn't check credentials. He walked past boats and tax booths and said <em>follow</em>, and they did.</p><p>Imagine building your company like that. Imagine being so sure of the soil that the seeds almost picked themselves.</p>",
-    reading_minutes: 2,
-    tags: "volume-one, community"
-  }
-].each_with_index do |data, i|
-  post = Post.find_or_initialize_by(slug: data[:title].parameterize)
-  post.title           = data[:title]
-  post.locale          = "en"
-  post.excerpt         = data[:excerpt]
-  post.reading_minutes = data[:reading_minutes]
-  post.author_name     = "SystemOrEcosystem"
-  post.tags            = data[:tags]
-  post.published_at    ||= (i + 1).days.ago
-  post.position        = i
-  post.save!
-  post.body = data[:body] if post.body.body.blank?
-  post.save!
-end
-
-puts "→ Seeding podcast episodes…"
-[
-  {
-    title: "Episode 01 · The crew He picks",
-    description: "He didn't pick the credentialed. A short walk through the first qualification of the ecosystem.",
-    body: "<p>This episode unpacks the first chapter of Volume One — why Jesus picked fishermen, tax collectors, and zealots, and what that says about how He still grows His crew today.</p>",
-    duration_seconds: 18 * 60 + 32,
-    season: 1, number: 1
-  },
-  {
-    title: "Episode 02 · Algorithm vs organism",
-    description: "Why the system optimises for the average and the ecosystem grows toward the light.",
-    body: "<p>A meditation on the second chapter of Volume One. Algorithms compress, organisms expand. Where does Jesus point?</p>",
-    duration_seconds: 22 * 60 + 11,
-    season: 1, number: 2
-  },
-  {
-    title: "Episode 03 · When performance stops",
-    description: "Religion taught us how to perform. Jesus invites us to stop performing and start breathing.",
-    body: "<p>Field notes on what it means to stop performing in faith — and what fills the silence when the show ends.</p>",
-    duration_seconds: 25 * 60 + 47,
-    season: 1, number: 3
-  }
-].each_with_index do |data, i|
-  ep = Episode.find_or_initialize_by(slug: data[:title].parameterize)
-  ep.title             = data[:title]
-  ep.description       = data[:description]
-  ep.locale            = "en"
-  ep.season            = data[:season]
-  ep.number            = data[:number]
-  ep.duration_seconds  = data[:duration_seconds]
-  ep.published_at    ||= (3 - i).weeks.ago
-  ep.position          = i
-  ep.save!
-  ep.body = data[:body] if ep.body.body.blank?
-  ep.save!
-end
-
-# Podcast-level SiteSettings — used by RSS feed + index page header.
-{
-  "podcast_title"       => "The Ecosystem Podcast",
-  "podcast_subtitle"    => "Field notes from the movement that refuses to be a system.",
-  "podcast_author"      => "SystemOrEcosystem",
-  "podcast_owner_email" => "hello@systemorecosystem.com",
-  "podcast_category"    => "Religion & Spirituality",
-  "podcast_cover_url"   => "https://images.unsplash.com/photo-1490127252417-7c393f993ee4?w=1400&q=80&auto=format&fit=crop",
-  "podcast_apple_url"   => "",
-  "podcast_spotify_url" => ""
-}.each do |key, value|
-  SiteSetting.find_or_initialize_by(key: key).update!(value: value)
-end
-
 puts "→ Seeding admin user…"
 admin_email = ENV.fetch("ADMIN_EMAIL", "admin@systemorecosystem.com")
 admin = Admin.find_or_initialize_by(email: admin_email)
 admin.password = ENV.fetch("ADMIN_PASSWORD", "changeme123")
 admin.save!
 
-puts "✓ Done. #{Book.count} books · #{Chapter.count} chapters · #{Audiobook.count} audiobooks · #{Post.count} posts · #{Episode.count} episodes · #{Admin.count} admin"
+puts "✓ Done. #{Book.count} books · #{Chapter.count} chapters · #{Audiobook.count} audiobooks · #{Admin.count} admin"

@@ -1,7 +1,0 @@
-<% content_for :title, "Edit #{@episode.title} · Admin" %>
-
-<%= admin_page_header @episode.title, eyebrow: "Editing #{@episode.label}" %>
-
-<div class="admin-card">
-  <%= render "form", episode: @episode %>
-</div>

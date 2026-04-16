@@ -27,24 +27,6 @@ module SeoHelper
     }.compact.to_json.html_safe
   end
 
-  # Schema.org Article for a Post.
-  def post_jsonld(post)
-    {
-      "@context"        => "https://schema.org",
-      "@type"           => "Article",
-      "headline"        => post.title,
-      "description"     => post.excerpt,
-      "datePublished"   => post.published_at&.iso8601,
-      "dateModified"    => post.updated_at.iso8601,
-      "author"          => { "@type" => "Person", "name" => post.author_name.presence || SiteSetting["author_name"] || t("site.name") },
-      "publisher"       => { "@type" => "Organization", "name" => t("site.name") },
-      "inLanguage"      => post.locale,
-      "url"             => post_url(post.slug, locale: post.locale),
-      "image"           => (post.featured_image.attached? ? url_for(post.featured_image) : nil),
-      "articleSection"  => "Journal"
-    }.compact.to_json.html_safe
-  end
-
   # Render hreflang link tags for the current path across all available locales.
   def hreflang_tags
     return "" unless defined?(request) && request

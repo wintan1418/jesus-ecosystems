@@ -59,10 +59,10 @@ body {
     @apply rounded-2xl bg-eco-surface border border-eco-border p-8;
   }
   .eco-btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-eco-green text-eco-bg font-medium px-7 py-3.5 transition-all duration-300 hover:bg-eco-green-light hover:-translate-y-0.5 shadow-[0_8px_30px_-8px_rgba(163,191,100,0.5)];
+    @apply inline-flex items-center justify-center rounded-full bg-eco-green text-eco-bg font-medium text-[13px] md:text-sm px-5 py-2.5 md:px-7 md:py-3.5 transition-all duration-300 hover:bg-eco-green-light hover:-translate-y-0.5 shadow-[0_6px_20px_-8px_rgba(163,191,100,0.5)] md:shadow-[0_8px_30px_-8px_rgba(163,191,100,0.5)];
   }
   .eco-btn-ghost {
-    @apply inline-flex items-center justify-center rounded-full border border-eco-border text-eco-white font-medium px-7 py-3.5 transition-all duration-300 hover:bg-eco-green-muted hover:border-eco-green backdrop-blur-md;
+    @apply inline-flex items-center justify-center rounded-full border border-eco-border text-eco-white font-medium text-[13px] md:text-sm px-5 py-2.5 md:px-7 md:py-3.5 transition-all duration-300 hover:bg-eco-green-muted hover:border-eco-green backdrop-blur-md;
   }
   .eco-divider {
     @apply h-px w-full bg-eco-border;
