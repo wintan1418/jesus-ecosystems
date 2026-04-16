@@ -480,32 +480,28 @@ body {
   color: rgba(28, 32, 21, 0.6);
 }
 
-/* Mobile: stack book as single scrollable page */
+/* Mobile: single-page card view, still one page at a time */
 @media (max-width: 767px) {
   .book-stage { perspective: none; }
   .book {
     width: 100%;
-    height: auto;
-    min-height: 60vh;
+    height: 75vh;
   }
   .book::before { display: none; }
   .book-back { display: none; }
   .leaf {
-    position: relative;
     width: 100%;
-    height: auto;
-    min-height: 50vh;
+    right: 0;
+    left: 0;
   }
   .leaf .page {
-    position: relative;
     border-radius: 16px;
-    min-height: 50vh;
     padding: 1.5rem;
     padding-bottom: 3rem;
   }
   .leaf .page.back { display: none; }
-  .leaf[data-flipped="true"] { transform: none; }
-  .reader-controls { margin-top: 1.5rem; }
+  .reader-controls { margin-top: 1rem; }
+  .reader-btn { width: 40px; height: 40px; font-size: 0.9rem; }
 }
 
 /* Reader chrome */
@@ -1647,10 +1643,27 @@ trix-toolbar .trix-button.trix-active {
 
 /* ─── Glass nav ──────────────────────────────────────────────────────────── */
 .eco-nav-glass {
-  background: rgba(28, 32, 21, 0.35);
+  background: rgba(28, 32, 21, 0.6);
   backdrop-filter: blur(20px) saturate(140%);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* When scrolled — more opaque with subtle shadow */
+.eco-nav-glass.is-scrolled,
+.eco-nav-glass:not(:hover)[style*="--scroll-progress"] {
+  background: rgba(28, 32, 21, 0.88);
+  box-shadow: 0 4px 30px -4px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 767px) {
+  .eco-nav-glass {
+    background: rgba(28, 32, 21, 0.85);
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+  .eco-nav-glass .py-5 { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
 }
 
 /* ─── Mobile hamburger nav ───────────────────────────────────────────────── */
@@ -1950,9 +1963,13 @@ trix-toolbar .trix-button.trix-active {
 
 /* ─── Mobile overrides for all sections ──────────────────────────────────── */
 @media (max-width: 767px) {
+  /* Hero — remove excess space */
+  #hero { min-height: auto !important; }
+  #hero > div { min-height: auto !important; gap: 2rem !important; padding-top: 5rem !important; padding-bottom: 2rem !important; }
+  #hero .space-y-7 { gap: 1rem !important; }
+  #hero .space-y-7 > * + * { margin-top: 0.75rem !important; }
+
   /* Tighter section padding */
-  #hero .pt-36 { padding-top: 6rem !important; }
-  #hero .pb-24 { padding-bottom: 3rem !important; }
   #stats { padding-top: 3rem !important; padding-bottom: 3rem !important; }
   #manifesto { padding-top: 5rem !important; padding-bottom: 5rem !important; }
   #volumes { padding-top: 4rem !important; padding-bottom: 4rem !important; }
