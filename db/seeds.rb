@@ -177,7 +177,7 @@ home_content = {
   "pillar_four_body"   => "What we breathe out, another breathes in.",
 
   # Shoutout video
-  "shoutout_video_url"  => "",
+  "shoutout_video_url"  => "/source-assets/shout-out.mp4",
   "shoutout_poster_url" => "https://images.unsplash.com/photo-1507692049790-de58290a4334?w=1400&q=80&auto=format&fit=crop",
   "shoutout_label"      => "A word from the author",
   "shoutout_cta"        => "Play the message",
