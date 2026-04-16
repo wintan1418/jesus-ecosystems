@@ -38,3 +38,13 @@
 !/app/assets/builds/.keep
 
 /node_modules
+
+# Keep large media out of git — host on Cloudinary/R2 and reference via CMS URLs
+public/source-assets/*.mp4
+public/source-assets/*.mov
+public/source-assets/*.webm
+
+# Screenshot drops / scratch references
+bgtr.png
+FireShot*.png
+*.screenshot.png
