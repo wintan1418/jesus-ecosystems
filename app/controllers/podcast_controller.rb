@@ -6,8 +6,8 @@ class PodcastController < ApplicationController
                        .with_attached_cover_image
                        .limit(100)
 
-    set_meta_tags title:       "#{cms('podcast_title', default: 'The Ecosystem Podcast')} · #{t('site.name')}",
-                  description: cms("podcast_subtitle", default: "Field notes from the movement.")
+    set_meta_tags title:       "#{SiteSetting['podcast_title'].presence || 'The Ecosystem Podcast'} · #{t('site.name')}",
+                  description: SiteSetting["podcast_subtitle"].presence || "Field notes from the movement."
 
     respond_to do |format|
       format.html
@@ -21,7 +21,7 @@ class PodcastController < ApplicationController
                       .with_attached_cover_image
                       .friendly.find(params[:slug])
 
-    set_meta_tags title:       "#{@episode.title} · #{cms('podcast_title', default: 'Podcast')}",
+    set_meta_tags title:       "#{@episode.title} · #{SiteSetting['podcast_title'].presence || 'Podcast'}",
                   description: @episode.description
   rescue ActiveRecord::RecordNotFound
     redirect_to podcast_path, alert: "Episode not found."
