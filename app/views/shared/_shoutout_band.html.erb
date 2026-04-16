@@ -1,13 +1,10 @@
 <%
   # Hardcoded per designer's delivery constraint (HTML/CSS/JS, not CMS).
-  # The video + poster are hosted on Cloudinary with 30-day CDN cache.
   shoutout_video  = "https://res.cloudinary.com/wintan1418/video/upload/v1776372521/shout-out_ezrcu0.mp4"
   shoutout_poster = "https://res.cloudinary.com/wintan1418/image/upload/v1776374891/veritcal_banner_w7qc11.png"
   shoutout_label  = "A word from the author"
   shoutout_cta    = "Play the message"
 
-  # Testimonials still come from CMS so you can curate them without code changes,
-  # with a fallback to the manifesto quote if the SiteSetting row is missing.
   testimonials = begin
     parsed = JSON.parse(SiteSetting["testimonials"].to_s)
     parsed.is_a?(Array) ? parsed : []
@@ -30,23 +27,37 @@
 
   <div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-[auto_1fr] gap-14 lg:gap-20 items-center">
 
-    <%# ── LEFT: inline 9:16 vertical video panel ─────────────────────── %>
-    <div class="shoutout-vertical-wrap" data-controller="reveal">
+    <%# ── LEFT: inline 9:16 vertical video panel with poster overlay ─── %>
+    <div class="shoutout-vertical-wrap" data-controller="reveal shoutout-player">
       <div class="flex items-center gap-4 mb-5">
         <span class="section-num">— 04</span>
         <p class="eco-eyebrow"><%= shoutout_label %></p>
       </div>
 
-      <div class="shoutout-vertical">
+      <button type="button"
+              class="shoutout-vertical"
+              data-shoutout-player-target="trigger"
+              data-action="click->shoutout-player#start"
+              aria-label="<%= shoutout_cta %>">
+        <%# Poster — separate img so object-fit: cover is reliable across browsers. %>
+        <img class="shoutout-poster"
+             src="<%= shoutout_poster %>"
+             alt="<%= shoutout_cta %>"
+             data-shoutout-player-target="poster">
+
+        <%# Video sits underneath; revealed when user clicks play. %>
         <video class="shoutout-vertical-video"
                src="<%= shoutout_video %>"
-               poster="<%= shoutout_poster %>"
-               controls
                playsinline
                preload="metadata"
                controlslist="nodownload"
-               aria-label="<%= shoutout_cta %>"></video>
-      </div>
+               data-shoutout-player-target="video"></video>
+
+        <%# Play-button overlay — becomes the control surface when idle. %>
+        <span class="shoutout-play-badge" data-shoutout-player-target="badge">
+          <span class="shoutout-play-icon">▶</span>
+        </span>
+      </button>
 
       <p class="mt-4 font-mono text-[10px] tracking-[0.3em] uppercase text-eco-text-muted">
         <%= shoutout_cta %> · Vertical

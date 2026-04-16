@@ -48,3 +48,7 @@ public/source-assets/*.webm
 bgtr.png
 FireShot*.png
 *.screenshot.png
+
+# Handoff exports — generated on demand via `bin/rails handoff:export`
+/handoff/
+/ecosystem-handoff-*.zip

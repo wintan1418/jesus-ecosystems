@@ -232,7 +232,7 @@
       { num: "I",  key: :one, image: "/source-assets/volume-1.jpg" },
       { num: "II", key: :two, image: "/source-assets/volume-2.jpg" },
     ].each_with_index do |vol, i| %>
-      <article class="group relative rounded-3xl overflow-hidden border border-eco-border bg-eco-surface eco-float"
+      <article class="group relative overflow-hidden border border-eco-border bg-eco-surface eco-float"
                style="animation-delay: <%= i * 0.6 %>s"
                data-controller="reveal">
         <div class="aspect-[4/5] overflow-hidden relative">
@@ -319,6 +319,8 @@
   </blockquote>
   <p class="mt-12 eco-eyebrow"><%= cms("quote_attribution", default: t("home.quote_attribution")) %></p>
 </section>
+
+<%= render "shared/testimonial_wall" %>
 
 <%# ─── CTA BAND ────────────────────────────────────────────────────────── %>
 <section id="cta" data-rail-label="Get the Books"

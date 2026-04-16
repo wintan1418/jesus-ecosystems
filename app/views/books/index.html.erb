@@ -18,7 +18,7 @@
   <div class="mt-20 grid md:grid-cols-2 gap-10">
     <% @books.each_with_index do |book, i| %>
       <%= link_to book_path(book.slug), class: "group block", data: { controller: "reveal" } do %>
-        <article class="relative rounded-3xl overflow-hidden border border-eco-border bg-eco-surface eco-float"
+        <article class="relative overflow-hidden border border-eco-border bg-eco-surface eco-float"
                  style="animation-delay: <%= i * 0.6 %>s">
           <div class="aspect-[4/5] overflow-hidden relative">
             <% if book.cover_image.attached? %>

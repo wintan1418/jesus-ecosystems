@@ -11,7 +11,7 @@
         <div class="relative max-w-md mx-auto eco-float">
           <%= image_tag @book.cover_image,
                         alt: @book.localized_title(I18n.locale),
-                        class: "w-full rounded-3xl border border-eco-border shadow-[0_60px_120px_-30px_rgba(163,191,100,0.3)]" %>
+                        class: "w-full border border-eco-border shadow-[0_60px_120px_-30px_rgba(163,191,100,0.3)]" %>
           <div class="absolute -top-5 -left-5 size-20 rounded-full border border-eco-green/40 bg-eco-bg/70 backdrop-blur-md flex items-center justify-center font-display italic text-3xl text-eco-green-light">
             <%= @book.volume_number == 1 ? "I" : "II" %>
           </div>
