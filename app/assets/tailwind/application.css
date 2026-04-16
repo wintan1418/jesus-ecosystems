@@ -546,6 +546,177 @@ body {
   cursor: not-allowed;
 }
 
+/* ─── Language dropdown ──────────────────────────────────────────────────── */
+/* Native <details> / <summary> treatment: keyboard accessible, no JS needed,
+   scales cleanly to 12+ languages without overflowing the nav bar. */
+.lang-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.lang-dropdown-button {
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-eco-border);
+  background: rgba(38, 43, 28, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--color-eco-text);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.lang-dropdown-button::-webkit-details-marker { display: none; }
+.lang-dropdown-button::marker { content: ""; }
+
+.lang-dropdown-button:hover {
+  border-color: rgba(163, 191, 100, 0.4);
+  color: var(--color-eco-green-light);
+}
+
+.lang-dropdown[open] .lang-dropdown-button {
+  border-color: var(--color-eco-green);
+  color: var(--color-eco-green-light);
+}
+
+.lang-dropdown-code {
+  font-family: var(--font-mono);
+  letter-spacing: 0.15em;
+  color: var(--color-eco-green-light);
+}
+
+.lang-dropdown-label {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .lang-dropdown-label { display: inline; }
+}
+
+.lang-dropdown-caret {
+  width: 10px;
+  height: 6px;
+  transition: transform 0.25s ease;
+}
+
+.lang-dropdown[open] .lang-dropdown-caret {
+  transform: rotate(180deg);
+}
+
+.lang-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 0.4rem;
+  border-radius: 14px;
+  border: 1px solid var(--color-eco-border);
+  background: rgba(38, 43, 28, 0.92);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+  list-style: none;
+  z-index: 60;
+  animation: lang-dropdown-in 0.2s ease-out;
+}
+
+@keyframes lang-dropdown-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lang-dropdown-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 9px;
+  font-size: 0.8rem;
+  color: var(--color-eco-text);
+  transition: all 0.18s ease;
+}
+
+.lang-dropdown-option:hover {
+  background: rgba(163, 191, 100, 0.1);
+  color: var(--color-eco-green-light);
+}
+
+.lang-dropdown-option.is-active {
+  background: rgba(163, 191, 100, 0.15);
+  color: var(--color-eco-green-light);
+}
+
+.lang-dropdown-option-code {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--color-eco-green);
+  min-width: 2ch;
+}
+
+.lang-dropdown-option-label {
+  flex: 1;
+}
+
+.lang-dropdown-check {
+  color: var(--color-eco-green);
+}
+
+/* ─── Inline vertical shoutout panel ─────────────────────────────────────── */
+.shoutout-vertical-wrap {
+  max-width: 320px;
+  width: 100%;
+}
+
+.shoutout-vertical {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  width: 100%;
+  max-width: 320px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #0a110d;
+  border: 1px solid var(--color-eco-border);
+  box-shadow:
+    0 40px 80px -30px rgba(163, 191, 100, 0.3),
+    0 20px 50px -20px rgba(0, 0, 0, 0.5);
+}
+
+.shoutout-vertical-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #0a110d;
+}
+
+.shoutout-vertical-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+@media (max-width: 900px) {
+  .shoutout-vertical-wrap { max-width: 100%; margin: 0 auto; }
+  .shoutout-vertical { max-width: 280px; margin: 0 auto; }
+}
+
 /* ─── Shoutout card + testimonials ──────────────────────────────────────── */
 .shoutout-card {
   position: relative;
@@ -1837,6 +2008,13 @@ trix-toolbar .trix-button.trix-active {
 }
 
 /* ─── Character reveal ───────────────────────────────────────────────────── */
+/* Each word is wrapped in a nowrap inline-block so Safari can't orphan a
+   single inline-block character onto its own line. */
+.char-reveal-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .char-reveal-char {
   display: inline-block;
   opacity: 0;

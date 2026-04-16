@@ -1,9 +1,9 @@
 <%
-  shoutout_video = SiteSetting["shoutout_video_url"].presence
+  shoutout_video  = SiteSetting["shoutout_video_url"].presence
   shoutout_poster = SiteSetting["shoutout_poster_url"].presence ||
                     "https://images.unsplash.com/photo-1507692049790-de58290a4334?w=1400&q=80&auto=format&fit=crop"
-  shoutout_label = SiteSetting["shoutout_label"].presence || "A word from the author"
-  shoutout_cta   = SiteSetting["shoutout_cta"].presence   || "Play the message"
+  shoutout_label  = SiteSetting["shoutout_label"].presence || "A word from the author"
+  shoutout_cta    = SiteSetting["shoutout_cta"].presence   || "Play the message"
 
   testimonials = begin
     parsed = JSON.parse(SiteSetting["testimonials"].to_s)
@@ -20,47 +20,46 @@
 %>
 
 <section id="shoutout" data-rail-label="Voices"
-         class="relative py-32 bg-eco-bg overflow-hidden"
-         data-controller="modal">
+         class="relative py-32 bg-eco-bg overflow-hidden">
 
   <div class="absolute -top-24 -right-24 size-[36rem] rounded-full bg-eco-green/10 blur-[140px] pointer-events-none"></div>
   <div class="absolute -bottom-32 -left-24 size-[32rem] rounded-full bg-eco-green/[0.06] blur-[120px] pointer-events-none"></div>
 
-  <div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+  <div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-[auto_1fr] gap-14 lg:gap-20 items-center">
 
-    <%# ── LEFT: shoutout video card ─────────────────────────────────── %>
-    <div data-controller="reveal">
-      <div class="flex items-center gap-4 mb-6">
+    <%# ── LEFT: inline 9:16 vertical video panel ─────────────────────── %>
+    <div class="shoutout-vertical-wrap" data-controller="reveal">
+      <div class="flex items-center gap-4 mb-5">
         <span class="section-num">— 04</span>
         <p class="eco-eyebrow"><%= shoutout_label %></p>
       </div>
 
-      <h3 class="font-display text-4xl md:text-5xl text-eco-white leading-[1.08] mb-8">
-        Hear it<br>
-        <span class="italic font-normal text-eco-green-light">from him directly.</span>
-      </h3>
-
-      <div class="shoutout-card"
-           role="button"
-           tabindex="0"
-           data-action="click->modal#open">
-        <div class="poster" style="background-image: url('<%= shoutout_poster %>')"></div>
-
-        <div class="shoutout-label">Live shoutout</div>
-
-        <div class="shoutout-play">
-          <span class="play-btn">▶</span>
-        </div>
-
-        <div class="shoutout-meta">
-          <span class="title">
-            <%= shoutout_cta %>
-          </span>
-          <span class="runtime">
-            0:58 · Vertical
-          </span>
-        </div>
+      <div class="shoutout-vertical">
+        <% if shoutout_video.present? %>
+          <video class="shoutout-vertical-video"
+                 src="<%= shoutout_video %>"
+                 <% if shoutout_poster.present? %>poster="<%= shoutout_poster %>"<% end %>
+                 controls
+                 playsinline
+                 preload="metadata"
+                 controlslist="nodownload"
+                 aria-label="<%= shoutout_cta %>"></video>
+        <% else %>
+          <div class="shoutout-vertical-empty">
+            <p class="eco-eyebrow text-eco-green-light">Coming soon</p>
+            <p class="mt-3 font-display italic text-eco-white text-lg">
+              The author's message is on the way.
+            </p>
+            <p class="mt-3 text-xs text-eco-text-muted">
+              Drop the URL into <span class="font-mono text-eco-green-light">/admin/home → Shoutout video URL</span>.
+            </p>
+          </div>
+        <% end %>
       </div>
+
+      <p class="mt-4 font-mono text-[10px] tracking-[0.3em] uppercase text-eco-text-muted">
+        <%= shoutout_cta %> · Vertical
+      </p>
     </div>
 
     <%# ── RIGHT: testimonial rotator ─────────────────────────────────── %>
@@ -70,7 +69,12 @@
         <p class="eco-eyebrow">Voices</p>
       </div>
 
-      <span class="mark">“</span>
+      <h3 class="font-display text-4xl md:text-5xl text-eco-white leading-[1.08] mb-8">
+        Hear it<br>
+        <span class="italic font-normal text-eco-green-light">from him directly.</span>
+      </h3>
+
+      <span class="mark">"</span>
 
       <div class="items"
            data-controller="tagline-rotator"
@@ -88,38 +92,5 @@
         <span><%= testimonials.length %> voices · rotating</span>
       </div>
     </div>
-  </div>
-
-  <%# ── Modal ───────────────────────────────────────────────────────── %>
-  <div class="modal-panel"
-       data-modal-target="panel"
-       data-action="click->modal#backdrop">
-
-    <% if shoutout_video.present? %>
-      <div class="modal-vertical">
-        <button type="button" class="modal-close"
-                data-action="click->modal#close"
-                aria-label="Close">×</button>
-        <video data-modal-target="video"
-               data-src="<%= shoutout_video %>"
-               playsinline
-               controls
-               preload="none"></video>
-      </div>
-    <% else %>
-      <div class="modal-empty" data-modal-backdrop>
-        <button type="button" class="modal-close"
-                data-action="click->modal#close"
-                aria-label="Close">×</button>
-        <p class="eco-eyebrow text-eco-green-light">Coming soon</p>
-        <h4 class="font-display text-3xl mt-4 text-eco-white">
-          The shoutout video is on the way.
-        </h4>
-        <p class="mt-4 text-sm text-eco-text-muted leading-relaxed">
-          Drop the video URL into <span class="font-mono text-eco-green-light">SiteSettings → shoutout_video_url</span>
-          inside the admin CMS and refresh — it'll play here immediately.
-        </p>
-      </div>
-    <% end %>
   </div>
 </section>

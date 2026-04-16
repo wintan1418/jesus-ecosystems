@@ -1,8 +1,37 @@
-<div class="flex items-center gap-1 rounded-full border border-eco-border bg-eco-bg/40 backdrop-blur-md p-1 text-xs">
-  <% available_locales.each do |loc| %>
-    <% active = (loc == I18n.locale) %>
-    <%= link_to loc.to_s.upcase,
-                url_for(locale: loc, only_path: true),
-                class: "px-3 py-1.5 rounded-full font-semibold tracking-wider transition #{active ? 'bg-eco-green text-eco-bg shadow-[0_0_18px_rgba(163,191,100,0.4)]' : 'text-eco-text-muted hover:text-eco-white'}" %>
-  <% end %>
-</div>
+<%
+  # Human-readable labels keyed by locale. The designer will expand this to
+  # 12+ languages on their end; we just need the UX pattern (dropdown) right.
+  language_labels = {
+    en: "English",
+    es: "Español",
+    pt: "Português"
+  }
+  current_label = language_labels[I18n.locale] || I18n.locale.to_s.upcase
+%>
+
+<details class="lang-dropdown" aria-label="Language">
+  <summary class="lang-dropdown-button">
+    <span class="lang-dropdown-code"><%= I18n.locale.to_s.upcase %></span>
+    <span class="lang-dropdown-label"><%= current_label %></span>
+    <svg class="lang-dropdown-caret" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+      <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </summary>
+
+  <ul class="lang-dropdown-menu" role="menu">
+    <% available_locales.each do |loc| %>
+      <% active = (loc == I18n.locale) %>
+      <li role="none">
+        <%= link_to url_for(locale: loc, only_path: true),
+                    role: "menuitem",
+                    class: "lang-dropdown-option #{'is-active' if active}" do %>
+          <span class="lang-dropdown-option-code"><%= loc.to_s.upcase %></span>
+          <span class="lang-dropdown-option-label"><%= language_labels[loc] || loc.to_s.upcase %></span>
+          <% if active %>
+            <span class="lang-dropdown-check" aria-hidden="true">✓</span>
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</details>
