@@ -324,8 +324,8 @@ body {
 
 .book {
   position: relative;
-  width: min(92vw, 1100px);
-  aspect-ratio: 16 / 11;
+  width: min(94vw, 1300px);
+  height: min(80vh, 750px);
   margin: 0 auto;
   transform-style: preserve-3d;
 }
@@ -384,15 +384,30 @@ body {
   inset: 0;
   background: linear-gradient(180deg, #f5f0dc 0%, #ebe4cc 100%);
   color: #1c2015;
-  padding: clamp(1.5rem, 3.5vw, 3.5rem);
+  padding: clamp(1.25rem, 2.5vw, 2.5rem);
+  padding-bottom: 3rem;
   border-radius: 0 16px 16px 0;
   box-shadow:
     inset 12px 0 24px -16px rgba(0, 0, 0, 0.45),
     inset 0 0 0 1px rgba(0, 0, 0, 0.06);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   font-family: var(--font-display);
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Scrollbar styling for book pages */
+.leaf .page::-webkit-scrollbar {
+  width: 4px;
+}
+.leaf .page::-webkit-scrollbar-track {
+  background: transparent;
+}
+.leaf .page::-webkit-scrollbar-thumb {
+  background: rgba(28, 32, 21, 0.2);
+  border-radius: 4px;
 }
 
 .leaf .page.back {
@@ -408,32 +423,34 @@ body {
   background:
     radial-gradient(ellipse at top left, #3a4a1e 0%, #1c2015 70%);
   color: var(--color-eco-white);
+  overflow: hidden;
 }
 
 .leaf .page .page-num {
   position: absolute;
-  bottom: 1.25rem;
+  bottom: 0.75rem;
   font-family: var(--font-mono);
   font-size: 0.65rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: rgba(28, 32, 21, 0.45);
+  z-index: 2;
 }
 
-.leaf .page.front .page-num { right: 1.5rem; }
-.leaf .page.back  .page-num { left: 1.5rem; }
+.leaf .page.front .page-num { right: 1rem; }
+.leaf .page.back  .page-num { left: 1rem; }
 .leaf .page.cover .page-num { color: rgba(245, 250, 246, 0.5); }
 
 .leaf .page h2 {
-  font-size: clamp(1.5rem, 3vw, 2.75rem);
+  font-size: clamp(1.25rem, 2.5vw, 2.25rem);
   font-weight: 700;
-  line-height: 1.05;
+  line-height: 1.1;
   margin-bottom: 1rem;
 }
 
 .leaf .page p {
   font-family: var(--font-sans);
-  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  font-size: clamp(0.875rem, 1vw, 1rem);
   line-height: 1.7;
   color: rgba(28, 32, 21, 0.78);
   margin-bottom: 1rem;
@@ -442,10 +459,10 @@ body {
 .leaf .page .chapter-num {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--color-eco-green);
   display: inline-block;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .leaf .page .lock-mark {
@@ -461,6 +478,34 @@ body {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba(28, 32, 21, 0.6);
+}
+
+/* Mobile: stack book as single scrollable page */
+@media (max-width: 767px) {
+  .book-stage { perspective: none; }
+  .book {
+    width: 100%;
+    height: auto;
+    min-height: 60vh;
+  }
+  .book::before { display: none; }
+  .book-back { display: none; }
+  .leaf {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 50vh;
+  }
+  .leaf .page {
+    position: relative;
+    border-radius: 16px;
+    min-height: 50vh;
+    padding: 1.5rem;
+    padding-bottom: 3rem;
+  }
+  .leaf .page.back { display: none; }
+  .leaf[data-flipped="true"] { transform: none; }
+  .reader-controls { margin-top: 1.5rem; }
 }
 
 /* Reader chrome */
