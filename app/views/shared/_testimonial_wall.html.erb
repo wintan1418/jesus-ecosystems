@@ -6,12 +6,18 @@
   rescue JSON::ParserError
     []
   end
-  letters = letters.shuffle
-  # Split across 3 rows so the marquee feels dense but readable.
-  rows = letters.each_slice((letters.size / 3.0).ceil).to_a
 %>
 
 <% if letters.any? %>
+  <%
+    letters    = letters.shuffle
+    # Split across 3 rows so the marquee feels dense but readable.
+    # Clamp slice size to >= 1 so we never pass 0 to each_slice — that
+    # raises ArgumentError and was blowing up production when the
+    # testimonial_letters SiteSetting hadn't been seeded.
+    slice_size = [(letters.size / 3.0).ceil, 1].max
+    rows       = letters.each_slice(slice_size).to_a
+  %>
 <section id="letters" data-rail-label="Letters"
          class="relative py-32 overflow-hidden border-t border-eco-border bg-eco-bg">
 
