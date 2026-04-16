@@ -93,6 +93,22 @@ body {
     inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
+@media (max-width: 767px) {
+  .crt-device {
+    border-radius: 20px;
+    padding: 16px 14px 20px;
+  }
+  .crt-screen { border-radius: 12px; }
+  .crt-chrome { padding: 8px 4px 0; font-size: 7px; }
+  .crt-rec { font-size: 7px; padding: 3px 8px; gap: 5px; }
+  .crt-rec .crt-rec-dot { width: 5px; height: 5px; }
+  .crt-screen > .crt-bracket { width: 14px; height: 14px; }
+  .crt-screen > .crt-bracket.tl { top: 8px; left: 8px; }
+  .crt-screen > .crt-bracket.tr { top: 8px; right: 8px; }
+  .crt-screen > .crt-bracket.bl { bottom: 8px; left: 8px; }
+  .crt-screen > .crt-bracket.br { bottom: 8px; right: 8px; }
+}
+
 /* Top bezel highlight */
 .crt-device::before {
   content: "";
@@ -1592,6 +1608,81 @@ trix-toolbar .trix-button.trix-active {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+/* ─── Mobile hamburger nav ───────────────────────────────────────────────── */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 28px;
+  height: 28px;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 60;
+}
+
+.mobile-menu-btn span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-eco-white);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-btn[aria-expanded="true"] span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.mobile-menu-btn[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.mobile-menu-btn[aria-expanded="true"] span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.mobile-nav-panel {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: rgba(28, 32, 21, 0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  padding: 6rem 2rem 3rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  animation: mobile-nav-in 0.35s ease-out;
+}
+
+.mobile-nav-panel[data-open="true"] {
+  display: flex;
+}
+
+.mobile-nav-panel a {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  color: var(--color-eco-white);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.mobile-nav-panel a:hover {
+  color: var(--color-eco-green-light);
+}
+
+@keyframes mobile-nav-in {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 767px) {
+  .mobile-menu-btn { display: flex; }
+}
+
 /* ─── Display headline — fluid but constrained ───────────────────────────── */
 .eco-display {
   font-family: var(--font-display);
@@ -1604,6 +1695,13 @@ trix-toolbar .trix-button.trix-active {
   word-break: keep-all;
   overflow-wrap: normal;
   hyphens: none;
+}
+
+@media (max-width: 767px) {
+  .eco-display {
+    font-size: clamp(1.75rem, 7.5vw, 2.5rem);
+    line-height: 1.08;
+  }
 }
 
 /* ─── Animated underline accent ──────────────────────────────────────────── */
@@ -1797,6 +1895,84 @@ trix-toolbar .trix-button.trix-active {
   -webkit-text-stroke: 1px rgba(163, 191, 100, 0.35);
   color: transparent;
   letter-spacing: -0.04em;
+}
+
+@media (max-width: 767px) {
+  .outline-word {
+    font-size: clamp(2.5rem, 14vw, 5rem);
+  }
+}
+
+/* ─── Mobile overrides for all sections ──────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Tighter section padding */
+  #hero .pt-36 { padding-top: 6rem !important; }
+  #hero .pb-24 { padding-bottom: 3rem !important; }
+  #stats { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+  #manifesto { padding-top: 5rem !important; padding-bottom: 5rem !important; }
+  #volumes { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+  #pillars .py-40 { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+  #quote { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+  #cta .py-40 { padding-top: 5rem !important; padding-bottom: 5rem !important; }
+
+  /* Scroll indicator hidden on mobile */
+  #hero > .absolute.bottom-6 { display: none; }
+
+  /* Stats counters */
+  #stats .font-display.text-6xl,
+  #stats .font-display.text-7xl { font-size: 2.5rem !important; }
+
+  /* Manifesto text */
+  #manifesto .font-display.text-3xl,
+  #manifesto .font-display.text-5xl { font-size: 1.5rem !important; line-height: 1.25 !important; }
+
+  /* Volume headlines */
+  #volumes .font-display.text-5xl,
+  #volumes .font-display.text-7xl { font-size: 2.25rem !important; }
+  #volumes .font-display.text-4xl { font-size: 1.75rem !important; }
+
+  /* Pillar headlines */
+  #pillars .font-display.text-5xl,
+  #pillars .font-display.text-7xl { font-size: 2.25rem !important; }
+
+  /* Quote */
+  #quote .font-display.text-8xl { font-size: 3rem !important; }
+  #quote .font-display.text-3xl,
+  #quote .font-display.text-5xl { font-size: 1.5rem !important; }
+
+  /* CTA band */
+  #cta .font-display.text-5xl,
+  #cta .font-display.text-7xl { font-size: 2rem !important; line-height: 1.1 !important; }
+
+  /* Footer subscribe card */
+  footer .rounded-3xl.p-10 { padding: 1.5rem !important; }
+  footer .font-display.text-3xl,
+  footer .font-display.text-5xl { font-size: 1.5rem !important; }
+  footer .mt-32 { margin-top: 4rem !important; }
+  footer .pt-28 { padding-top: 4rem !important; }
+  footer .pb-24 { padding-bottom: 3rem !important; }
+
+  /* Shoutout card */
+  .shoutout-play .play-btn { width: 64px; height: 64px; font-size: 1.4rem; }
+  .shoutout-label { top: 0.75rem; left: 0.75rem; font-size: 0.5rem; padding: 0.35rem 0.65rem; }
+  .shoutout-meta { bottom: 1rem; left: 1rem; right: 1rem; }
+  .shoutout-meta .title { font-size: 1rem; }
+
+  /* Tagline rotator */
+  .tagline-stack { font-size: 1rem !important; }
+
+  /* Hero buttons stacking */
+  #hero .flex-wrap { gap: 0.5rem !important; }
+  #hero .eco-btn-primary,
+  #hero .eco-btn-ghost {
+    width: 100%;
+    justify-content: center;
+    padding: 0.85rem 1.5rem;
+  }
+
+  /* Ambient blurs — smaller on mobile for performance */
+  .absolute.size-\[36rem\] { width: 12rem !important; height: 12rem !important; }
+  .absolute.size-\[28rem\] { width: 10rem !important; height: 10rem !important; }
 }
 
 /* ─── Tagline rotator ────────────────────────────────────────────────────── */

@@ -18,6 +18,21 @@
       <%= render "shared/language_switcher" %>
       <%= link_to t("nav.request"), request_free_copy_path,
                   class: "hidden lg:inline-flex eco-btn-primary !py-2.5 !px-5 text-xs tracking-wider uppercase" %>
+
+      <%# Mobile hamburger button %>
+      <button class="mobile-menu-btn md:hidden" aria-expanded="false" aria-label="Open menu"
+              onclick="const panel = document.getElementById('mobile-nav'); const open = panel.dataset.open === 'true'; panel.dataset.open = !open; this.setAttribute('aria-expanded', !open); document.body.style.overflow = open ? '' : 'hidden';">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
+
+  <%# Mobile fullscreen nav %>
+  <div id="mobile-nav" class="mobile-nav-panel" data-open="false">
+    <%= link_to t("nav.books"),       books_path,             onclick: "document.getElementById('mobile-nav').dataset.open='false'; document.querySelector('.mobile-menu-btn').setAttribute('aria-expanded','false'); document.body.style.overflow='';" %>
+    <%= link_to t("nav.audiobooks"),  audiobooks_path,        onclick: "document.getElementById('mobile-nav').dataset.open='false'; document.querySelector('.mobile-menu-btn').setAttribute('aria-expanded','false'); document.body.style.overflow='';" %>
+    <%= link_to "About",              about_path,             onclick: "document.getElementById('mobile-nav').dataset.open='false'; document.querySelector('.mobile-menu-btn').setAttribute('aria-expanded','false'); document.body.style.overflow='';" %>
+    <%= link_to t("nav.request"),     request_free_copy_path, class: "eco-btn-primary mt-4 text-base", onclick: "document.getElementById('mobile-nav').dataset.open='false'; document.querySelector('.mobile-menu-btn').setAttribute('aria-expanded','false'); document.body.style.overflow='';" %>
+  </div>
 </header>
+
