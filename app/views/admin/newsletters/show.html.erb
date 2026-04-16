@@ -1,0 +1,89 @@
+<% content_for :title, "#{@newsletter.subject} · Admin" %>
+
+<%= admin_page_header @newsletter.subject,
+      eyebrow: "#{@newsletter.locale.upcase} · #{@newsletter.status.titleize}",
+      subtitle: @newsletter.preheader.presence do %>
+  <% unless @newsletter.sent? %>
+    <%= link_to "Edit", edit_admin_newsletter_path(@newsletter),
+                class: "admin-btn admin-btn--ghost" %>
+    <%= button_to "Send test to me", send_test_admin_newsletter_path(@newsletter),
+                  method: :post,
+                  class: "admin-btn admin-btn--ghost" %>
+    <%= button_to "Broadcast now →", broadcast_admin_newsletter_path(@newsletter),
+                  method: :post,
+                  data: { turbo_confirm: "Send to #{@newsletter.recipients.count} subscribers in #{@newsletter.locale.upcase}? This cannot be undone." },
+                  class: "admin-btn admin-btn--primary" %>
+  <% end %>
+<% end %>
+
+<div class="grid lg:grid-cols-3 gap-6">
+  <%# Sidebar — meta + actions %>
+  <div class="lg:col-span-1 space-y-4">
+    <div class="admin-card">
+      <p class="admin-field-label mb-2">Status</p>
+      <% case @newsletter.status %>
+      <% when "sent" %>
+        <span class="admin-badge admin-badge--shipped">Sent</span>
+        <p class="text-xs text-eco-text-muted mt-3">
+          <%= @newsletter.sent_at.strftime("%B %-d, %Y at %H:%M") %><br>
+          to <strong class="text-eco-white"><%= @newsletter.recipients_count %></strong> subscribers
+        </p>
+        <% if @newsletter.sent_by %>
+          <p class="text-xs text-eco-text-muted mt-2">
+            Sent by <%= @newsletter.sent_by.email %>
+          </p>
+        <% end %>
+      <% when "scheduled" %>
+        <span class="admin-badge admin-badge--fulfilling">Scheduled</span>
+        <p class="text-xs text-eco-text-muted mt-3">
+          Goes out <%= @newsletter.scheduled_for.strftime("%B %-d, %Y at %H:%M") %>
+        </p>
+      <% else %>
+        <span class="admin-badge admin-badge--pending">Draft</span>
+        <p class="text-xs text-eco-text-muted mt-3">
+          Will reach <strong class="text-eco-white"><%= @newsletter.recipients.count %></strong>
+          confirmed <%= @newsletter.locale.upcase %> subscribers when broadcast.
+        </p>
+      <% end %>
+    </div>
+
+    <div class="admin-card text-sm">
+      <p class="admin-field-label mb-3">Details</p>
+      <dl class="space-y-2 text-eco-text">
+        <div><dt class="text-xs text-eco-text-muted">Locale</dt><dd><%= @newsletter.locale.upcase %></dd></div>
+        <div><dt class="text-xs text-eco-text-muted">Created</dt><dd><%= @newsletter.created_at.strftime("%b %-d, %Y") %></dd></div>
+        <div><dt class="text-xs text-eco-text-muted">Updated</dt><dd><%= @newsletter.updated_at.strftime("%b %-d, %Y · %H:%M") %></dd></div>
+      </dl>
+    </div>
+
+    <% unless @newsletter.sent? %>
+      <%= button_to "Delete draft",
+                    admin_newsletter_path(@newsletter),
+                    method: :delete,
+                    data: { turbo_confirm: "Delete this draft? Cannot be undone." },
+                    class: "admin-btn admin-btn--danger w-full" %>
+    <% end %>
+  </div>
+
+  <%# Preview %>
+  <div class="lg:col-span-2">
+    <div class="admin-card">
+      <p class="admin-field-label mb-4">Preview</p>
+
+      <% if @newsletter.preheader.present? %>
+        <p class="text-xs text-eco-text-muted italic mb-4 px-4 py-2 rounded-lg bg-eco-bg/40 border border-eco-border">
+          Inbox preview: <%= @newsletter.preheader %>
+        </p>
+      <% end %>
+
+      <div class="rounded-2xl border border-eco-border bg-eco-bg/40 p-8 md:p-10">
+        <h2 class="font-display text-3xl text-eco-white mb-6 leading-tight">
+          <%= @newsletter.subject %>
+        </h2>
+        <div class="prose-eco" style="max-width:100%; color: var(--color-eco-text)">
+          <%= @newsletter.body %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

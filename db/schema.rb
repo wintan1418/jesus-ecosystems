@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_16_145519) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_16_161629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -234,6 +234,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_16_145519) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "newsletters", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "locale", default: "en", null: false
+    t.string "preheader"
+    t.integer "recipients_count", default: 0, null: false
+    t.datetime "scheduled_for"
+    t.datetime "sent_at"
+    t.bigint "sent_by_id"
+    t.string "subject", null: false
+    t.datetime "updated_at", null: false
+    t.index ["locale"], name: "index_newsletters_on_locale"
+    t.index ["scheduled_for"], name: "index_newsletters_on_scheduled_for"
+    t.index ["sent_at"], name: "index_newsletters_on_sent_at"
+    t.index ["sent_by_id"], name: "index_newsletters_on_sent_by_id"
   end
 
   create_table "noticed_events", force: :cascade do |t|

@@ -1,0 +1,78 @@
+<% content_for :title, "Weekly broadcasts · Admin" %>
+
+<%= admin_page_header "Weekly broadcasts", eyebrow: "Outreach",
+      subtitle: "Compose a broadcast and send it to every confirmed subscriber." do %>
+  <%= link_to "New broadcast", new_admin_newsletter_path, class: "admin-btn admin-btn--primary" %>
+<% end %>
+
+<div class="grid lg:grid-cols-3 gap-6">
+  <%# Subscriber summary stat cards %>
+  <div class="admin-stat admin-stat--accent">
+    <p class="admin-stat-label">Subscribers · EN</p>
+    <p class="admin-stat-value"><%= EmailSubscriber.subscribed.where(locale: "en").count %></p>
+    <p class="admin-stat-hint">Confirmed English subscribers.</p>
+  </div>
+  <div class="admin-stat">
+    <p class="admin-stat-label">Subscribers · ES</p>
+    <p class="admin-stat-value"><%= EmailSubscriber.subscribed.where(locale: "es").count %></p>
+    <p class="admin-stat-hint">Confirmed Spanish subscribers.</p>
+  </div>
+  <div class="admin-stat">
+    <p class="admin-stat-label">Subscribers · PT</p>
+    <p class="admin-stat-value"><%= EmailSubscriber.subscribed.where(locale: "pt").count %></p>
+    <p class="admin-stat-hint">Confirmed Portuguese subscribers.</p>
+  </div>
+</div>
+
+<div class="grid lg:grid-cols-2 gap-6 mt-8">
+  <%# Drafts %>
+  <div class="admin-card">
+    <div class="admin-card-header">
+      <h3 class="admin-card-title">Drafts</h3>
+      <%= link_to "+ New", new_admin_newsletter_path, class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+    </div>
+    <% if @drafts.any? %>
+      <ul class="divide-y divide-eco-border">
+        <% @drafts.each do |n| %>
+          <li class="py-4 flex items-center justify-between gap-4">
+            <div class="min-w-0">
+              <%= link_to n.subject.presence || "(untitled)", admin_newsletter_path(n),
+                          class: "font-display text-eco-white text-lg hover:text-eco-green-light transition" %>
+              <p class="text-xs text-eco-text-muted mt-1">
+                <%= n.locale.upcase %> · saved <%= time_ago_in_words(n.updated_at) %> ago
+              </p>
+            </div>
+            <%= link_to "Edit", edit_admin_newsletter_path(n), class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="admin-field-help">No drafts yet. Hit "+ New" to compose this week's broadcast.</p>
+    <% end %>
+  </div>
+
+  <%# Sent history %>
+  <div class="admin-card">
+    <div class="admin-card-header">
+      <h3 class="admin-card-title">Recently sent</h3>
+    </div>
+    <% if @sent.any? %>
+      <ul class="divide-y divide-eco-border">
+        <% @sent.each do |n| %>
+          <li class="py-4 flex items-center justify-between gap-4">
+            <div class="min-w-0">
+              <%= link_to n.subject, admin_newsletter_path(n),
+                          class: "font-display text-eco-white text-lg hover:text-eco-green-light transition" %>
+              <p class="text-xs text-eco-text-muted mt-1">
+                <span class="admin-badge admin-badge--shipped">Sent</span>
+                <%= n.locale.upcase %> · <%= n.sent_at.strftime("%b %-d, %Y · %H:%M") %> · <%= n.recipients_count %> recipients
+              </p>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="admin-field-help">Nothing has been broadcast yet.</p>
+    <% end %>
+  </div>
+</div>

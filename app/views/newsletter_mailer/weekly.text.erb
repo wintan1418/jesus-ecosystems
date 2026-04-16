@@ -1,0 +1,11 @@
+<%= @site_name %> · Weekly · <%= Date.current.strftime("%B %-d, %Y") %>
+======================================================
+
+<%= @newsletter.subject.upcase %>
+
+<%= @newsletter.body.to_plain_text %>
+
+------------------------------------------------------
+Sent to <%= @subscriber.email %>
+© <%= Date.current.year %> <%= @site_name %>
+<%= @site_url %>

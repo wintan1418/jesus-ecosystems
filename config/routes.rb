@@ -31,6 +31,13 @@ Rails.application.routes.draw do
     resources :site_settings
     resources :posts
     resources :episodes
+
+    resources :newsletters do
+      member do
+        post :send_test
+        post :broadcast
+      end
+    end
   end
 
   # Back-compat aliases so any bookmarks still resolve.

@@ -32,16 +32,10 @@
       <%= link_to admin_audiobooks_path, class: admin_nav_class(controller_name == "audiobooks") do %>
         <span class="admin-nav-icon">♪</span> Audiobooks
       <% end %>
-      <%= link_to admin_posts_path, class: admin_nav_class(controller_name == "posts") do %>
-        <span class="admin-nav-icon">✒</span> Journal
-      <% end %>
-      <%= link_to admin_episodes_path, class: admin_nav_class(controller_name == "episodes") do %>
-        <span class="admin-nav-icon">◉</span> Podcast
-      <% end %>
     </div>
 
     <div class="admin-nav-group">
-      <p class="admin-nav-group-label">Fulfillment</p>
+      <p class="admin-nav-group-label">Outreach</p>
       <%= link_to admin_free_copy_requests_path, class: admin_nav_class(controller_name == "free_copy_requests") do %>
         <span class="admin-nav-icon">✦</span> Free copy requests
         <% pending = FreeCopyRequest.where(status: "pending").count rescue 0 %>
@@ -51,6 +45,21 @@
       <% end %>
       <%= link_to admin_email_subscribers_path, class: admin_nav_class(controller_name == "email_subscribers") do %>
         <span class="admin-nav-icon">✉</span> Subscribers
+      <% end %>
+      <% if defined?(admin_newsletters_path) %>
+        <%= link_to admin_newsletters_path, class: admin_nav_class(controller_name == "newsletters") do %>
+          <span class="admin-nav-icon">📨</span> Weekly broadcasts
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="admin-nav-group">
+      <p class="admin-nav-group-label">Drafts · Hidden from public</p>
+      <%= link_to admin_posts_path, class: admin_nav_class(controller_name == "posts") do %>
+        <span class="admin-nav-icon">✒</span> Journal
+      <% end %>
+      <%= link_to admin_episodes_path, class: admin_nav_class(controller_name == "episodes") do %>
+        <span class="admin-nav-icon">◉</span> Podcast
       <% end %>
     </div>
 

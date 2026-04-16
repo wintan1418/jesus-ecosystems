@@ -1,0 +1,8 @@
+<% content_for :title, "New broadcast · Admin" %>
+
+<%= admin_page_header "New weekly broadcast", eyebrow: "Outreach",
+      subtitle: "Compose. Test. Then send to every confirmed subscriber." %>
+
+<div class="admin-card">
+  <%= render "form", newsletter: @newsletter %>
+</div>

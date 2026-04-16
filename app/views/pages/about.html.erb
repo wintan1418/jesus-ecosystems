@@ -67,43 +67,17 @@
   </section>
 <% end %>
 
-<%# ─── Recent journal posts ───────────────────────────────────────── %>
-<% if @recent_posts.any? %>
-  <section class="max-w-5xl mx-auto px-6 py-32">
-    <div class="flex items-end justify-between flex-wrap gap-6 mb-16" data-controller="reveal">
-      <div>
-        <div class="flex items-center gap-4 mb-4">
-          <span class="section-num">— 02</span>
-          <p class="eco-eyebrow">Latest from the journal</p>
-        </div>
-        <h2 class="font-display text-4xl md:text-6xl text-eco-white leading-tight">
-          Field notes.
-        </h2>
-      </div>
-      <%= link_to "All entries →", journal_path, class: "text-xs tracking-[0.25em] uppercase text-eco-green-light hover:text-eco-green transition" %>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-6">
-      <% @recent_posts.each do |post| %>
-        <%= link_to post_path(post.slug), class: "group block", data: { controller: "reveal" } do %>
-          <article class="h-full rounded-2xl border border-eco-border bg-eco-surface p-7 transition-all duration-500 hover:border-eco-green hover:-translate-y-1">
-            <p class="font-mono text-[10px] tracking-[0.25em] uppercase text-eco-text-muted">
-              <%= post.published_at.strftime("%b %-d, %Y") %> · <%= post.reading_time %>
-            </p>
-            <h3 class="mt-4 font-display text-xl text-eco-white leading-tight group-hover:text-eco-green-light transition">
-              <%= post.title %>
-            </h3>
-            <% if post.excerpt.present? %>
-              <p class="mt-3 text-sm text-eco-text-muted leading-relaxed line-clamp-3">
-                <%= post.excerpt %>
-              </p>
-            <% end %>
-            <span class="mt-6 inline-flex items-center text-eco-green text-xs tracking-[0.2em] uppercase gap-2 group-hover:gap-4 transition-all">
-              Read <span>→</span>
-            </span>
-          </article>
-        <% end %>
-      <% end %>
-    </div>
-  </section>
-<% end %>
+<%# ─── CTA back to the books / free copies ─────────────────────── %>
+<section class="max-w-3xl mx-auto px-6 py-32 text-center" data-controller="reveal">
+  <p class="eco-eyebrow">— Take the next step</p>
+  <h2 class="mt-6 font-display text-4xl md:text-5xl text-eco-white leading-tight">
+    Get the books in your hands.
+  </h2>
+  <p class="mt-4 text-eco-text-muted max-w-md mx-auto">
+    Worldwide shipping. 100% free. Sent the day we receive your address.
+  </p>
+  <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+    <%= link_to "Request free copies", request_free_copy_path, class: "eco-btn-primary text-sm" %>
+    <%= link_to "Listen free",          audiobooks_path,        class: "eco-btn-ghost text-sm" %>
+  </div>
+</section>

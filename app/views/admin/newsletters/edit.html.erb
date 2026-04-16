@@ -1,0 +1,9 @@
+<% content_for :title, "Edit broadcast · Admin" %>
+
+<%= admin_page_header @newsletter.subject.presence || "Untitled broadcast",
+      eyebrow: "Editing draft",
+      subtitle: "Locale: #{@newsletter.locale.upcase}" %>
+
+<div class="admin-card">
+  <%= render "form", newsletter: @newsletter %>
+</div>
