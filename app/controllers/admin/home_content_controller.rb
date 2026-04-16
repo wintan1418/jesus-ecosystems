@@ -8,8 +8,8 @@ class Admin::HomeContentController < Admin::BaseController
       subtitle: "Headline, subhead, taglines, and the lead CTAs.",
       fields: [
         { key: "hero_eyebrow",      label: "Eyebrow",          kind: :text },
-        { key: "hero_headline_1",   label: "Headline (line 1)", kind: :text },
-        { key: "hero_headline_2",   label: "Headline (line 2 — italic)", kind: :text },
+        { key: "hero_headline_1",   label: "Headline (top — newline = line break)", kind: :textarea, rows: 3, help: "Each newline becomes a line break in the headline." },
+        { key: "hero_headline_2",   label: "Headline (italic, bottom — newline = line break)", kind: :textarea, rows: 3, help: "Italic green-light second half. Newlines become line breaks." },
         { key: "hero_subhead",      label: "Subhead",           kind: :textarea, rows: 3 },
         { key: "hero_rotators",     label: "Rotating taglines (JSON array of strings)", kind: :textarea, rows: 4, help: %(Example: ["from needy to noteworthy","from mundane to mountain-movers"]) },
         { key: "hero_cta_primary",  label: "Primary CTA label", kind: :text },

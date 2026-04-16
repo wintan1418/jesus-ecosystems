@@ -17,4 +17,12 @@ module ApplicationHelper
   rescue JSON::ParserError
     default
   end
+
+  # Read a CMS value and convert raw newlines into <br> tags so editors can
+  # control line breaks directly from the admin textarea. Use only when the
+  # field is intentionally multi-line (e.g. headlines).
+  def cms_lines(key, default: nil)
+    raw = cms(key, default: default).to_s
+    safe_join(raw.split(/\r?\n/), tag.br)
+  end
 end

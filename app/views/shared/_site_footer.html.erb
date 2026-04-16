@@ -35,10 +35,9 @@
 
   <div class="relative max-w-7xl mx-auto px-6 pt-12 pb-14 grid md:grid-cols-12 gap-12">
     <div class="md:col-span-4 space-y-4">
-      <div class="flex items-center gap-3">
-        <span class="block size-2.5 rounded-full bg-eco-green pulse-dot"></span>
-        <span class="font-display text-xl text-eco-white"><%= t("site.name") %></span>
-      </div>
+      <%= image_tag "/source-assets/logo.png",
+                    alt: t("site.name"),
+                    class: "h-12 w-auto opacity-90" %>
       <p class="font-display italic text-eco-text-muted text-lg max-w-xs">
         <%= cms("footer_tagline", default: t("site.tagline")) %>
       </p>

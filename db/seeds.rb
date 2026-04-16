@@ -146,8 +146,9 @@ puts "→ Seeding site settings (hero, manifesto, shoutout, testimonials, CTA, f
 home_content = {
   # Hero
   "hero_eyebrow"     => "A Two-Volume Christian Action Toolkit",
-  "hero_headline_1"  => "Jesus the Designer's",
-  "hero_headline_2"  => "Plan to Change the World.",
+  # Newlines become <br> via cms_lines() so the editor controls breaks.
+  "hero_headline_1"  => "Jesus the\nDesigner's Plan",
+  "hero_headline_2"  => "to Change\nthe World.",
   "hero_subhead"     => "A fresh look at how Jesus takes His crew — from chaos into community, from community into world-changing.",
   "hero_rotators"    => [
     "from needy to noteworthy",
