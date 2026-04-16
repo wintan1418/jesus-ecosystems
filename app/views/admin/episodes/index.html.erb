@@ -1,0 +1,77 @@
+<% content_for :title, "Podcast · Admin" %>
+
+<%= admin_page_header "Podcast", eyebrow: "Content",
+      subtitle: "Every episode you've published." do %>
+  <%= link_to "View on site →", podcast_path(locale: "en"),
+              target: "_blank", class: "admin-btn admin-btn--ghost" %>
+  <%= link_to "New episode", new_admin_episode_path, class: "admin-btn admin-btn--primary" %>
+<% end %>
+
+<div class="admin-filter-bar">
+  <%= link_to "All", admin_episodes_path,
+              class: "admin-filter-pill #{'admin-filter-pill--active' if params[:locale].blank?}" %>
+  <% %w[en es pt].each do |loc| %>
+    <%= link_to loc.upcase, admin_episodes_path(locale: loc),
+                class: "admin-filter-pill #{'admin-filter-pill--active' if params[:locale] == loc}" %>
+  <% end %>
+  <%= form_with url: admin_episodes_path, method: :get, class: "flex-1 flex justify-end" do |f| %>
+    <%= f.text_field :q, value: params[:q], placeholder: "Search title…", class: "admin-search" %>
+  <% end %>
+</div>
+
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th style="width:80px">Cover</th>
+        <th>Title</th>
+        <th>Locale</th>
+        <th>Season / #</th>
+        <th>Duration</th>
+        <th>Audio</th>
+        <th>Published</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @episodes.any? %>
+        <% @episodes.each do |ep| %>
+          <tr>
+            <td>
+              <% if ep.cover_image.attached? %>
+                <%= image_tag ep.cover_image, class: "admin-table-cover", style: "width:54px;height:54px;object-fit:cover" %>
+              <% else %>
+                <div class="rounded-md bg-eco-bg flex items-center justify-center text-eco-text-muted text-xs font-display italic" style="width:54px;height:54px"><%= ep.label %></div>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to ep.title, admin_episode_path(ep), class: "font-display text-base" %>
+              <% if ep.description.present? %>
+                <div class="text-xs text-eco-text-muted mt-1 max-w-md truncate"><%= ep.description %></div>
+              <% end %>
+            </td>
+            <td><span class="admin-badge admin-badge--shipped"><%= ep.locale.upcase %></span></td>
+            <td class="font-mono text-xs"><%= ep.label %></td>
+            <td class="font-mono text-xs"><%= ep.duration || "—" %></td>
+            <td>
+              <% if ep.audio_file.attached? %>
+                <span class="admin-badge admin-badge--shipped">attached</span>
+              <% else %>
+                <span class="admin-badge admin-badge--pending">missing</span>
+              <% end %>
+            </td>
+            <td class="text-xs text-eco-text-muted">
+              <% if ep.published? %><%= ep.published_at.strftime("%b %-d, %Y") %>
+              <% else %><span class="admin-badge admin-badge--pending">Draft</span><% end %>
+            </td>
+            <td>
+              <%= link_to "Edit", edit_admin_episode_path(ep), class: "admin-btn admin-btn--ghost admin-btn--xs" %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr><td colspan="8" class="admin-table-empty">— No episodes yet. Hit "New episode" to start.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

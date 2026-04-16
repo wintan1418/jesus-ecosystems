@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :email_subscribers, only: [:index, :show, :destroy]
     resources :site_settings
     resources :posts
+    resources :episodes
   end
 
   # Back-compat aliases so any bookmarks still resolve.
@@ -69,6 +70,11 @@ Rails.application.routes.draw do
     get  "/journal.rss",     to: "posts#index", defaults: { format: :rss }, as: :journal_rss
     get  "/journal",         to: "posts#index", as: :journal
     get  "/journal/:slug",   to: "posts#show",  as: :post
+
+    # Podcast
+    get  "/podcast.rss",     to: "podcast#index", defaults: { format: :rss }, as: :podcast_rss
+    get  "/podcast",         to: "podcast#index", as: :podcast
+    get  "/podcast/:slug",   to: "podcast#show",  as: :episode
 
     get  "/request-free-copy",            to: "free_copy_requests#new",        as: :request_free_copy
     get  "/request-free-copy/thank-you",  to: "free_copy_requests#thank_you",  as: :free_copy_thank_you

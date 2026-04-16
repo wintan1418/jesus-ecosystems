@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_16_143515) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_16_145519) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -177,6 +177,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_16_143515) do
     t.index ["email"], name: "index_email_subscribers_on_email", unique: true
     t.index ["locale"], name: "index_email_subscribers_on_locale"
     t.index ["source"], name: "index_email_subscribers_on_source"
+  end
+
+  create_table "episodes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.integer "duration_seconds"
+    t.boolean "explicit", default: false, null: false
+    t.string "locale", default: "en", null: false
+    t.integer "number"
+    t.integer "position", default: 0, null: false
+    t.datetime "published_at"
+    t.integer "season", default: 1, null: false
+    t.string "slug", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["locale"], name: "index_episodes_on_locale"
+    t.index ["published_at"], name: "index_episodes_on_published_at"
+    t.index ["season", "number"], name: "index_episodes_on_season_and_number"
+    t.index ["slug"], name: "index_episodes_on_slug", unique: true
   end
 
   create_table "free_copy_requests", force: :cascade do |t|

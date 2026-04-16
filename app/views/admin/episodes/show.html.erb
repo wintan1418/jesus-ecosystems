@@ -1,0 +1,48 @@
+<% content_for :title, "#{@episode.title} · Admin" %>
+
+<%= admin_page_header @episode.title,
+      eyebrow: "#{@episode.label} · #{@episode.locale.upcase} · #{@episode.published? ? @episode.published_at.strftime('%b %-d, %Y') : 'Draft'}",
+      subtitle: @episode.description do %>
+  <%= link_to "View →", episode_path(@episode.slug, locale: @episode.locale),
+              target: "_blank", class: "admin-btn admin-btn--ghost" %>
+  <%= link_to "Edit", edit_admin_episode_path(@episode), class: "admin-btn admin-btn--primary" %>
+  <%= button_to "Delete", admin_episode_path(@episode), method: :delete,
+                data: { turbo_confirm: "Delete this episode?" },
+                class: "admin-btn admin-btn--danger" %>
+<% end %>
+
+<div class="grid lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-1 space-y-4">
+    <% if @episode.cover_image.attached? %>
+      <div class="admin-card p-2">
+        <%= image_tag @episode.cover_image, class: "w-full aspect-square object-cover rounded-xl" %>
+      </div>
+    <% end %>
+
+    <div class="admin-card text-sm space-y-3">
+      <div><span class="admin-field-label">Season / Number</span><div class="text-eco-white mt-1 font-display"><%= @episode.label %></div></div>
+      <div><span class="admin-field-label">Duration</span><div class="text-eco-white mt-1 font-mono"><%= @episode.duration || "—" %></div></div>
+      <div><span class="admin-field-label">Explicit</span><div class="text-eco-white mt-1"><%= @episode.explicit ? "Yes" : "No" %></div></div>
+      <div>
+        <span class="admin-field-label">Audio</span>
+        <% if @episode.audio_file.attached? %>
+          <div class="text-xs text-eco-green-light mt-1"><%= @episode.audio_file.filename %></div>
+          <div class="text-xs text-eco-text-muted"><%= number_to_human_size(@episode.audio_file.byte_size) %></div>
+        <% else %>
+          <div class="text-eco-text-muted text-xs italic mt-1">No audio attached</div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="lg:col-span-2">
+    <div class="admin-card">
+      <% if @episode.audio_file.attached? %>
+        <audio controls src="<%= url_for(@episode.audio_file) %>" class="w-full mb-6"></audio>
+      <% end %>
+      <div class="prose-eco" style="max-width:100%; color: var(--color-eco-text)">
+        <%= @episode.body %>
+      </div>
+    </div>
+  </div>
+</div>

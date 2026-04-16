@@ -109,6 +109,21 @@ class Admin::HomeContentController < Admin::BaseController
         { key: "author_quote",     label: "Signature quote",       kind: :textarea, rows: 3 },
         { key: "author_journey",   label: "The journey narrative", kind: :textarea, rows: 4 }
       ]
+    },
+    {
+      id: "podcast",
+      title: "Podcast metadata",
+      subtitle: "Channel-level info that drives the podcast page + RSS feed.",
+      fields: [
+        { key: "podcast_title",       label: "Podcast title",       kind: :text },
+        { key: "podcast_subtitle",    label: "Tagline / subtitle",  kind: :textarea, rows: 2 },
+        { key: "podcast_author",      label: "Author name",         kind: :text },
+        { key: "podcast_owner_email", label: "Owner email (for iTunes)", kind: :text, help: "Required for podcast directories — kept private." },
+        { key: "podcast_category",    label: "Category",            kind: :text, help: "e.g. 'Religion & Spirituality'" },
+        { key: "podcast_cover_url",   label: "Cover artwork URL (1400×1400 square)", kind: :text },
+        { key: "podcast_apple_url",   label: "Apple Podcasts URL",  kind: :text },
+        { key: "podcast_spotify_url", label: "Spotify URL",         kind: :text }
+      ]
     }
   ].freeze
 
