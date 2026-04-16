@@ -51,7 +51,7 @@
               <div class="text-sm"><%= r.city %>, <%= r.country %></div>
               <div class="text-xs text-eco-text-muted"><%= r.postal_code %></div>
             </td>
-            <td class="font-mono text-xs"><%= Array(r.volumes_requested).join(", ") %></td>
+            <td class="font-mono text-xs text-eco-green-light"><%= r.book_summary.presence || "—" %></td>
             <td><span class="admin-badge admin-badge--shipped"><%= r.locale.upcase %></span></td>
             <td class="text-xs text-eco-text-muted"><%= time_ago_in_words(r.created_at) %> ago</td>
             <td>

@@ -1,0 +1,17 @@
+Hi <%= @request.first_name %>,
+
+Your free copy request just landed in our queue. Thank you for asking — the books are yours.
+
+What you asked for:
+  <%= @request.book_summary %>
+
+Shipping to:
+  <%= @request.full_name %>
+  <%= @request.address_line_1 %>
+  <% if @request.address_line_2.present? %><%= @request.address_line_2 %>
+  <% end %><%= @request.city %>, <%= @request.state_province %> <%= @request.postal_code %>
+  <%= @request.country %>
+
+We'll be in touch when the books are on the way.
+
+— <%= ENV.fetch('SITE_NAME', 'SystemOrEcosystem') %>

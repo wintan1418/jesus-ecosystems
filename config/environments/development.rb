@@ -31,8 +31,11 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
-  # Don't care if the mailer can't send.
+  # Don't care if the mailer can't send. Mails are stored in
+  # ActionMailer::Base.deliveries — inspect via `bin/rails c`.
   config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method       = :test
+  config.action_mailer.default_url_options   = { host: "localhost", port: 4000 }
 
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false

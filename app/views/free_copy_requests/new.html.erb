@@ -1,23 +1,162 @@
-<% content_for :title, "#{t('free_copy.new.heading_1')} #{t('free_copy.new.heading_2')} · #{t('site.name')}" %>
+<% content_for :title, "Request free hardcopies · #{t('site.name')}" %>
 
-<section class="relative pt-40 pb-32 overflow-hidden bg-mesh">
+<section class="relative pt-36 pb-32 overflow-hidden bg-mesh">
   <div class="absolute -top-32 -left-32 size-[36rem] rounded-full bg-eco-green/10 blur-[140px] pointer-events-none"></div>
+  <div class="absolute -bottom-40 right-0 size-[28rem] rounded-full bg-eco-green/[0.08] blur-[120px] pointer-events-none"></div>
 
-  <div class="relative max-w-3xl mx-auto px-6 text-center" data-controller="reveal">
-    <span class="inline-block rounded-full border border-eco-green/40 bg-eco-green-muted px-5 py-2 text-xs tracking-[0.25em] uppercase text-eco-green-light">
-      <%= t("free_copy.badge") %>
+  <%# Hero %>
+  <div class="relative max-w-3xl mx-auto px-6 text-center mb-14" data-controller="reveal">
+    <span class="inline-block rounded-full border border-eco-green/40 bg-eco-green-muted px-5 py-2 text-[10px] tracking-[0.3em] uppercase text-eco-green-light">
+      100% Free · Worldwide Shipping
     </span>
-    <h1 class="mt-10 font-display text-5xl md:text-7xl text-eco-white leading-[1.05]">
-      <%= t("free_copy.new.heading_1") %><br>
-      <span class="italic font-normal text-eco-green-light"><%= t("free_copy.new.heading_2") %></span>
+    <h1 class="mt-8 eco-display">
+      Request free<br>
+      <span class="italic font-normal text-eco-green-light">hardcopies.</span>
     </h1>
-    <p class="mt-8 eco-subhead max-w-xl mx-auto">
-      <%= t("free_copy.new.subhead") %>
+    <p class="mt-6 eco-subhead max-w-xl mx-auto">
+      Tell us where to ship. We pay the postage. The books are yours.
     </p>
+  </div>
 
-    <div class="mt-12 inline-flex items-center gap-3 rounded-full border border-eco-border bg-eco-surface px-5 py-3 text-xs tracking-wider uppercase text-eco-text-muted">
-      <span class="size-1.5 rounded-full bg-eco-green pulse-dot"></span>
-      <%= t("free_copy.new.coming_soon") %>
-    </div>
+  <%# Form card %>
+  <div class="relative max-w-3xl mx-auto px-6">
+    <%= form_with model: @request, url: free_copy_requests_path,
+                  data: { controller: "reveal" },
+                  class: "rounded-3xl border border-eco-border bg-eco-surface/70 backdrop-blur-xl p-8 md:p-12 space-y-10" do |f| %>
+
+      <%# Validation errors %>
+      <% if @request.errors.any? %>
+        <div class="rounded-2xl border border-red-500/40 bg-red-950/30 px-5 py-4 text-sm text-red-200">
+          <p class="font-medium mb-2">Please fix:</p>
+          <ul class="list-disc list-inside space-y-1 text-xs opacity-90">
+            <% @request.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%# Honeypot — hidden from real users via aria + tab + 0 dimensions. %>
+      <div class="absolute opacity-0 pointer-events-none -left-[9999px]" aria-hidden="true">
+        <label for="company_website">Leave this empty</label>
+        <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <%# ─── Name ─────────────────────────────────────────────────── %>
+      <fieldset class="space-y-4">
+        <legend class="font-display italic text-eco-green text-sm">— 01 · Name</legend>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <%= f.label :first_name, "First name *", class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2" %>
+            <%= f.text_field :first_name, required: true, autocomplete: "given-name",
+                             class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white placeholder:text-eco-text-muted/40 focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/20 transition" %>
+          </div>
+          <div>
+            <%= f.label :last_name, "Last name *", class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2" %>
+            <%= f.text_field :last_name, required: true, autocomplete: "family-name",
+                             class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white placeholder:text-eco-text-muted/40 focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/20 transition" %>
+          </div>
+        </div>
+      </fieldset>
+
+      <%# ─── Email ────────────────────────────────────────────────── %>
+      <fieldset class="space-y-4">
+        <legend class="font-display italic text-eco-green text-sm">— 02 · Email <span class="text-eco-text-muted not-italic font-sans text-xs ml-2">(optional)</span></legend>
+        <%= f.email_field :email, autocomplete: "email", placeholder: "you@example.com",
+                          class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white placeholder:text-eco-text-muted/40 focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/20 transition" %>
+        <p class="text-xs text-eco-text-muted">If you'd like a shipping confirmation. Otherwise, we'll just send the books.</p>
+      </fieldset>
+
+      <%# ─── Address ──────────────────────────────────────────────── %>
+      <fieldset class="space-y-4">
+        <legend class="font-display italic text-eco-green text-sm">— 03 · Shipping address</legend>
+
+        <div>
+          <%= f.label :address_line_1, "Street address *", class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2" %>
+          <%= f.text_field :address_line_1, required: true, autocomplete: "address-line1",
+                           class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/20 transition" %>
+        </div>
+        <div>
+          <%= f.label :address_line_2, "Address line 2", class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2" %>
+          <%= f.text_field :address_line_2, autocomplete: "address-line2",
+                           class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/20 transition" %>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <%= f.label :city, "City *", class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2" %>
+            <%= f.text_field :city, required: true, autocomplete: "address-level2",
+                             class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/20 transition" %>
+          </div>
+          <div>
+            <%= f.label :state_province, "State / Province / Region *", class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2" %>
+            <%= f.text_field :state_province, required: true, autocomplete: "address-level1",
+                             class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/20 transition" %>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <%= f.label :postal_code, "Postal / ZIP *", class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2" %>
+            <%= f.text_field :postal_code, required: true, autocomplete: "postal-code",
+                             class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/20 transition" %>
+          </div>
+          <div>
+            <%= f.label :country, "Country *", class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2" %>
+            <%= f.text_field :country, required: true, autocomplete: "country-name",
+                             class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/20 transition" %>
+          </div>
+        </div>
+      </fieldset>
+
+      <%# ─── Books ────────────────────────────────────────────────── %>
+      <fieldset class="space-y-5">
+        <legend class="font-display italic text-eco-green text-sm">— 04 · How many books? *</legend>
+
+        <%# Vol 1 Intro %>
+        <div class="rounded-2xl border border-eco-border bg-eco-bg/40 p-5 flex items-start gap-5">
+          <div class="flex-1">
+            <p class="font-display text-lg text-eco-white">Vol. 1 · Intro</p>
+            <p class="text-xs text-eco-text-muted mt-1">40 pages · FREE</p>
+            <p class="text-xs text-eco-text-muted mt-2">A short on-ramp to the ecosystem.</p>
+          </div>
+          <div class="w-24">
+            <%= f.label :qty_vol_1, "Qty", class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2 text-center" %>
+            <%= f.number_field :qty_vol_1, min: 0, max: 50,
+                               class: "w-full rounded-xl border border-eco-border bg-eco-bg/70 px-3 py-3 text-eco-white text-center text-lg font-display focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/20 transition" %>
+          </div>
+        </div>
+
+        <%# Vol 1 + 2 Combo %>
+        <div class="rounded-2xl border border-eco-green/30 bg-eco-green-muted p-5 flex items-start gap-5">
+          <div class="flex-1">
+            <p class="font-display text-lg text-eco-white">Vol. 1 & 2 · Combined</p>
+            <p class="text-xs text-eco-green-light mt-1">240 pages · FREE</p>
+            <p class="text-xs text-eco-text-muted mt-2">The full ecosystem story, both volumes bundled.</p>
+          </div>
+          <div class="w-24">
+            <%= f.label :qty_vol_1_combo, "Qty", class: "block text-[10px] tracking-[0.25em] uppercase text-eco-text-muted mb-2 text-center" %>
+            <%= f.number_field :qty_vol_1_combo, min: 0, max: 50,
+                               class: "w-full rounded-xl border border-eco-green/40 bg-eco-bg/70 px-3 py-3 text-eco-white text-center text-lg font-display focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/20 transition" %>
+          </div>
+        </div>
+      </fieldset>
+
+      <%# ─── Special requests ───────────────────────────────────── %>
+      <fieldset class="space-y-4">
+        <legend class="font-display italic text-eco-green text-sm">— 05 · Special requests</legend>
+        <%= f.text_area :notes, rows: 4,
+                        placeholder: "Need extra books for a study group? A specific delivery date? Tell us here.",
+                        class: "w-full rounded-xl border border-eco-border bg-eco-bg/50 backdrop-blur px-5 py-3.5 text-eco-white placeholder:text-eco-text-muted/40 focus:border-eco-green focus:outline-none focus:ring-2 focus:ring-eco-green/20 transition" %>
+      </fieldset>
+
+      <%# Submit %>
+      <div class="pt-4 border-t border-eco-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <p class="text-xs text-eco-text-muted">
+          By submitting, you agree to share your shipping details so we can mail the books.
+        </p>
+        <%= f.submit "Send the books →",
+                     class: "eco-btn-primary text-sm whitespace-nowrap",
+                     data: { disable_with: "Sending…" } %>
+      </div>
+    <% end %>
   </div>
 </section>

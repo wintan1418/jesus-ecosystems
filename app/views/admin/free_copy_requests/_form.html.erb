@@ -19,8 +19,8 @@
 
   <div class="admin-form-grid-2">
     <div class="admin-field">
-      <%= f.label :email, class: "admin-field-label" %>
-      <%= f.email_field :email, class: "admin-field-input", required: true %>
+      <%= f.label :email, "Email (optional)", class: "admin-field-label" %>
+      <%= f.email_field :email, class: "admin-field-input" %>
     </div>
     <div class="admin-field">
       <%= f.label :phone, class: "admin-field-label" %>
@@ -74,17 +74,14 @@
     </div>
   </div>
 
-  <div class="admin-field">
-    <%= f.label :volumes_requested, "Volumes requested", class: "admin-field-label" %>
-    <div class="flex gap-4">
-      <% %w[1 2].each do |v| %>
-        <label class="admin-checkbox">
-          <%= check_box_tag "free_copy_request[volumes_requested][]",
-                            v,
-                            Array(request.volumes_requested).include?(v) %>
-          <span>Volume <%= v %></span>
-        </label>
-      <% end %>
+  <div class="admin-form-grid-2">
+    <div class="admin-field">
+      <%= f.label :qty_vol_1, "Qty · Vol. 1 Intro (40 pgs)", class: "admin-field-label" %>
+      <%= f.number_field :qty_vol_1, class: "admin-field-input", min: 0 %>
+    </div>
+    <div class="admin-field">
+      <%= f.label :qty_vol_1_combo, "Qty · Vol. 1 & 2 Combo (240 pgs)", class: "admin-field-label" %>
+      <%= f.number_field :qty_vol_1_combo, class: "admin-field-input", min: 0 %>
     </div>
   </div>
 

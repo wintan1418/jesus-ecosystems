@@ -1,0 +1,23 @@
+NEW REQUEST · <%= @request.locale.upcase %>
+
+<%= @request.full_name %>
+<%= @request.email.presence || '— no email provided —' %>
+
+Books: <%= @request.book_summary %>
+
+Address:
+  <%= @request.address_line_1 %>
+  <% if @request.address_line_2.present? %><%= @request.address_line_2 %>
+  <% end %><%= @request.city %>, <%= @request.state_province %> <%= @request.postal_code %>
+  <%= @request.country %>
+<% if @request.phone.present? %>
+Phone: <%= @request.phone %>
+<% end %>
+<% if @request.notes.present? %>
+Notes:
+<%= @request.notes %>
+<% end %>
+IP: <%= @request.ip_address %>
+
+Open in admin:
+<%= ENV.fetch('SITE_URL', 'https://systemorecosystem.com') %>/admin/free_copy_requests/<%= @request.id %>

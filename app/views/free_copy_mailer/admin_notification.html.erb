@@ -1,0 +1,36 @@
+<div style="font-family: -apple-system, system-ui, sans-serif; max-width: 600px; margin: 0 auto; color: #1c2015; line-height: 1.55;">
+  <p style="background: #a3bf64; color: #1c2015; padding: 8px 16px; border-radius: 999px; display: inline-block; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; margin: 0 0 16px;">
+    New request · <%= @request.locale.upcase %>
+  </p>
+
+  <h1 style="font-size: 24px; margin: 0 0 8px;"><%= @request.full_name %></h1>
+  <% if @request.email.present? %>
+    <p style="margin: 0 0 24px;"><a href="mailto:<%= @request.email %>" style="color: #3a4a1e;"><%= @request.email %></a></p>
+  <% else %>
+    <p style="margin: 0 0 24px; color: #888; font-style: italic;">— no email provided —</p>
+  <% end %>
+
+  <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+    <tr style="border-bottom: 1px solid #eee;"><td style="padding: 10px 0; color: #888; width: 140px;">Books</td><td style="padding: 10px 0; font-weight: 600;"><%= @request.book_summary %></td></tr>
+    <tr style="border-bottom: 1px solid #eee;"><td style="padding: 10px 0; color: #888;">Address</td><td style="padding: 10px 0;">
+      <%= @request.address_line_1 %><br>
+      <% if @request.address_line_2.present? %><%= @request.address_line_2 %><br><% end %>
+      <%= @request.city %>, <%= @request.state_province %> <%= @request.postal_code %><br>
+      <strong><%= @request.country %></strong>
+    </td></tr>
+    <% if @request.phone.present? %>
+      <tr style="border-bottom: 1px solid #eee;"><td style="padding: 10px 0; color: #888;">Phone</td><td style="padding: 10px 0;"><%= @request.phone %></td></tr>
+    <% end %>
+    <% if @request.notes.present? %>
+      <tr style="border-bottom: 1px solid #eee;"><td style="padding: 10px 0; color: #888; vertical-align: top;">Notes</td><td style="padding: 10px 0;"><%= simple_format(@request.notes) %></td></tr>
+    <% end %>
+    <tr><td style="padding: 10px 0; color: #888;">IP</td><td style="padding: 10px 0; font-family: monospace; font-size: 12px;"><%= @request.ip_address %></td></tr>
+  </table>
+
+  <p style="margin-top: 32px;">
+    <a href="<%= ENV.fetch('SITE_URL', 'https://systemorecosystem.com') %>/admin/free_copy_requests/<%= @request.id %>"
+       style="background: #a3bf64; color: #1c2015; padding: 10px 20px; border-radius: 999px; text-decoration: none; font-weight: 600;">
+      Open in admin →
+    </a>
+  </p>
+</div>

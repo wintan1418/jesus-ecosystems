@@ -27,20 +27,39 @@
       <div class="mt-6 pt-4 border-t border-eco-border grid grid-cols-2 gap-4 text-sm">
         <div>
           <p class="admin-field-label">Email</p>
-          <p class="text-eco-white mt-1"><%= @request.email %></p>
+          <p class="text-eco-white mt-1"><%= @request.email.presence || "—" %></p>
         </div>
         <div>
           <p class="admin-field-label">Phone</p>
           <p class="text-eco-white mt-1"><%= @request.phone.presence || "—" %></p>
         </div>
         <div>
-          <p class="admin-field-label">Volumes</p>
-          <p class="text-eco-white mt-1 font-mono"><%= Array(@request.volumes_requested).join(", ") %></p>
-        </div>
-        <div>
           <p class="admin-field-label">Locale</p>
           <p class="text-eco-white mt-1"><%= @request.locale.upcase %></p>
         </div>
+        <div>
+          <p class="admin-field-label">Total books</p>
+          <p class="text-eco-white mt-1 font-display text-xl"><%= @request.total_books %></p>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-4 border-t border-eco-border space-y-2 text-sm">
+        <p class="admin-field-label mb-2">Books requested</p>
+        <% if @request.qty_vol_1.to_i.positive? %>
+          <div class="flex items-center justify-between rounded-xl border border-eco-border bg-eco-bg/40 px-4 py-3">
+            <span class="text-eco-white">Vol. 1 · Intro <span class="text-xs text-eco-text-muted">(40 pgs)</span></span>
+            <span class="font-display text-xl text-eco-green-light">×<%= @request.qty_vol_1 %></span>
+          </div>
+        <% end %>
+        <% if @request.qty_vol_1_combo.to_i.positive? %>
+          <div class="flex items-center justify-between rounded-xl border border-eco-green/30 bg-eco-green-muted px-4 py-3">
+            <span class="text-eco-white">Vol. 1 & 2 · Combo <span class="text-xs text-eco-green-light">(240 pgs)</span></span>
+            <span class="font-display text-xl text-eco-green-light">×<%= @request.qty_vol_1_combo %></span>
+          </div>
+        <% end %>
+        <% unless @request.qty_vol_1.to_i.positive? || @request.qty_vol_1_combo.to_i.positive? %>
+          <p class="text-eco-text-muted italic text-xs">No books selected.</p>
+        <% end %>
       </div>
     </div>
 
