@@ -20,7 +20,7 @@
       <%= link_to book_path(book.slug), class: "group block", data: { controller: "reveal" } do %>
         <article class="relative overflow-hidden border border-eco-border bg-eco-surface eco-float"
                  style="animation-delay: <%= i * 0.6 %>s">
-          <div class="aspect-[4/5] overflow-hidden relative">
+          <div class="aspect-[2/3] overflow-hidden relative">
             <% if book.cover_image.attached? %>
               <%= image_tag book.cover_image,
                             alt: book.localized_title(I18n.locale),
