@@ -104,8 +104,9 @@ BOOK_DATA.each do |data|
   book.position    = data[:volume_number]
   book.save!
 
-  # Cover image — only attach if not already attached
-  if data[:cover_path].exist? && !book.cover_image.attached?
+  # Cover image — always re-attach so updated cover files land correctly.
+  if data[:cover_path].exist?
+    book.cover_image.purge if book.cover_image.attached?
     book.cover_image.attach(io: data[:cover_path].open, filename: data[:cover_path].basename.to_s, content_type: "image/jpeg")
   end
 

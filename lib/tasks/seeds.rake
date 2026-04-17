@@ -17,9 +17,31 @@ namespace :seed do
     puts "✓ Seeded #{letters.size} testimonial letters into SiteSetting['testimonial_letters']"
   end
 
-  desc "Seed ONLY the home page content SiteSettings (hero, manifesto, pillars, CTA, footer, author, shoutout)"
-  task home_content: :environment do
-    require Rails.root.join("db/seeds_helpers/home_content") if File.exist?(Rails.root.join("db/seeds_helpers/home_content.rb"))
-    puts "→ Re-run full db:seed or edit /admin/home directly for now."
+  desc "Re-attach book cover images from the latest public/source-assets files"
+  task covers: :environment do
+    covers = {
+      1 => Rails.root.join("public/source-assets/volume-1.jpg"),
+      2 => Rails.root.join("public/source-assets/volume-2.jpg")
+    }
+
+    covers.each do |vol, path|
+      book = Book.find_by(volume_number: vol)
+      unless book
+        puts "  ✗ Volume #{vol} not found in DB"
+        next
+      end
+      unless path.exist?
+        puts "  ✗ #{path} missing on disk"
+        next
+      end
+      book.cover_image.purge if book.cover_image.attached?
+      book.cover_image.attach(
+        io: path.open,
+        filename: path.basename.to_s,
+        content_type: "image/jpeg"
+      )
+      puts "  ✓ Volume #{vol} cover re-attached from #{path.basename}"
+    end
+    puts "✓ Done."
   end
 end
