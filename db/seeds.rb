@@ -145,7 +145,7 @@ end
 puts "→ Seeding site settings (hero, manifesto, shoutout, testimonials, CTA, footer)…"
 home_content = {
   # Hero
-  "hero_eyebrow"     => "A Two-Volume Christian Action Toolkit",
+  "hero_eyebrow"     => "An Action Toolkit for Changing the World",
   # Newlines become <br> via cms_lines() so the editor controls breaks.
   "hero_headline_1"  => "Jesus the\nDesigner's Plan",
   "hero_headline_2"  => "to Change\nthe World.",
