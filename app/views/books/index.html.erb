@@ -21,12 +21,10 @@
         <article class="relative overflow-hidden border border-eco-border bg-eco-surface eco-float"
                  style="animation-delay: <%= i * 0.6 %>s">
           <div class="aspect-[2/3] overflow-hidden relative">
-            <% if book.cover_image.attached? %>
-              <%= image_tag book.cover_image,
-                            alt: book.localized_title(I18n.locale),
-                            class: "w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-110",
-                            loading: "lazy" %>
-            <% end %>
+            <img src="/source-assets/volume-<%= book.volume_number %>.jpg"
+                 alt="<%= book.localized_title(I18n.locale) %>"
+                 class="w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-110"
+                 loading="lazy">
             <div class="absolute top-6 left-6 size-14 rounded-full border border-eco-green/40 bg-eco-bg/60 backdrop-blur-md flex items-center justify-center font-display italic text-2xl text-eco-green-light">
               <%= book.volume_number == 1 ? "I" : "II" %>
             </div>
