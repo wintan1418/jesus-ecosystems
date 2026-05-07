@@ -1,5 +1,7 @@
 <%
-  # Real reader letters, shuffled so repeat visitors see a fresh feel.
+  # Real reader letters. The wall is built to scale: drop in dozens or hundreds
+  # via SiteSetting['testimonial_letters'] and the marquee duration per row
+  # auto-scales below so the perceived scroll speed stays the same.
   letters = begin
     parsed = JSON.parse(SiteSetting["testimonial_letters"].to_s)
     parsed.is_a?(Array) ? parsed : []
@@ -11,34 +13,41 @@
 <% if letters.any? %>
   <%
     letters    = letters.shuffle
-    # Split across 3 rows so the marquee feels dense but readable.
-    # Clamp slice size to >= 1 so we never pass 0 to each_slice — that
-    # raises ArgumentError and was blowing up production when the
-    # testimonial_letters SiteSetting hadn't been seeded.
-    slice_size = [(letters.size / 3.0).ceil, 1].max
+    # Always 3 rows (looks balanced regardless of letter count).
+    row_count  = 3
+    slice_size = [(letters.size / row_count.to_f).ceil, 1].max
     rows       = letters.each_slice(slice_size).to_a
+
+    # Marquee speed: ~28 px/sec — readable but never sluggish. Card is 320px
+    # wide + 20px gap. Scroll distance = (cards_per_row * 340). 2x duplication
+    # means the animation traverses cards_per_row * 340 over the full cycle.
+    px_per_sec = 28.0
+    card_pitch = 340 # 320px card + 20px gap
   %>
+
 <section id="letters" data-rail-label="Letters"
-         class="relative py-32 overflow-hidden border-t border-eco-border bg-eco-bg">
+         class="relative py-32 overflow-hidden"
+         style="background: var(--color-eco-paper);">
+  <span class="eco-edge-label">09 — Letters</span>
 
-  <div class="absolute -top-20 left-1/3 size-[28rem] rounded-full bg-eco-green/[0.08] blur-[140px] pointer-events-none"></div>
-
-  <div class="relative max-w-6xl mx-auto px-6 text-center mb-14" data-controller="reveal">
-    <div class="flex items-center justify-center gap-4 mb-5">
-      <span class="section-num">— Letters</span>
-      <p class="eco-eyebrow">What readers are saying</p>
-    </div>
-    <h2 class="font-display text-4xl md:text-6xl text-eco-white leading-[1.08]">
-      They read.<br>
-      <span class="italic font-normal text-eco-green-light">Then they wrote back.</span>
+  <div class="relative max-w-[1240px] mx-auto px-6 md:px-14 text-center mb-14" data-controller="reveal">
+    <p class="eco-eyebrow center">What Readers Are Saying</p>
+    <h2 class="font-display text-[clamp(36px,5vw,60px)] leading-[1.1] mt-5">
+      <span class="italic" style="color: var(--color-eco-accent);">They read.</span><br>
+      <em class="text-eco-ink">Then they wrote back.</em>
     </h2>
   </div>
 
   <div class="letter-wall space-y-5">
     <% rows.each_with_index do |row, i| %>
       <% next if row.empty? %>
+      <%
+        # Duration scales with row width so 9 letters and 90 letters scroll at
+        # the same readable speed. Floor at 50s so very small walls don't fly.
+        duration_seconds = [(row.size * card_pitch / px_per_sec).round, 50].max
+      %>
       <div class="letter-wall-row" data-direction="<%= i.even? ? 'left' : 'right' %>">
-        <div class="letter-wall-track">
+        <div class="letter-wall-track" style="animation-duration: <%= duration_seconds %>s;">
           <%# Duplicate the row twice so the CSS marquee loops seamlessly. %>
           <% 2.times do %>
             <% row.each do |l| %>
@@ -53,7 +62,7 @@
     <% end %>
   </div>
 
-  <p class="relative text-center mt-12 text-xs tracking-[0.3em] uppercase text-eco-text-muted">
+  <p class="relative text-center mt-12 font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink-soft">
     <%= letters.size %> letters · rotating · hover to pause
   </p>
 </section>

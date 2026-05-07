@@ -1,4 +1,18 @@
-<div class="max-w-3xl mx-auto px-6 py-32">
-  <h1 class="eco-headline mb-6">Contact</h1>
-  <p class="eco-subhead">Coming soon.</p>
-</div>
+<% content_for :title, "Contact · #{t('site.name')}" %>
+
+<section class="relative pt-40 pb-32" style="background: var(--color-eco-cream);">
+  <div class="max-w-3xl mx-auto px-6 text-center" data-controller="reveal">
+    <p class="eco-eyebrow center">Get in Touch</p>
+    <h1 class="font-display text-[clamp(48px,7vw,78px)] leading-[1.05] mt-5 text-eco-ink">
+      Contact.
+    </h1>
+    <p class="mt-6 eco-subhead mx-auto" style="max-width: 520px;">
+      For partnership, study groups, or bulk distribution requests — reach out.
+      Otherwise, the fastest way to receive the books is the request form.
+    </p>
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+      <%= link_to "Request free copies", request_free_copy_path, class: "eco-btn-primary" %>
+      <%= link_to "Listen free", audiobooks_path, class: "eco-btn-ghost" %>
+    </div>
+  </div>
+</section>

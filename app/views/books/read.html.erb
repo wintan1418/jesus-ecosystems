@@ -25,22 +25,19 @@
   }
 %>
 
-<section class="flex-1 flex flex-col items-center justify-center px-4 py-10 bg-eco-bg relative overflow-hidden"
+<section class="flex-1 flex flex-col items-center justify-center px-4 py-10 relative overflow-hidden"
+         style="background: var(--color-eco-cream);"
          data-controller="flip-book">
-
-  <%# Ambient glow %>
-  <div class="absolute -top-32 -left-32 size-[36rem] rounded-full bg-eco-green/10 blur-[140px] pointer-events-none"></div>
-  <div class="absolute -bottom-40 right-0 size-[28rem] rounded-full bg-eco-green/[0.08] blur-[120px] pointer-events-none"></div>
 
   <%# Top chrome — close button + book title %>
   <div class="relative w-full max-w-7xl mx-auto flex items-center justify-between mb-8 px-2">
-    <%= link_to book_path(@book.slug), class: "text-eco-text-muted hover:text-eco-green-light text-xs tracking-[0.3em] uppercase inline-flex items-center gap-2 transition" do %>
-      <span>←</span> Close book
+    <%= link_to book_path(@book.slug), class: "font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink-soft hover:text-eco-ink inline-flex items-center gap-2 transition" do %>
+      <span aria-hidden="true">←</span> Close book
     <% end %>
-    <p class="font-display italic text-eco-text-muted text-sm hidden md:block">
+    <p class="font-display italic text-eco-ink-soft text-sm hidden md:block">
       <%= @book.localized_title(I18n.locale) %>
     </p>
-    <p class="text-xs tracking-[0.3em] uppercase text-eco-text-muted">
+    <p class="font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink-soft">
       Vol. <%= @book.volume_number %>
     </p>
   </div>

@@ -1,99 +1,81 @@
 <% content_for :title, "#{cms('hero_headline_1', default: t('home.headline_1'))} · #{t('site.name')}" %>
 
 <%
-  hero_video = cms("hero_video_url", default: "https://cdn.jwplayer.com/manifests/zKhUkn1D.m3u8")
+  hero_video      = cms("hero_video_url", default: "https://cdn.jwplayer.com/manifests/zKhUkn1D.m3u8")
+  shoutout_video  = "https://res.cloudinary.com/wintan1418/video/upload/v1776372521/shout-out_ezrcu0.mp4"
+  shoutout_poster = "https://res.cloudinary.com/wintan1418/image/upload/v1776374891/veritcal_banner_w7qc11.png"
+
   hero_slides = [
     "photo-1438232992991-995b7058bbb3",
     "photo-1469571486292-0ba58a3f068b",
     "photo-1507692049790-de58290a4334",
     "photo-1490127252417-7c393f993ee4",
     "photo-1466442929976-97f336a657be",
-  ].map { |id| "https://images.unsplash.com/#{id}?w=2000&q=80&auto=format&fit=crop" }
+  ].map { |id| "https://images.unsplash.com/#{id}?w=1600&q=80&auto=format&fit=crop" }
+
   manifesto_image = "https://images.unsplash.com/photo-1455218873509-8097305ee378?w=1800&q=80&auto=format&fit=crop"
-  cta_image       = "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1800&q=80&auto=format&fit=crop"
+  cta_image       = "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?w=1800&q=80&auto=format&fit=crop"
+
   pillar_images = {
     "one"   => "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=900&q=80&auto=format&fit=crop",
     "two"   => "https://images.unsplash.com/photo-1485463611174-f302f6a5c1c9?w=900&q=80&auto=format&fit=crop",
     "three" => "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=900&q=80&auto=format&fit=crop",
     "four"  => "https://images.unsplash.com/photo-1500380804539-4e1e8c1e7118?w=900&q=80&auto=format&fit=crop",
   }
-  hero_rotators = cms_json("hero_rotators", default: t("home.rotators"))
 %>
 
-<%# ─── HERO — Jumbotron + CRT screen ───────────────────────────────────── %>
-<section id="hero" data-rail-label="Intro" class="relative min-h-[100svh] overflow-hidden bg-eco-bg bg-mesh">
+<%# ─── 01 · HERO (cream) ───────────────────────────────────────────────── %>
+<section id="hero" data-rail-label="Intro" class="relative pt-32 pb-20 md:pt-36 md:pb-24" style="background: var(--color-eco-cream);">
+  <span class="eco-edge-label">01 — Intro</span>
 
-  <%# Ambient floating accents %>
-  <div class="absolute -top-32 -left-32 size-[36rem] rounded-full bg-eco-green/10 blur-[140px] pointer-events-none"></div>
-  <div class="absolute -bottom-40 right-0 size-[28rem] rounded-full bg-eco-green/[0.08] blur-[120px] pointer-events-none"></div>
+  <div class="max-w-[1240px] mx-auto px-6 md:px-14 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-16 items-center">
 
-  <div class="relative max-w-[1400px] mx-auto px-6 pt-36 pb-24 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[100svh]">
-
-    <%# ── Jumbotron text — left half ────────────────────────────────── %>
-    <div class="space-y-7 relative min-w-0">
-      <div class="flex items-center gap-4">
-        <span class="block size-2 rounded-full bg-eco-green pulse-dot"></span>
-        <p class="eco-eyebrow"><%= cms("hero_eyebrow", default: t("home.eyebrow")) %></p>
-      </div>
+    <%# Left column %>
+    <div class="space-y-6 min-w-0">
+      <p class="eco-eyebrow"><%= cms("hero_eyebrow", default: t("home.eyebrow")) %></p>
 
       <h1 class="eco-display" data-controller="char-reveal">
         <%= cms_lines("hero_headline_1", default: "Jesus the\nDesigner's Plan") %><br>
-        <span class="italic font-normal text-eco-green-light"><%= cms_lines("hero_headline_2", default: "to Change\nthe World.") %></span>
+        <span class="it"><%= cms_lines("hero_headline_2", default: "to Change\nthe World.") %></span>
       </h1>
 
-      <span class="block draw-line" style="width: 80px"></span>
-
-      <p class="eco-subhead max-w-lg">
+      <p class="eco-subhead">
         <%= cms("hero_subhead", default: t("home.subhead")) %>
       </p>
 
-      <div class="tagline-stack text-xl md:text-2xl max-w-lg"
-           data-controller="tagline-rotator"
-           data-tagline-rotator-interval-value="2600">
-        <% hero_rotators.each do |line| %>
-          <span data-tagline-rotator-target="item">“<%= line %>”</span>
-        <% end %>
-      </div>
+      <p class="font-display italic text-[18px] text-eco-ink max-w-[430px]">
+        “<%= t("home.rotators").first %>”<span style="color: var(--color-eco-olive); margin-left: 8px;">✦</span>
+      </p>
 
-      <div class="flex flex-wrap items-center gap-4 pt-3">
-        <%= link_to cms("hero_cta_primary", default: t("home.cta_request")), request_free_copy_path, class: "eco-btn-primary text-sm" %>
-        <%= link_to cms("hero_cta_ghost",   default: t("home.cta_listen")),  audiobooks_path,        class: "eco-btn-ghost text-sm" %>
+      <div class="flex flex-wrap items-center gap-5 pt-2">
+        <%= link_to cms("hero_cta_primary", default: t("home.cta_request")), request_free_copy_path, class: "eco-btn-primary" %>
+        <%= link_to audiobooks_path, class: "eco-play-link" do %>
+          <span class="pdot"></span><%= cms("hero_cta_ghost", default: t("home.cta_listen")) %>
+        <% end %>
       </div>
     </div>
 
-    <%# ── CRT screen — right half, large and centered ─────────────── %>
+    <%# Right column — hero card with HLS video %>
     <div class="relative w-full min-w-0" data-controller="reveal">
-      <div class="crt-device w-full max-w-[680px] mx-auto"
+      <div class="eco-hero-card max-w-[600px] mx-auto"
            data-controller="hls-video"
            data-hls-video-src-value="<%= hero_video %>">
 
-        <%# Top bezel chrome strip %>
-        <div class="flex items-center justify-between mb-5 px-2 font-mono text-[9px] tracking-[0.3em] uppercase text-eco-text-muted">
-          <span class="crt-led">
-            <span class="crt-led-dot"></span>
-            On Air
-          </span>
-          <span class="text-eco-green-light"><%= t("site.name") %> · LIVE FEED</span>
-          <span>SIG · 100%</span>
+        <%# Top bar with dot dummies + meta %>
+        <div class="frame-bar">
+          <i></i><i></i><i></i>
+          <span><%= t("site.name") %> · Trailer</span>
         </div>
 
-        <%# The screen %>
-        <div class="crt-screen">
-          <%# Viewfinder corner brackets %>
-          <span class="crt-bracket tl"></span>
-          <span class="crt-bracket tr"></span>
-          <span class="crt-bracket bl"></span>
-          <span class="crt-bracket br"></span>
+        <%# Corner tags %>
+        <div class="corner-tags">
+          <span>03 : 12</span>
+          <span>HD · 1080</span>
+        </div>
 
-          <%# REC + timecode pill %>
-          <div class="crt-rec">
-            <span class="crt-rec-dot"></span>
-            <span>REC</span>
-            <span class="opacity-60">· 00:24:11</span>
-          </div>
-
-          <%# Slideshow as poster while video buffers %>
-          <div data-controller="ken-burns" class="absolute inset-0 z-1">
+        <%# Stage — slideshow as poster, video on top when playing %>
+        <div class="stage">
+          <div data-controller="ken-burns" class="ken-burns-stage">
             <% hero_slides.each_with_index do |url, i| %>
               <div class="hero-slide"
                    data-ken-burns-target="slide"
@@ -105,244 +87,251 @@
           <video class="hero-video"
                  data-hls-video-target="video"
                  muted playsinline preload="metadata" disablepictureinpicture></video>
-
-          <%# Tap-to-play fallback %>
-          <div class="tap-hint" data-hls-video-target="tapHint"
-               data-action="click->hls-video#toggleMute">
-            <button class="rounded-full bg-eco-green text-eco-bg font-medium px-8 py-3.5 shadow-[0_12px_40px_-8px_rgba(163,191,100,0.7)] tracking-wide text-base">
-              ▶  Tap to play
-            </button>
-          </div>
-
-          <%# Diagonal glass sheen %>
-          <span class="crt-sheen"></span>
         </div>
 
-        <%# Bottom chrome row %>
-        <div class="crt-chrome">
-          <span>CH 01 · 24P · 1080</span>
-          <button type="button"
-                  class="rounded-full border border-eco-border bg-eco-bg/50 backdrop-blur-md size-10 flex items-center justify-center text-lg hover:border-eco-green transition"
-                  data-action="click->hls-video#toggleMute"
-                  data-hls-video-target="muteIcon"
-                  aria-label="Toggle sound">🔇</button>
-          <span>HD · STEREO</span>
-        </div>
+        <%# Italic "System" overlay (HANDOFF spec) %>
+        <span class="system-overlay"><%= t("site.name").split.first %></span>
+
+        <%# Cream play FAB — also unmutes %>
+        <button class="play-fab"
+                data-action="click->hls-video#toggleMute"
+                data-hls-video-target="muteIcon"
+                aria-label="Play"></button>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 text-eco-text-muted text-[10px] tracking-[0.4em] uppercase eco-float flex flex-col items-center gap-2">
-    <span>Scroll</span>
-    <span class="block w-px h-8 bg-eco-green/50"></span>
+<%# ─── 02 · STATS BAND (sage olive) ────────────────────────────────────── %>
+<section id="stats" data-rail-label="Stats" class="eco-stats-band relative">
+  <span class="eco-edge-label light">02 — Stats</span>
+  <div class="max-w-[1240px] mx-auto px-6 md:px-14">
+    <div class="eco-stats-grid">
+      <% [
+        { to: 2,    suffix: "",  label: t("home.stats.volumes") },
+        { to: 3,    suffix: "",  label: t("home.stats.languages") },
+        { to: 100,  suffix: "%", label: t("free_copy.badge") },
+        { to: 360,  suffix: "°", label: t("home.pillars_title") },
+      ].each do |c| %>
+        <div class="stat" data-controller="counter"
+             data-counter-to-value="<%= c[:to] %>"
+             data-counter-suffix-value="<%= c[:suffix] %>">
+          <p class="num">
+            <span data-counter-target="value">0</span><% if c[:suffix] == "°" %><sup>°</sup><% end %>
+          </p>
+          <p class="lab"><%= c[:label] %></p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </section>
 
-<%# ─── COUNTERS ────────────────────────────────────────────────────────── %>
-<section id="stats" data-rail-label="Stats" class="border-y border-eco-border bg-eco-bg/95 py-20">
-  <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
-    <% [
-      { to: 2,    suffix: "",  label: t("home.stats.volumes") },
-      { to: 3,    suffix: "",  label: t("home.stats.languages") },
-      { to: 100,  suffix: "%", label: t("free_copy.badge") },
-      { to: 360,  suffix: "°", label: t("home.pillars_title") },
-    ].each do |c| %>
-      <div data-controller="counter"
-           data-counter-to-value="<%= c[:to] %>"
-           data-counter-suffix-value="<%= c[:suffix] %>">
-        <p class="font-display text-6xl md:text-7xl text-eco-white">
-          <span data-counter-target="value">0</span>
-        </p>
-        <p class="mt-3 eco-eyebrow"><%= c[:label] %></p>
-      </div>
-    <% end %>
-  </div>
-</section>
-
-<%# ─── MARQUEE BAND ────────────────────────────────────────────────────── %>
-<section class="border-b border-eco-border bg-eco-bg overflow-hidden py-8">
-  <div class="marquee-track text-eco-text-muted font-display italic text-3xl">
+<%# ─── 03 · MARQUEE (olive-deep) ───────────────────────────────────────── %>
+<section class="eco-marquee relative">
+  <span class="eco-edge-label light">03 — Refrain</span>
+  <%
+    phrases = [
+      "from struggling to legendary",
+      "from needy to noteworthy",
+      "from mundane to mountain-movers",
+      "from chaos to community",
+    ]
+  %>
+  <div class="eco-marquee-track">
     <% 2.times do %>
-      <span><%= t("home.rotators").first %></span>
-      <span class="text-eco-green">✦</span>
-      <span><%= t("home.rotators").second %></span>
-      <span class="text-eco-green">✦</span>
-      <span><%= t("home.rotators").last %></span>
-      <span class="text-eco-green">✦</span>
+      <% phrases.each do |p| %>
+        <span><%= p %></span>
+        <span class="sep">✦</span>
+      <% end %>
     <% end %>
   </div>
 </section>
 
-<%# ─── MANIFESTO BAND with parallax image ───────────────────────────────── %>
-<section id="manifesto" data-rail-label="Manifesto"
-         class="relative py-40 overflow-hidden bg-mesh"
-         data-controller="parallax">
-  <div class="absolute inset-0 z-0 opacity-30"
+<%# ─── 04 · MANIFESTO (forest with parallax photo) ─────────────────────── %>
+<section id="manifesto" data-rail-label="Manifesto" class="eco-manifesto" data-controller="parallax">
+  <%# Parallax forest landscape under a green wash %>
+  <div class="absolute inset-0 z-0 opacity-55"
        data-parallax-target="layer"
        data-depth="0.4"
        style="background-image: url('<%= manifesto_image %>'); background-size: cover; background-position: center;"></div>
   <div class="absolute inset-0 z-0"
-       style="background: linear-gradient(180deg, rgba(38,43,28,0.65) 0%, rgba(38,43,28,0.42) 50%, rgba(38,43,28,0.78) 100%);"></div>
+       style="background: linear-gradient(180deg, rgba(74,85,56,0.78) 0%, rgba(74,85,56,0.55) 50%, rgba(74,85,56,0.85) 100%);"></div>
 
-  <div class="relative z-10 max-w-5xl mx-auto px-6 space-y-14">
-    <div class="flex items-center gap-4" data-controller="reveal">
-      <span class="section-num">— 01</span>
-      <p class="eco-eyebrow"><%= cms("manifesto_headline", default: t("home.pillars_title")) %></p>
-    </div>
+  <span class="eco-edge-label light">04 — Manifesto</span>
+  <div class="inner max-w-[760px] mx-auto px-6 relative z-10">
+    <p class="eco-eyebrow center light">Faith, Rewilded</p>
+    <h2>
+      The way Jesus builds <em>world-changers</em> hasn't aged a day.
+      He refines ordinary people for <em>Jesus-sized outcomes.</em>
+      This is a raw and honest look at how Jesus turns chaos into His community.
+    </h2>
 
-    <p class="font-display text-3xl md:text-5xl leading-[1.15] text-eco-white max-w-4xl"
-       data-controller="reveal">
-      <%= cms("manifesto_one", default: t("home.manifesto.one")) %>
-    </p>
-
-    <div class="grid md:grid-cols-2 gap-10 pt-4">
-      <% %w[two three four five].each do |key| %>
-        <p class="text-lg text-eco-text-muted leading-relaxed border-l-2 border-eco-green pl-6"
-           data-controller="reveal">
-          <%= cms("manifesto_#{key}", default: t("home.manifesto.#{key}")) %>
-        </p>
-      <% end %>
+    <div class="points">
+      <div class="eco-point" data-controller="reveal">
+        <b>Jesus doesn't fund systems the gospel stories show.</b>
+        Jesus rebuilds what structure forgot. Faith rewilded.
+      </div>
+      <div class="eco-point" data-controller="reveal">
+        <b>Where faith stops performing and starts breathing.</b>
+        Down to the original text — not free-text editing.
+      </div>
+      <div class="eco-point" data-controller="reveal">
+        <b>He refines ordinary people for Jesus-sized outcomes.</b>
+        From algorithm to organism.
+      </div>
+      <div class="eco-point" data-controller="reveal">
+        <b>Religion is typically about a club, a vibe, and rules.</b>
+        Jesus came to blow that up.
+      </div>
     </div>
   </div>
 </section>
 
-<%= render "shared/shoutout_band" %>
+<%# ─── 05 · HEAR IT (paper) ────────────────────────────────────────────── %>
+<section id="hear" data-rail-label="Hear It" class="relative" style="background: var(--color-eco-paper); padding: 110px 0;">
+  <span class="eco-edge-label">05 — Hear It</span>
+  <div class="max-w-[1240px] mx-auto px-6 md:px-14 eco-hear-grid">
 
-<%# ─── BOOK VOLUMES ────────────────────────────────────────────────────── %>
-<section id="volumes" data-rail-label="Volumes"
-         class="relative max-w-6xl mx-auto px-6 py-40">
-  <div class="mb-20 flex items-end justify-between flex-wrap gap-6" data-controller="reveal">
-    <div>
-      <div class="flex items-center gap-4 mb-4">
-        <span class="section-num">— 02</span>
-        <p class="eco-eyebrow"><%= t("home.stats.volumes") %></p>
+    <%# Left — vertical reel with the Cloudinary mp4 %>
+    <div data-controller="reveal shoutout-player" class="shoutout-vertical-wrap">
+      <button type="button"
+              class="shoutout-vertical"
+              style="border-radius: 18px; aspect-ratio: 9/16;"
+              data-shoutout-player-target="trigger"
+              data-action="click->shoutout-player#start"
+              aria-label="Play the message">
+        <img class="shoutout-poster"
+             src="<%= shoutout_poster %>"
+             alt="A word from the author"
+             data-shoutout-player-target="poster">
+        <video class="shoutout-vertical-video"
+               src="<%= shoutout_video %>"
+               playsinline
+               preload="metadata"
+               controlslist="nodownload"
+               data-shoutout-player-target="video"></video>
+        <span class="shoutout-play-badge" data-shoutout-player-target="badge">
+          <span class="shoutout-play-icon">▶</span>
+        </span>
+      </button>
+      <div class="mt-4 flex justify-between font-mono text-[10px] tracking-[0.2em] uppercase text-eco-ink-soft">
+        <span>Play the message</span>
+        <span>Vertical · 0:42</span>
       </div>
-      <h2 class="font-display text-5xl md:text-7xl text-eco-white leading-tight">
-        The Two<br>
-        <span class="italic font-normal text-eco-green-light">Volumes.</span>
-      </h2>
     </div>
-    <p class="max-w-md text-eco-text-muted text-lg">
-      <%= t("home.manifesto.two") %>
-    </p>
-  </div>
 
-  <div class="grid md:grid-cols-2 gap-10" data-controller="parallax">
-    <% [
-      { num: "I",  key: :one, image: "/source-assets/volume-1.jpg" },
-      { num: "II", key: :two, image: "/source-assets/volume-2.jpg" },
-    ].each_with_index do |vol, i| %>
-      <article class="group relative overflow-hidden border border-eco-border bg-eco-surface eco-float"
-               style="animation-delay: <%= i * 0.6 %>s"
-               data-controller="reveal">
-        <div class="aspect-[2/3] overflow-hidden relative">
-          <img src="<%= vol[:image] %>"
-               alt="<%= t("home.volumes.#{vol[:key]}") %>"
-               loading="lazy"
-               class="w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-110"
-               data-parallax-target="layer"
-               data-depth="0.15">
-          <div class="absolute top-6 left-6 size-14 rounded-full border border-eco-green/40 bg-eco-bg/50 backdrop-blur-md flex items-center justify-center font-display italic text-2xl text-eco-green-light">
-            <%= vol[:num] %>
-          </div>
-        </div>
-        <div class="p-10 border-t border-eco-border">
-          <p class="eco-eyebrow">Volume <%= vol[:num] %></p>
-          <h3 class="font-display text-4xl text-eco-white mt-3">
-            <%= t("home.volumes.#{vol[:key]}") %>
-          </h3>
-          <p class="text-eco-text-muted mt-5 leading-relaxed">
-            <%= t("home.subhead") %>
+    <%# Right — copy %>
+    <div data-controller="reveal">
+      <p class="eco-eyebrow">A Word From The Author</p>
+      <h2 class="font-display text-[clamp(36px,5vw,64px)] leading-[1.05] mt-6 text-eco-ink">
+        Hear it<br>
+        <em>from him directly.</em>
+      </h2>
+      <span class="eco-quote-mark block mt-8">“</span>
+      <p class="font-display italic text-[22px] leading-[1.45] text-eco-ink max-w-[520px]">
+        He refines ordinary people for Jesus-sized outcomes.
+      </p>
+      <p class="mt-5 font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink-soft">— Volume One</p>
+    </div>
+  </div>
+</section>
+
+<%# ─── 06 · VOLUMES (olive-deep, brighter — Andrew's note) ─────────────── %>
+<section id="volumes" data-rail-label="Volumes" class="bg-eco-volumes-section relative" style="padding: 110px 0 130px;">
+  <span class="eco-edge-label light">06 — Volumes</span>
+  <div class="max-w-[1240px] mx-auto px-6 md:px-14">
+    <p class="eco-eyebrow light">02 — 2 Volumes</p>
+    <h2 class="font-display text-[clamp(48px,7vw,78px)] leading-[1] mt-4 text-eco-cream">
+      The Two<br><em>Volumes.</em>
+    </h2>
+
+    <div class="eco-volumes-row">
+      <% [
+        { key: :one, num: "1", image: "/source-assets/volume-1.jpg", slug: "the-system-or-the-ecosystem-volume-one"  },
+        { key: :two, num: "2", image: "/source-assets/volume-2.jpg", slug: "the-system-or-the-ecosystem-volume-two" },
+      ].each do |vol| %>
+        <div class="eco-volume-card">
+          <%= link_to book_path(vol[:slug]), class: "eco-book-frame" do %>
+            <img src="<%= vol[:image] %>"
+                 alt="<%= t("home.volumes.#{vol[:key]}") %>"
+                 loading="lazy">
+          <% end %>
+          <p class="eco-volume-blurb">
+            <%= t("home.subhead").to_s.split(/[—,]/).first.to_s.strip %>
           </p>
-          <span class="mt-8 inline-flex items-center text-eco-green text-sm font-medium tracking-wider uppercase gap-2 group-hover:gap-4 transition-all">
-            <%= t("home.volumes.read_more") %> <span>→</span>
-          </span>
-        </div>
-      </article>
-    <% end %>
-  </div>
-</section>
-
-<%# ─── PILLARS ─────────────────────────────────────────────────────────── %>
-<section id="pillars" data-rail-label="Pillars"
-         class="border-y border-eco-border bg-eco-surface/30">
-  <div class="max-w-6xl mx-auto px-6 py-40">
-    <div class="text-center max-w-2xl mx-auto mb-20" data-controller="reveal">
-      <div class="flex items-center justify-center gap-4 mb-4">
-        <span class="section-num">— 03</span>
-        <p class="eco-eyebrow"><%= t("home.pillars_title") %></p>
-      </div>
-      <h2 class="font-display text-5xl md:text-7xl text-eco-white leading-tight">
-        Faith,<br>
-        <span class="italic font-normal text-eco-green-light">Rewilded.</span>
-      </h2>
-    </div>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <% %w[one two three four].each_with_index do |key, i| %>
-        <% pillar_title = cms("pillar_#{key}_title", default: t("home.pillars.#{key}.title")) %>
-        <div class="group relative rounded-2xl overflow-hidden border border-eco-border bg-eco-surface hover:border-eco-green transition-all duration-500 hover:-translate-y-1"
-             data-controller="reveal"
-             style="transition-delay: <%= i * 80 %>ms">
-          <div class="aspect-[4/3] overflow-hidden">
-            <img src="<%= pillar_images[key] %>"
-                 alt="<%= pillar_title %>"
-                 loading="lazy"
-                 class="w-full h-full object-cover opacity-60 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700">
-          </div>
-          <div class="p-7">
-            <div class="flex items-center justify-between mb-4">
-              <span class="font-display italic text-eco-green text-sm">— 0<%= i + 1 %></span>
-              <div class="size-2 rounded-full bg-eco-green pulse-dot"></div>
-            </div>
-            <h4 class="font-display text-2xl text-eco-white mb-3">
-              <%= pillar_title %>
-            </h4>
-            <p class="text-eco-text-muted text-sm leading-relaxed">
-              <%= cms("pillar_#{key}_body", default: t("home.pillars.#{key}.body")) %>
-            </p>
-          </div>
+          <%= link_to book_path(vol[:slug]), class: "eco-volume-readmore" do %>
+            <span><%= t("home.volumes.read_more", default: "Read more") %></span>
+            <span aria-hidden="true">→</span>
+          <% end %>
         </div>
       <% end %>
     </div>
   </div>
 </section>
 
-<%# ─── PULL QUOTE ──────────────────────────────────────────────────────── %>
-<section id="quote" data-rail-label="Quote"
-         class="relative max-w-5xl mx-auto px-6 py-44 text-center">
-  <div class="absolute inset-0 -z-10 bg-mesh opacity-60"></div>
-  <p class="font-display text-8xl text-eco-green leading-none mb-8 select-none">“</p>
-  <blockquote class="font-display italic text-3xl md:text-5xl leading-tight text-eco-white max-w-4xl mx-auto"
-              data-controller="reveal">
-    <%= cms("quote", default: t("home.quote")) %>
-  </blockquote>
-  <p class="mt-12 eco-eyebrow"><%= cms("quote_attribution", default: t("home.quote_attribution")) %></p>
+<%# ─── 07 · FAITH, REWILDED (paper) ─────────────────────────────────────── %>
+<section id="pillars" data-rail-label="Pillars" class="relative" style="background: var(--color-eco-paper); padding: 110px 0;">
+  <span class="eco-edge-label">07 — Pillars</span>
+  <div class="max-w-[1240px] mx-auto px-6 md:px-14">
+    <div class="text-center max-w-2xl mx-auto mb-14" data-controller="reveal">
+      <p class="eco-eyebrow center">06 — Faith Rewilded</p>
+      <h2 class="font-display text-[clamp(40px,7vw,80px)] leading-[0.98] mt-5 text-eco-ink">
+        Faith,<br><em>Rewilded.</em>
+      </h2>
+    </div>
+
+    <div class="eco-pillar-grid">
+      <% [
+        { key: "one",   num: "01", cap: "Roots",   title: "Living Roots", body: "Down to the original text — not free-text editing." },
+        { key: "two",   num: "02", cap: "Canopy",  title: "Open Canopy",  body: "Light cuts through where structure is symbolic." },
+        { key: "three", num: "03", cap: "Order",   title: "Wild Order",   body: "There is deep, intentional intent." },
+        { key: "four",  num: "04", cap: "Air",     title: "Mutual Air",   body: "What we breathe in, and breathe out is." },
+      ].each_with_index do |p, i| %>
+        <article class="eco-pillar-card" data-controller="reveal" style="transition-delay: <%= i * 80 %>ms">
+          <div class="img">
+            <img src="<%= pillar_images[p[:key]] %>" alt="<%= p[:title] %>" loading="lazy">
+            <span class="cap"><%= p[:num] %> / <%= p[:cap] %></span>
+          </div>
+          <div class="body">
+            <h4><%= p[:title] %></h4>
+            <p><%= p[:body] %></p>
+          </div>
+        </article>
+      <% end %>
+    </div>
+  </div>
 </section>
 
+<%# ─── 08 · PULL QUOTE (forest) ────────────────────────────────────────── %>
+<section id="quote" data-rail-label="Pull Quote" class="eco-pullquote relative">
+  <span class="eco-edge-label light">08 — Quote</span>
+  <div class="max-w-[1240px] mx-auto px-6 md:px-14">
+    <span class="mark">“</span>
+    <h2 data-controller="reveal">
+      Religion is typically about a club, a vibe, and rules — <em>Jesus came to blow that up.</em>
+    </h2>
+    <p class="mt-10 font-mono text-[10px] tracking-[0.22em] uppercase opacity-70">From Volume One</p>
+  </div>
+</section>
+
+<%# ─── 09 · REVIEWS — They read. Then they wrote back. ─────────────────── %>
 <%= render "shared/testimonial_wall" %>
 
-<%# ─── CTA BAND ────────────────────────────────────────────────────────── %>
-<section id="cta" data-rail-label="Get the Books"
-         class="relative overflow-hidden border-t border-eco-border">
-  <div class="absolute inset-0 z-0 opacity-25"
+<%# ─── 10 · FREE CTA (forest with sunlit horizon photo) ────────────────── %>
+<section id="free" data-rail-label="Get the Books" class="eco-free-cta relative">
+  <%# Sunrise/horizon landscape — brighter so sun rays come through %>
+  <div class="absolute inset-0 z-0"
        style="background-image: url('<%= cta_image %>'); background-size: cover; background-position: center;"></div>
   <div class="absolute inset-0 z-0"
-       style="background: linear-gradient(180deg, rgba(38,43,28,0.72) 0%, rgba(38,43,28,0.5) 50%, rgba(38,43,28,0.82) 100%);"></div>
+       style="background: linear-gradient(180deg, rgba(40,52,32,0.62) 0%, rgba(40,52,32,0.32) 50%, rgba(40,52,32,0.72) 100%);"></div>
 
-  <div class="relative z-10 max-w-3xl mx-auto px-6 py-40 text-center" data-controller="reveal">
-    <span class="inline-block rounded-full border border-eco-green/40 bg-eco-green-muted px-5 py-2 text-xs tracking-[0.25em] uppercase text-eco-green-light">
-      <%= t("free_copy.badge") %>
-    </span>
-    <h2 class="mt-10 font-display text-5xl md:text-7xl text-eco-white leading-[1.05]">
-      <%= cms("cta_headline", default: t("home.cta_band.headline")) %>
+  <span class="eco-edge-label light">10 — Get the Books</span>
+  <div class="inner relative z-10" data-controller="reveal">
+    <span class="eco-pill-eyebrow">✦ 100% Free · No Strings ✦</span>
+    <h2>
+      Get the books, free, in<br>your hands.
     </h2>
-    <p class="mt-8 text-eco-text-muted text-lg max-w-xl mx-auto">
-      <%= cms("cta_body", default: t("home.cta_band.body")) %>
-    </p>
-    <div class="mt-12">
-      <%= link_to cms("cta_button", default: t("home.cta_band.button")),
-                  request_free_copy_path, class: "eco-btn-primary text-base" %>
-    </div>
+    <p class="sub">100% free hardcopies. Worldwide shipping. No strings.</p>
+    <%= link_to t("nav.request"), request_free_copy_path, class: "eco-btn-sage" %>
   </div>
 </section>

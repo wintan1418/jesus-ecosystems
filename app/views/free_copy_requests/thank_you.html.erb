@@ -1,12 +1,12 @@
 <% content_for :title, "#{t('free_copy.thank_you.heading')} · #{t('site.name')}" %>
 
-<section class="max-w-2xl mx-auto px-6 pt-44 pb-32 text-center" data-controller="reveal">
-  <p class="font-display text-7xl text-eco-green leading-none">✓</p>
-  <h1 class="mt-8 font-display text-5xl md:text-6xl text-eco-white leading-tight">
+<section class="max-w-2xl mx-auto px-6 pt-44 pb-32 text-center" data-controller="reveal" style="background: var(--color-eco-cream);">
+  <p class="font-display text-7xl text-eco-olive-deep leading-none">✓</p>
+  <h1 class="mt-8 font-display text-[clamp(40px,6vw,68px)] leading-[1.05] text-eco-ink" style="font-weight: 600;">
     <%= t("free_copy.thank_you.heading") %>
   </h1>
-  <p class="mt-6 eco-subhead">
+  <p class="mt-6 eco-subhead mx-auto">
     <%= t("free_copy.thank_you.body") %>
   </p>
-  <%= link_to t("nav.home"), root_path, class: "mt-12 eco-btn-ghost text-sm inline-flex" %>
+  <%= link_to t("nav.home"), root_path, class: "mt-12 eco-btn-ghost inline-flex" %>
 </section>

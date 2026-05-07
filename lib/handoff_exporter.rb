@@ -29,12 +29,29 @@ class HandoffExporter
       render_pages(port, PAGES + book_pages)
     end
     copy_static_assets
-    write_importmap_json
+    write_application_js
+    write_controllers_index
     write_readme
     zip = zip_bundle
     puts "\n✓ Handoff package: #{zip}"
     puts "  Size: #{File.size(zip) / 1024} KB"
   end
+
+  INLINE_IMPORTMAP_BLOCK = <<~HTML.strip
+    <script type="importmap">
+    {
+      "imports": {
+        "application": "./js/application.js",
+        "controllers": "./js/controllers/index.js",
+        "controllers/": "./js/controllers/",
+        "@hotwired/turbo-rails": "https://cdn.jsdelivr.net/npm/@hotwired/turbo@8/dist/turbo.es2017-esm.js",
+        "@hotwired/stimulus": "https://cdn.jsdelivr.net/npm/@hotwired/stimulus@3/dist/stimulus.js",
+        "hls.js": "https://esm.sh/hls.js@1.5.13"
+      }
+    }
+    </script>
+    <script type="module">import "application"</script>
+  HTML
 
   private
 
@@ -132,7 +149,7 @@ class HandoffExporter
   end
 
   # Rewrites asset paths + internal links so the bundle is self-contained and
-  # the designer's dev can open it in a browser without our Rails server.
+  # opens cleanly on any static host without our Rails dev server.
   def rewrite_html(html, page_map)
     # Internal page links → mapped .html files (or # if not exported)
     html = html.gsub(/href="(\/en[^"\s]*)"/) do
@@ -146,18 +163,51 @@ class HandoffExporter
       end
     end
 
+    # Logo / homepage anchor sometimes renders as /?locale=en (default-locale shortcut)
+    html.gsub!(/href="\/\?locale=en"/, 'href="index.html"')
+
     # Compiled CSS → css/styles.css
     html.gsub!(/\/assets\/tailwind-[0-9a-f]+\.css/, "css/styles.css")
     # ActionText CSS (unused in public views) — drop the link tag
     html.gsub!(/<link[^>]*href="\/assets\/actiontext[^"]*"[^>]*>/, "")
+    # Dedupe identical stylesheet links (Rails layout includes both `tailwind`
+    # and `:app` and they collapse to the same compiled file post-rewrite).
+    html.gsub!(
+      /(<link rel="stylesheet" href="css\/styles\.css"[^>]*>)\s*\n?\s*<link rel="stylesheet" href="css\/styles\.css"[^>]*>/,
+      '\1'
+    )
 
     # Media assets → local paths
     html.gsub!(%r{"/source-assets/}, '"assets/')
 
-    # Importmap: replace the Rails-generated JSON with an external reference
-    # so the handoff recipient sees a clean pointer to importmap.json.
-    html.sub!(/<script type="importmap"[^>]*>.*?<\/script>/m,
-              '<script type="importmap" src="js/importmap.json"></script>')
+    # Favicons live at the Rails public root — point at the bundled copies.
+    html.gsub!(%r{href="/icon\.png"}, 'href="assets/icon.png"')
+    html.gsub!(%r{href="/icon\.svg"}, 'href="assets/icon.svg"')
+
+    # JS: nuke Rails' importmap, modulepreloads, and bootstrap script — the
+    # importmap they emit references hashed dev-server paths that don't ship
+    # in the bundle, and external `<script type="importmap" src=...>` is not
+    # supported by browsers. We splice in a self-contained inline block instead.
+    html.gsub!(/^\s*<link rel="modulepreload"[^>]*>\s*\n?/, "")
+    html.sub!(/<script type="module">\s*import "application"\s*<\/script>\s*\n?/, "")
+    html.sub!(/<script type="importmap"[^>]*>.*?<\/script>/m, INLINE_IMPORTMAP_BLOCK)
+
+    # Strip dev-server URLs that leak into meta tags. Recipient's domain
+    # should populate canonical / og:url at deploy time.
+    html.gsub!(/\s*<link rel="canonical"[^>]*>\s*\n?/, "")
+    html.gsub!(/\s*<meta property="og:url"[^>]*>\s*\n?/, "")
+    # og:image rewrite — keep the tag, point at the bundled cover.
+    html.gsub!(/<meta property="og:image"[^>]*content="[^"]*"[^>]*>/,
+               '<meta property="og:image" content="assets/volume-1.jpg">')
+    # hreflang URLs all point at the dev server and only `en` actually ships.
+    html.gsub!(/\s*<link rel="alternate" hreflang="[^"]+"[^>]*>\s*\n?/, "")
+
+    # Language switcher: drop the /es and /pt entries since translations
+    # aren't in this bundle. Leaves only the active EN row.
+    html.gsub!(
+      /<li role="none">\s*<a role="menuitem"[^>]*href="\/(?:es|pt)"[^>]*>.*?<\/a>\s*<\/li>/m,
+      ""
+    )
 
     # Strip Rails-specific attributes and meta tags
     html.gsub!(/ data-turbo-track="reload"/, "")
@@ -182,27 +232,64 @@ class HandoffExporter
       FileUtils.cp(f, assets_dir) unless File.directory?(f)
     end
 
-    # Stimulus controllers
-    Dir[Rails.root.join("app/javascript/controllers/*.js").to_s].each do |f|
-      FileUtils.cp(f, js_dir.join("controllers"))
+    # Favicons (Rails serves these from /public root; the layout links to
+    # /icon.png + /icon.svg, which we rewrite to assets/ in `rewrite_html`).
+    %w[icon.png icon.svg].each do |f|
+      src = Rails.root.join("public", f)
+      FileUtils.cp(src, assets_dir.join(f)) if src.exist?
     end
 
-    # Entry points
-    FileUtils.cp(Rails.root.join("app/javascript/application.js"), js_dir)
+    # Stimulus controllers — skip the Rails-specific entry files; we generate
+    # clean replacements in `write_application_js` and `write_controllers_index`.
+    skip = %w[application.js index.js]
+    Dir[Rails.root.join("app/javascript/controllers/*.js").to_s].each do |f|
+      next if skip.include?(File.basename(f))
+      FileUtils.cp(f, js_dir.join("controllers"))
+    end
   end
 
-  def write_importmap_json
-    importmap = {
-      imports: {
-        "application"                => "./application.js",
-        "@hotwired/turbo-rails"      => "https://cdn.jsdelivr.net/npm/@hotwired/turbo@8/dist/turbo.es2017-esm.js",
-        "@hotwired/stimulus"         => "https://cdn.jsdelivr.net/npm/@hotwired/stimulus@3/dist/stimulus.js",
-        "@hotwired/stimulus-loading" => "https://cdn.jsdelivr.net/npm/@hotwired/stimulus-loading@1/dist/stimulus-loading.js",
-        "hls.js"                     => "https://esm.sh/hls.js@1.5.13",
-        "controllers/"               => "./controllers/"
-      }
-    }
-    File.write(js_dir.join("importmap.json"), JSON.pretty_generate(importmap))
+  # The Rails entry point imports `trix` and `@rails/actiontext`, which only
+  # exist in our build. The handoff just needs Turbo + Stimulus controllers.
+  def write_application_js
+    File.write(js_dir.join("application.js"), <<~JS)
+      // Bootstrap: load Turbo for SPA-feel navigation, then register Stimulus controllers.
+      import "@hotwired/turbo-rails"
+      import "controllers"
+    JS
+  end
+
+  # Rails' `controllers/index.js` uses stimulus-loading's `eagerLoadControllersFrom`
+  # — that helper relies on importmap-rails' build-time enumeration and doesn't
+  # work in a plain browser importmap. Generate explicit imports + registers.
+  def write_controllers_index
+    files = Dir[Rails.root.join("app/javascript/controllers/*_controller.js").to_s].sort
+
+    imports = files.map do |f|
+      base = File.basename(f, "_controller.js")
+      class_name = base.split("_").map(&:capitalize).join + "Controller"
+      "import #{class_name} from \"./#{File.basename(f)}\""
+    end
+
+    registers = files.map do |f|
+      base = File.basename(f, "_controller.js")
+      class_name = base.split("_").map(&:capitalize).join + "Controller"
+      identifier = base.tr("_", "-")
+      %{application.register("#{identifier}", #{class_name})}
+    end
+
+    File.write(js_dir.join("controllers/index.js"), <<~JS)
+      import { Application } from "@hotwired/stimulus"
+
+      #{imports.join("\n")}
+
+      const application = Application.start()
+      application.debug = false
+      window.Stimulus = application
+
+      #{registers.join("\n")}
+
+      export { application }
+    JS
   end
 
   def write_readme
@@ -211,7 +298,10 @@ class HandoffExporter
       Generated #{Date.current.strftime('%B %-d, %Y')}
 
       This package is the public-facing site as static HTML / CSS / JS —
-      ready to port into your CMS.
+      ready to port into **any** CMS or backend. Nothing here is
+      Rails-specific. It's plain semantic HTML, compiled CSS, and ES
+      modules. Any stack — PHP, Node, Go, Django, WordPress, custom —
+      can host it.
 
       ## What's in the box
 
@@ -227,14 +317,17 @@ class HandoffExporter
       css/styles.css          Compiled Tailwind CSS (all design tokens baked
                               in — no PostCSS build needed)
 
-      js/application.js       JS entry point
+      js/application.js       JS entry point (Turbo + Stimulus boot)
       js/controllers/         Stimulus controllers (see table below)
-      js/importmap.json       External importmap with CDN references for
-                              Turbo, Stimulus, and hls.js — swap for
-                              self-hosted bundles if preferred.
+                              `index.js` registers them all explicitly.
 
-      assets/                 logo.png, volume-1.jpg, volume-2.jpg
+      assets/                 logo.png, volume-1.jpg, volume-2.jpg, favicons
       ```
+
+      Each HTML file already has an inline `<script type="importmap">` in the
+      `<head>` that resolves Turbo, Stimulus, and hls.js from CDN, plus
+      `application` and `controllers` from this bundle. No separate file to
+      load — open any page on a static host and it boots.
 
       ## External references inside the HTML
 
@@ -250,7 +343,48 @@ class HandoffExporter
       - **hls.js via esm.sh** — hero CRT video engine
         (`esm.sh/hls.js@1.5.13`) — only loads when the CRT mounts
 
-      ## Stimulus controllers
+      ## JavaScript: Stimulus controllers (framework-agnostic)
+
+      The JS behaviors are written as **Stimulus** controllers. Stimulus is
+      a tiny framework (~8KB gzipped) that reads `data-controller="..."`
+      attributes from the HTML and wires up behavior. It works with **any**
+      backend — Rails, PHP, Django, Node, static sites — as long as the
+      markup is in the page.
+
+      ### Option A — Use the inline importmap that ships in every page (simplest)
+
+      Already done. Each HTML file has this in its `<head>`:
+
+      ```html
+      <script type="importmap">
+      { "imports": {
+          "application": "./js/application.js",
+          "controllers": "./js/controllers/index.js",
+          "controllers/": "./js/controllers/",
+          "@hotwired/turbo-rails": "https://cdn.jsdelivr.net/npm/@hotwired/turbo@8/...",
+          "@hotwired/stimulus":    "https://cdn.jsdelivr.net/npm/@hotwired/stimulus@3/...",
+          "hls.js":                "https://esm.sh/hls.js@1.5.13"
+      }}
+      </script>
+      <script type="module">import "application"</script>
+      ```
+
+      Modern browsers (Chrome 89+, Safari 16.4+, Firefox 108+) support
+      importmaps natively. For older browsers, add
+      [es-module-shims](https://github.com/guybedford/es-module-shims) before
+      the importmap.
+
+      ### Option B — Bundle everything into one file
+
+      Run `npx esbuild js/application.js --bundle --format=esm --outfile=app.bundle.js`
+      once. Include `<script type="module" src="app.bundle.js" defer>`.
+      Single file, works on any browser, no importmap.
+
+      ### Option C — Port to your framework
+
+      Each controller is a small class reading a handful of `data-*`
+      attributes. Reimplementing in React/Vue/Svelte/vanilla JS is
+      straightforward — the behaviors are listed below with what they do.
 
       Each controller wires to HTML via `data-controller="..."` attributes
       already in the markup. They're standalone ES modules and don't depend
@@ -296,18 +430,41 @@ class HandoffExporter
       --font-mono:    "JetBrains Mono", ui-monospace, ...
       ```
 
+      ## Dependencies summary
+
+      **CSS:** nothing. `css/styles.css` is a standalone compiled file.
+
+      **JS (only if you want the interactions):**
+      - `@hotwired/stimulus` ~8KB gzipped — powers all the `data-controller`
+        behaviors. Load from CDN or npm install.
+      - `@hotwired/turbo` ~30KB gzipped — smooth page transitions and form
+        submissions. **Optional**. If you skip Turbo, forms still work;
+        you just lose the SPA-feel navigation. Safe to drop.
+      - `hls.js` ~100KB gzipped — only loaded by the hero CRT video player
+        when it mounts. **Optional**. If you skip, replace the `<video>` in
+        the CRT with a regular MP4 or remove the hero CRT entirely.
+
+      **Fonts:** Google Fonts (Playfair Display, DM Sans, JetBrains Mono).
+      Self-host if you prefer by downloading from Google Fonts and updating
+      the `<link>` at the top of each HTML file.
+
+      **Images:** Cloudinary + Unsplash hotlinks. All replaceable — point at
+      your own CDN/storage by search-and-replacing the URL prefixes.
+
       ## Porting checklist
 
       1. Drop the rendered HTML into your CMS's template slots — the
          markup is semantic and language-agnostic.
       2. Include `css/styles.css` in your site's stylesheet bundle.
-      3. Load the Stimulus controllers as ES modules (or convert to plain
-         JS — each one reads a handful of `data-*` attributes, easy to
-         port).
+      3. Decide on JS integration (Option A/B/C above).
       4. Point the Cloudinary + Unsplash + Google Fonts URLs at your own
          CDN if you want to self-host.
       5. Swap the language dropdown's hardcoded `EN / ES / PT` for your
          full list from the DB.
+      6. Wire up the form submits (`<form action="...">`) to your own
+         backend endpoints. The form markup is standard — first_name,
+         last_name, email, address_line_1, etc. No CSRF token needed
+         unless your framework requires one.
     MD
   end
 

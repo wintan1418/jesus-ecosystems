@@ -1,92 +1,88 @@
 <% content_for :title, "#{@book.localized_title(I18n.locale)} · #{t('site.name')}" %>
 
-<%# ─── Hero ─────────────────────────────────────────────────────────── %>
-<section class="relative pt-36 pb-24 overflow-hidden bg-mesh">
-  <div class="absolute -top-32 -left-32 size-[36rem] rounded-full bg-eco-green/10 blur-[140px] pointer-events-none"></div>
+<%# ─── Hero (cream) ───────────────────────────────────────────────── %>
+<section class="relative pt-36 pb-24 overflow-hidden" style="background: var(--color-eco-cream);">
+  <span class="eco-edge-label">— Vol. <%= @book.volume_number %></span>
 
-  <div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
+  <div class="relative max-w-[1240px] mx-auto px-6 md:px-14 grid lg:grid-cols-12 gap-12 items-center">
     <%# Cover %>
     <div class="lg:col-span-5">
-      <div class="relative max-w-md mx-auto eco-float">
+      <div class="relative max-w-md mx-auto eco-book-frame" style="aspect-ratio: 2/3; box-shadow: 0 30px 60px -25px rgba(42,47,32,.45);">
         <img src="/source-assets/volume-<%= @book.volume_number %>.jpg"
              alt="<%= @book.localized_title(I18n.locale) %>"
-             class="w-full border border-eco-border shadow-[0_60px_120px_-30px_rgba(163,191,100,0.3)]">
-        <div class="absolute -top-5 -left-5 size-20 rounded-full border border-eco-green/40 bg-eco-bg/70 backdrop-blur-md flex items-center justify-center font-display italic text-3xl text-eco-green-light">
-          <%= @book.volume_number == 1 ? "I" : "II" %>
-        </div>
+             class="w-full h-full object-cover">
       </div>
     </div>
 
     <%# Copy %>
     <div class="lg:col-span-7 space-y-6" data-controller="reveal">
-      <nav class="flex items-center gap-2 text-xs tracking-wider uppercase text-eco-text-muted">
-        <%= link_to t("nav.home"), root_path, class: "hover:text-eco-green-light" %>
+      <nav class="flex items-center gap-2 font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink-soft">
+        <%= link_to t("nav.home"), root_path, class: "hover:text-eco-ink" %>
         <span>/</span>
-        <%= link_to t("nav.volume_one").split.first, books_path, class: "hover:text-eco-green-light" %>
+        <%= link_to t("nav.books"), books_path, class: "hover:text-eco-ink" %>
         <span>/</span>
-        <span class="text-eco-green-light">Vol. <%= @book.volume_number %></span>
+        <span class="text-eco-ink">Vol. <%= @book.volume_number %></span>
       </nav>
 
       <p class="eco-eyebrow">Volume <%= @book.volume_number %></p>
-      <h1 class="font-display text-5xl md:text-6xl text-eco-white leading-[1.05]">
+      <h1 class="font-display text-[clamp(40px,5.5vw,64px)] leading-[1.05] text-eco-ink" style="font-weight: 600;">
         <%= @book.localized_title(I18n.locale) %>
       </h1>
-      <p class="font-display italic text-2xl text-eco-green-light">
+      <p class="font-display italic text-2xl text-eco-olive-deep" style="font-weight: 400;">
         <%= @book.localized_tagline(I18n.locale) %>
       </p>
-      <p class="eco-subhead max-w-2xl">
+      <p class="eco-subhead" style="max-width: 580px;">
         <%= @book.localized_description(I18n.locale) %>
       </p>
 
       <div class="flex flex-wrap items-center gap-4 pt-2">
-        <%= link_to read_book_path(@book.slug), class: "eco-btn-primary text-sm" do %>
-          <span class="mr-2">📖</span> <%= t("books.show.open_book", default: "Open the book") %>
+        <%= link_to read_book_path(@book.slug), class: "eco-btn-primary" do %>
+          <span><%= t("books.show.open_book", default: "Open the book") %></span>
         <% end %>
-        <%= link_to t("home.cta_request"), request_free_copy_path, class: "eco-btn-ghost text-sm" %>
+        <%= link_to t("home.cta_request"), request_free_copy_path, class: "eco-btn-ghost" %>
         <% if @audiobook %>
-          <%= link_to t("home.cta_listen"), audiobook_path(@audiobook), class: "eco-btn-ghost text-sm" %>
+          <%= link_to t("home.cta_listen"), audiobook_path(@audiobook), class: "eco-btn-ghost" %>
         <% end %>
       </div>
     </div>
   </div>
 </section>
 
-<%# ─── Chapters ─────────────────────────────────────────────────────── %>
-<section class="border-y border-eco-border bg-eco-surface/30">
-  <div class="max-w-5xl mx-auto px-6 py-24">
+<%# ─── Chapters (paper) ────────────────────────────────────────────── %>
+<section class="relative" style="background: var(--color-eco-paper);">
+  <div class="max-w-5xl mx-auto px-6 md:px-14 py-24">
     <div class="flex items-end justify-between flex-wrap gap-6 mb-12" data-controller="reveal">
       <div>
-        <div class="flex items-center gap-4 mb-4">
-          <span class="section-num">— Chapters</span>
-        </div>
-        <h2 class="font-display text-4xl md:text-5xl text-eco-white">
+        <p class="eco-eyebrow mb-4">Chapters</p>
+        <h2 class="font-display text-[clamp(32px,4.5vw,52px)] text-eco-ink" style="font-weight: 500;">
           <%= t("books.show.chapters_heading") %>
         </h2>
       </div>
-      <p class="text-eco-text-muted text-sm max-w-sm">
+      <p class="text-eco-ink-soft text-sm max-w-sm">
         <%= t("books.show.chapters_helper") %>
       </p>
     </div>
 
-    <ol class="divide-y divide-eco-border border-y border-eco-border">
+    <ol style="border-top: 1px solid var(--color-eco-rule); border-bottom: 1px solid var(--color-eco-rule);">
       <% all_chapters = (@preview_chapters + @gated_chapters).sort_by(&:position) %>
       <% all_chapters.each do |chapter| %>
         <% gated = !chapter.is_preview %>
-        <li class="py-6 flex items-center justify-between gap-6 group" data-controller="reveal">
+        <li class="py-6 flex items-center justify-between gap-6 group" data-controller="reveal"
+            style="border-bottom: 1px solid var(--color-eco-rule);">
           <div class="flex items-center gap-6 min-w-0">
-            <span class="font-display italic text-eco-green text-xl shrink-0 w-12 text-right">
+            <span class="font-display italic text-eco-olive-deep text-xl shrink-0 w-12 text-right">
               <%= "%02d" % chapter.position %>
             </span>
             <div class="min-w-0">
-              <h3 class="font-display text-2xl text-eco-white truncate">
+              <h3 class="font-display text-2xl text-eco-ink truncate" style="font-weight: 500;">
                 <%= chapter.title %>
               </h3>
               <% if gated %>
-                <p class="text-xs tracking-wider uppercase text-eco-text-muted mt-1">
+                <p class="font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink-soft mt-1">
                   <%= t("books.show.gated") %>
                 </p>
               <% else %>
-                <p class="text-xs tracking-wider uppercase text-eco-green-light mt-1">
+                <p class="font-mono text-[10px] tracking-[0.22em] uppercase text-eco-olive-deep mt-1">
                   <%= t("books.show.preview") %>
                 </p>
               <% end %>
@@ -94,13 +90,13 @@
           </div>
           <% if gated %>
             <%= link_to request_free_copy_path,
-                        class: "shrink-0 eco-btn-ghost text-xs !py-2 !px-4" do %>
+                        class: "shrink-0 eco-btn-ghost" do %>
               🔒 <%= t("books.show.unlock") %>
             <% end %>
           <% else %>
             <%= link_to book_chapter_path(@book.slug, chapter.slug),
-                        class: "shrink-0 text-eco-green text-sm tracking-wider uppercase font-medium group-hover:gap-2 inline-flex items-center gap-1 transition-all" do %>
-              <%= t("books.show.read") %> <span>→</span>
+                        class: "shrink-0 inline-flex items-center gap-2 group-hover:gap-4 transition-all font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink" do %>
+              <%= t("books.show.read") %> <span aria-hidden="true">→</span>
             <% end %>
           <% end %>
         </li>
@@ -109,21 +105,22 @@
   </div>
 </section>
 
-<%# ─── Audiobook teaser ─────────────────────────────────────────────── %>
+<%# ─── Audiobook teaser (cream) ────────────────────────────────────── %>
 <% if @audiobook %>
-  <section class="max-w-5xl mx-auto px-6 py-24">
-    <div class="rounded-3xl border border-eco-border bg-eco-surface p-10 md:p-14 flex flex-col md:flex-row md:items-center md:justify-between gap-8"
+  <section class="max-w-5xl mx-auto px-6 md:px-14 py-24" style="background: var(--color-eco-cream);">
+    <div class="rounded-[10px] p-10 md:p-14 flex flex-col md:flex-row md:items-center md:justify-between gap-8"
+         style="background: var(--color-eco-cream-warm); border: 1px solid var(--color-eco-rule);"
          data-controller="reveal">
       <div>
         <p class="eco-eyebrow"><%= t("nav.audiobooks") %></p>
-        <h3 class="font-display text-3xl md:text-4xl text-eco-white mt-2">
+        <h3 class="font-display text-3xl md:text-4xl text-eco-ink mt-3" style="font-weight: 500;">
           <%= t("books.show.audiobook_heading") %>
         </h3>
-        <p class="text-eco-text-muted mt-3 max-w-md">
+        <p class="text-eco-ink-soft mt-3 max-w-md text-[15px]">
           <%= t("books.show.audiobook_helper") %>
         </p>
       </div>
-      <%= link_to t("home.cta_listen"), audiobook_path(@audiobook), class: "eco-btn-primary text-sm whitespace-nowrap" %>
+      <%= link_to t("home.cta_listen"), audiobook_path(@audiobook), class: "eco-btn-primary whitespace-nowrap" %>
     </div>
   </section>
 <% end %>

@@ -1,48 +1,45 @@
 <% content_for :title, "#{t('books.index.heading')} · #{t('site.name')}" %>
 
-<section class="relative max-w-7xl mx-auto px-6 pt-40 pb-24">
-  <div class="text-center max-w-3xl mx-auto" data-controller="reveal">
-    <div class="flex items-center justify-center gap-4 mb-5">
-      <span class="section-num">— 01</span>
-      <p class="eco-eyebrow"><%= t("books.index.eyebrow") %></p>
-    </div>
-    <h1 class="font-display text-5xl md:text-7xl text-eco-white leading-tight">
-      <%= t("books.index.heading_1") %><br>
-      <span class="italic font-normal text-eco-green-light"><%= t("books.index.heading_2") %></span>
-    </h1>
-    <p class="mt-6 eco-subhead max-w-xl mx-auto">
-      <%= t("books.index.subhead") %>
-    </p>
-  </div>
+<section class="relative pt-40 pb-32" style="background: var(--color-eco-cream);">
+  <span class="eco-edge-label">— Books</span>
 
-  <div class="mt-20 grid md:grid-cols-2 gap-10">
-    <% @books.each_with_index do |book, i| %>
-      <%= link_to book_path(book.slug), class: "group block", data: { controller: "reveal" } do %>
-        <article class="relative overflow-hidden border border-eco-border bg-eco-surface eco-float"
-                 style="animation-delay: <%= i * 0.6 %>s">
-          <div class="aspect-[2/3] overflow-hidden relative">
-            <img src="/source-assets/volume-<%= book.volume_number %>.jpg"
-                 alt="<%= book.localized_title(I18n.locale) %>"
-                 class="w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-110"
-                 loading="lazy">
-            <div class="absolute top-6 left-6 size-14 rounded-full border border-eco-green/40 bg-eco-bg/60 backdrop-blur-md flex items-center justify-center font-display italic text-2xl text-eco-green-light">
-              <%= book.volume_number == 1 ? "I" : "II" %>
+  <div class="max-w-[1240px] mx-auto px-6 md:px-14">
+    <div class="text-center max-w-3xl mx-auto" data-controller="reveal">
+      <p class="eco-eyebrow center"><%= t("books.index.eyebrow") %></p>
+      <h1 class="font-display text-[clamp(44px,7vw,78px)] leading-[1.02] mt-5 text-eco-ink" style="font-weight: 600;">
+        <%= t("books.index.heading_1") %><br>
+        <em style="color: var(--color-eco-ink); font-weight: 400;"><%= t("books.index.heading_2") %></em>
+      </h1>
+      <p class="mt-6 eco-subhead mx-auto" style="max-width: 540px;">
+        <%= t("books.index.subhead") %>
+      </p>
+    </div>
+
+    <div class="mt-20 grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+      <% @books.each_with_index do |book, i| %>
+        <%= link_to book_path(book.slug), class: "group block eco-volume-card-light", data: { controller: "reveal" } do %>
+          <article>
+            <div class="eco-book-frame">
+              <img src="/source-assets/volume-<%= book.volume_number %>.jpg"
+                   alt="<%= book.localized_title(I18n.locale) %>"
+                   loading="lazy">
             </div>
-          </div>
-          <div class="p-10 border-t border-eco-border">
-            <p class="eco-eyebrow">Volume <%= book.volume_number %></p>
-            <h2 class="font-display text-3xl text-eco-white mt-3">
-              <%= book.localized_title(I18n.locale) %>
-            </h2>
-            <p class="text-eco-text-muted mt-4 leading-relaxed">
-              <%= book.localized_description(I18n.locale) %>
-            </p>
-            <span class="mt-8 inline-flex items-center text-eco-green text-sm font-medium tracking-wider uppercase gap-2 group-hover:gap-4 transition-all">
-              <%= t("home.volumes.read_more") %> <span>→</span>
-            </span>
-          </div>
-        </article>
+
+            <div class="pt-7">
+              <p class="font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink-soft">Volume <%= book.volume_number %></p>
+              <h2 class="font-display text-3xl md:text-4xl text-eco-ink mt-2" style="font-weight: 500;">
+                <%= book.localized_title(I18n.locale) %>
+              </h2>
+              <p class="text-eco-ink-soft mt-4 leading-relaxed text-[15px]">
+                <%= book.localized_description(I18n.locale) %>
+              </p>
+              <span class="mt-6 inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink group-hover:gap-4 transition-all">
+                <%= t("home.volumes.read_more") %> <span aria-hidden="true">→</span>
+              </span>
+            </div>
+          </article>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </section>
