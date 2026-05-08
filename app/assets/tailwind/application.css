@@ -9,8 +9,8 @@
 */
 @theme {
   /* ── New canonical names (HANDOFF.md §1) ── */
-  --color-eco-cream:        #f7f1df;             /* primary page bg */
-  --color-eco-paper:        #fbf6e6;             /* lightest paper sections */
+  --color-eco-cream:        #D9D9CC;             /* primary page bg — hero (design spec) */
+  --color-eco-paper:        #DED9D1;             /* lightest paper sections (design spec) */
   --color-eco-cream-warm:   #f0e7cd;             /* warm card bg */
   --color-eco-bone:         #ece2c4;             /* deeper warm bone */
 
@@ -30,8 +30,8 @@
   --color-eco-rule-light:   rgba(247, 241, 223, 0.22);
 
   /* ── Legacy aliases (so existing inner-page eco-* classes still resolve) ── */
-  --color-eco-bg:           #f7f1df;             /* was forest-dark; now cream */
-  --color-eco-surface:      #fbf6e6;             /* was olive-leaf; now paper */
+  --color-eco-bg:           #D9D9CC;             /* was forest-dark; now cool sage */
+  --color-eco-surface:      #DED9D1;             /* was olive-leaf; now paper */
   --color-eco-border:       rgba(42, 47, 32, 0.14);
   --color-eco-green:        #8a9a68;             /* sage — was neon-ish */
   --color-eco-green-light:  #7c8d5a;             /* deeper sage for emphasis on cream */
@@ -3243,3 +3243,111 @@ trix-toolbar .trix-button.trix-active {
   text-transform: uppercase;
   color: var(--color-eco-ink-soft);
 }
+
+/* ─── Page-wide theme toggle (client colour palette picker) ─────────────── */
+.page-theme-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px 6px 14px;
+  border-radius: 999px;
+  background: rgba(42, 47, 32, 0.88);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 8px 28px -6px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(0, 0, 0, 0.15);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-theme-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 36px -8px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.page-theme-toggle-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
+.page-theme-swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px 5px 6px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.page-theme-swatch .swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  flex: none;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.page-theme-swatch .name {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.25s ease;
+}
+
+.page-theme-swatch:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.page-theme-swatch:hover .name {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.page-theme-swatch.is-active {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.page-theme-swatch.is-active .swatch {
+  border-color: #fff;
+  transform: scale(1.1);
+}
+
+.page-theme-swatch.is-active .name {
+  color: #fff;
+}
+
+/* Mobile: compact layout */
+@media (max-width: 767px) {
+  .page-theme-toggle {
+    bottom: 16px;
+    right: 12px;
+    flex-wrap: wrap;
+    max-width: 180px;
+    padding: 8px 10px;
+    gap: 6px;
+  }
+  .page-theme-toggle-label {
+    width: 100%;
+    font-size: 8px;
+    margin-bottom: 2px;
+  }
+}
+

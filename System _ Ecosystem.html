@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>System + Ecosystem — Jesus the Designer's Plan to Change the World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@400;500;600&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --olive:        #8a9a68;       /* lighter sage (stat band) */
+    --olive-deep:   #6f7f52;       /* mid sage (volumes) */
+    --forest:       #4a5538;       /* lighter forest backdrop */
+    --ink:          #2a2f20;       /* deep on cream */
+    --ink-soft:     #5a5f4d;
+    --cream:        #f7f1df;       /* primary cream — lighter */
+    --cream-warm:   #f0e7cd;       /* warm cream cards */
+    --paper:        #fbf6e6;       /* lightest paper */
+    --bone:         #ece2c4;
+    --rule:         rgba(42,47,32,.14);
+    --rule-light:   rgba(247,241,223,.22);
+    --accent:       #c84634;       /* red accent ("They read.") */
+    --accent-soft:  #b54a3a;
+    --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+    --sans:  'Inter', system-ui, -apple-system, sans-serif;
+    --mono:  'JetBrains Mono', ui-monospace, monospace;
+    --hand:  'Caveat', cursive;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--cream);
+    -webkit-font-smoothing:antialiased;
+    font-size:15px;
+    line-height:1.55;
+  }
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 56px}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:18px;height:1px;background:currentColor;opacity:.6}
+  .eyebrow.center::before,.eyebrow.center::after{content:"";width:24px;height:1px;background:currentColor;opacity:.6}
+  .eyebrow.center{justify-content:center}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:500;letter-spacing:-.01em;margin:0}
+  h1 em,h2 em,h3 em{font-style:italic;font-weight:500}
+  .serif-italic{font-family:var(--serif);font-style:italic;font-weight:500}
+
+  /* ───────── Right-edge section label ───────── */
+  section{position:relative}
+  .edge-label{
+    position:absolute;right:18px;top:50%;
+    writing-mode:vertical-rl;transform:rotate(180deg);
+    font-family:var(--mono);font-size:10px;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--ink-soft);opacity:.65;
+    display:inline-flex;align-items:center;gap:14px;
+  }
+  .edge-label::before{content:"";writing-mode:horizontal-tb;width:1px;height:28px;background:currentColor;opacity:.5}
+  .edge-label.light{color:var(--cream)}
+
+  /* ───────── Nav ───────── */
+  .nav{
+    position:sticky;top:0;z-index:30;
+    background:var(--cream);
+    border-bottom:1px solid var(--rule);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 56px;gap:32px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:20px}
+  .brand .mark{
+    width:22px;height:22px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #8a9a5b, #3f4a26 70%);
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);
+  }
+  .brand b{font-weight:500}
+  .brand small{font-family:var(--serif);font-style:italic;color:var(--ink-soft);font-size:13px;margin-left:2px}
+  .nav-links{display:flex;gap:34px;font-size:13px;color:var(--ink-soft);font-weight:500}
+  .nav-links a{position:relative;padding:6px 0}
+  .nav-links a:first-child::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:var(--ink)}
+  .nav-right{display:flex;align-items:center;gap:18px}
+  .lang{font-size:12px;color:var(--ink-soft);font-family:var(--mono);letter-spacing:.06em;display:inline-flex;align-items:center;gap:6px}
+  .lang::after{content:"⌄";font-family:var(--sans);transform:translateY(-2px)}
+  .btn{
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    padding:11px 18px;border-radius:999px;border:1px solid var(--ink);
+    background:transparent;color:var(--ink);cursor:pointer;white-space:nowrap;
+    transition:background .2s,color .2s;
+  }
+  .btn:hover{background:var(--ink);color:var(--cream)}
+  .btn-primary{background:#c9b888;color:#2a2f20;border-color:#c9b888}
+  .btn-primary:hover{background:#b8a674;border-color:#b8a674;color:#2a2f20}
+  .btn-ghost{border-color:transparent;color:var(--ink-soft);padding-left:0;padding-right:0}
+  .btn-ghost:hover{background:transparent;color:var(--ink)}
+  .btn-light{border-color:var(--cream);color:var(--cream)}
+  .btn-light:hover{background:var(--cream);color:var(--ink)}
+
+  /* ───────── Hero ───────── */
+  .hero{padding:48px 0 72px;background:var(--cream)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:center}
+  .hero h1{font-size:78px;line-height:.98;letter-spacing:-.015em}
+  .hero h1 .it{font-style:italic;font-family:var(--serif);font-weight:500}
+  .hero p.lede{
+    margin:26px 0 8px;max-width:430px;
+    font-size:15px;line-height:1.6;color:var(--ink-soft);
+  }
+  .hero .quote-line{
+    font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink);
+    margin:8px 0 28px;max-width:430px;
+  }
+  .hero-cta{display:flex;align-items:center;gap:22px}
+  .play-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+  .play-link .pdot{width:22px;height:22px;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center}
+  .play-link .pdot::after{content:"";border-left:6px solid currentColor;border-top:4px solid transparent;border-bottom:4px solid transparent;margin-left:2px}
+
+  /* hero media card */
+  .hero-card{
+    position:relative;border-radius:14px;overflow:hidden;
+    background:#3d4a30;
+    aspect-ratio: 4/3;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,.25);
+  }
+  .hero-card .frame-bar{
+    position:absolute;left:0;right:0;top:0;height:34px;
+    background:rgba(20,24,14,.55);backdrop-filter:blur(8px);
+    display:flex;align-items:center;gap:6px;padding:0 14px;z-index:3;
+    border-bottom:1px solid rgba(255,255,255,.06);
+  }
+  .hero-card .frame-bar i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18);font-style:normal}
+  .hero-card .frame-bar span{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.55);text-transform:uppercase}
+  .hero-card .photo{
+    position:absolute;inset:34px 0 0 0;
+    background:
+      linear-gradient(180deg, rgba(20,24,14,0) 30%, rgba(20,24,14,.6) 100%),
+      repeating-linear-gradient(135deg, #4a5538 0 22px, #3f4a30 22px 44px);
+    display:grid;place-items:center;
+  }
+  .hero-card .photo::before{
+    content:"GROUP PORTRAIT";font-family:var(--mono);font-size:11px;letter-spacing:.25em;color:rgba(241,234,216,.4);
+    position:absolute;top:18px;left:18px;
+  }
+  .hero-card .system-overlay{
+    position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);
+    font-family:var(--serif);font-style:italic;font-weight:500;
+    font-size:84px;color:var(--cream);
+    text-shadow:0 4px 30px rgba(0,0,0,.5);
+    letter-spacing:-.01em;
+  }
+  .hero-card .play{
+    position:absolute;left:50%;bottom:24px;transform:translateX(-50%);
+    width:46px;height:46px;border-radius:50%;background:rgba(241,234,216,.92);
+    display:grid;place-items:center;color:var(--forest);
+  }
+  .hero-card .play::after{content:"";border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+  .hero-card .corner-tags{
+    position:absolute;left:14px;right:14px;top:46px;display:flex;justify-content:space-between;
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:rgba(241,234,216,.55);text-transform:uppercase;
+  }
+
+  /* ───────── Stat band ───────── */
+  .stats{background:var(--olive);color:var(--cream);padding:40px 0}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+  .stat .num{font-family:var(--serif);font-size:54px;line-height:1;font-weight:500}
+  .stat .num sup{font-size:.45em;vertical-align:top;margin-left:2px;opacity:.85}
+  .stat .lab{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;margin-top:10px;opacity:.78}
+
+  /* ───────── Marquee ───────── */
+  .marquee{
+    background:var(--olive-deep);color:var(--cream);
+    padding:22px 0;border-top:1px solid rgba(241,234,216,.08);
+    overflow:hidden;
+  }
+  .marquee-track{display:flex;gap:60px;align-items:center;font-family:var(--serif);font-style:italic;font-size:22px;white-space:nowrap;animation:scroll 40s linear infinite}
+  .marquee-track .dot{width:7px;height:7px;border-radius:50%;background:var(--cream);opacity:.55;flex:none}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ───────── Forest manifesto ───────── */
+  .manifesto{
+    position:relative;background:var(--forest);color:var(--cream);
+    padding:120px 0 130px;
+    overflow:hidden;
+  }
+  .manifesto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(247,241,223,.04), transparent);pointer-events:none}
+  .manifesto::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(60% 60% at 70% 40%, rgba(120,140,80,.18), transparent 70%),
+      repeating-linear-gradient(85deg, rgba(255,255,255,.02) 0 1px, transparent 1px 7px);
+    pointer-events:none;
+  }
+  .manifesto .inner{max-width:760px;margin:0 auto;text-align:center;position:relative}
+  .manifesto h2{font-size:46px;line-height:1.18;margin:24px 0 0;letter-spacing:-.005em}
+  .manifesto h2 strong{font-weight:500}
+  .manifesto .points{
+    margin-top:46px;display:grid;grid-template-columns:1fr 1fr;gap:14px;text-align:left;
+  }
+  .point{
+    background:rgba(241,234,216,.06);
+    border:1px solid rgba(241,234,216,.10);
+    border-radius:10px;padding:16px 18px;
+    font-size:13.5px;color:rgba(241,234,216,.85);line-height:1.5;
+    backdrop-filter:blur(2px);
+  }
+  .point b{display:block;font-family:var(--serif);font-weight:500;font-style:italic;color:var(--cream);font-size:15px;margin-bottom:4px}
+
+  /* ───────── Hear it ───────── */
+  .hear{background:var(--paper);padding:110px 0}
+  .hear-grid{display:grid;grid-template-columns:280px 1fr;gap:80px;align-items:center}
+  .reel{
+    aspect-ratio:9/16;border-radius:18px;overflow:hidden;position:relative;
+    background:linear-gradient(160deg,#fff7e0 0%, #f5d684 50%, #6e8a3e 100%);
+    box-shadow:0 30px 70px -30px rgba(0,0,0,.3);
+  }
+  .reel::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(circle at 30% 25%, rgba(255,255,255,.25), transparent 40%),
+      radial-gradient(circle at 75% 75%, rgba(110,138,62,.6), transparent 50%);
+  }
+  .reel .leaves{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(8px 14px at 20% 30%, #2a311e 60%, transparent 62%),
+      radial-gradient(6px 12px at 80% 40%, #3f4a26 60%, transparent 62%),
+      radial-gradient(7px 13px at 30% 70%, #2a311e 60%, transparent 62%),
+      radial-gradient(5px 10px at 70% 65%, #3f4a26 60%, transparent 62%),
+      radial-gradient(6px 11px at 50% 20%, #2a311e 60%, transparent 62%);
+    opacity:.75;
+  }
+  .reel .portrait{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:64%;aspect-ratio:1;border-radius:50%;
+    background:repeating-linear-gradient(135deg,#5b4a35 0 6px,#4a3c2a 6px 12px);
+    box-shadow:0 0 0 4px rgba(241,234,216,.85), 0 0 0 5px rgba(0,0,0,.05);
+    display:grid;place-items:center;color:rgba(241,234,216,.55);font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+  }
+  .reel .play-fab{
+    position:absolute;left:18px;bottom:18px;width:38px;height:38px;border-radius:50%;
+    background:rgba(241,234,216,.92);display:grid;place-items:center;color:var(--forest);
+  }
+  .reel .play-fab::after{content:"";border-left:9px solid currentColor;border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:2px}
+  .reel-foot{
+    margin-top:18px;display:flex;justify-content:space-between;
+    font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);
+  }
+  .hear h2{font-size:64px;line-height:1;letter-spacing:-.01em}
+  .hear .pull{
+    margin-top:28px;font-family:var(--serif);font-style:italic;font-size:22px;color:var(--ink);
+    max-width:520px;line-height:1.45;
+  }
+  .hear .attrib{
+    margin-top:18px;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);
+  }
+  .quote-mark{font-family:var(--serif);font-style:italic;font-size:64px;line-height:1;color:var(--olive);margin-bottom:-12px}
+
+  /* ───────── Volumes ───────── */
+  .volumes{background:var(--olive-deep);color:var(--cream);padding:110px 0 130px}
+  .volumes h2{font-size:74px;line-height:1;letter-spacing:-.01em}
+  .volumes h2 em{display:block}
+  .volumes .eyebrow{color:rgba(247,241,223,.78)}
+  .volumes-row{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:64px;max-width:560px}
+  .book-frame{
+    transition:transform .35s cubic-bezier(.2,.7,.2,1);
+    will-change:transform;
+  }
+  .book-frame:hover{transform:scale(1.04)}
+  .book{
+    background:var(--cream);color:var(--ink);
+    border-radius:4px;padding:20px 18px 22px;
+    box-shadow:0 24px 48px -22px rgba(0,0,0,.4);
+    position:relative;aspect-ratio:3/4.4;display:flex;flex-direction:column;justify-content:space-between;
+    overflow:hidden;
+  }
+  .book.v2{background:#ece3c7}
+  .book h3{font-family:var(--serif);font-size:38px;line-height:.95;letter-spacing:-.01em;margin-top:0}
+  .book .or{font-family:var(--serif);font-style:italic;font-size:24px;text-align:center;color:var(--ink-soft);margin:4px 0}
+  .book h4{font-family:var(--serif);font-style:italic;font-size:32px;line-height:.95;text-align:right;color:var(--accent)}
+  .book .sub{font-family:var(--serif);font-style:italic;font-size:10.5px;text-align:right;color:var(--ink-soft);margin-top:6px;line-height:1.35}
+  .book .berries{
+    position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);
+    width:68%;aspect-ratio:1;
+    background:
+      radial-gradient(circle at 30% 35%, #c84634 0 11px, transparent 12px),
+      radial-gradient(circle at 60% 30%, #6b8a3e 0 9px, transparent 10px),
+      radial-gradient(circle at 50% 55%, #c84634 0 13px, transparent 14px),
+      radial-gradient(circle at 35% 65%, #2c6b8a 0 9px, transparent 10px),
+      radial-gradient(circle at 70% 60%, #c84634 0 10px, transparent 11px),
+      radial-gradient(circle at 25% 50%, #6b8a3e 0 7px, transparent 8px);
+    opacity:.95;
+  }
+
+  /* ───────── Faith Rewilded ───────── */
+  .rewilded{background:var(--paper);padding:110px 0 130px;text-align:center}
+  .rewilded h2{font-size:80px;line-height:1;letter-spacing:-.01em}
+  .rewilded h2 em{display:block}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:64px;text-align:left}
+  .card{
+    background:var(--cream-warm);border-radius:10px;padding:18px 18px 22px;
+    border:1px solid rgba(28,31,21,.06);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 20px 40px -20px rgba(0,0,0,.2)}
+  .card .img{
+    aspect-ratio:5/4;border-radius:6px;margin-bottom:18px;overflow:hidden;position:relative;
+    background:#cdb88c;
+  }
+  .card.c1 .img{background:linear-gradient(180deg,#9aa784,#5e6b3d)}
+  .card.c2 .img{background:linear-gradient(180deg,#c89b5b,#7a5a35)}
+  .card.c3 .img{background:linear-gradient(180deg,#7a3d2a,#3a2418)}
+  .card.c4 .img{background:linear-gradient(180deg,#5b7a8a,#2c4555)}
+  .card .img::after{
+    content:attr(data-cap);position:absolute;left:12px;bottom:10px;
+    font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(241,234,216,.65);
+  }
+  .card h3{font-family:var(--serif);font-size:24px;font-weight:500;letter-spacing:-.005em}
+  .card p{font-size:12.5px;color:var(--ink-soft);margin:6px 0 0;line-height:1.5}
+
+  /* ───────── Quote section ───────── */
+  .pull-section{background:#4a5538;color:var(--cream);padding:140px 0;text-align:center;position:relative}
+  .pull-section .qm{font-family:var(--serif);font-style:italic;font-size:80px;line-height:1;color:rgba(241,234,216,.45)}
+  .pull-section h2{font-family:var(--serif);font-size:44px;line-height:1.25;letter-spacing:-.005em;max-width:800px;margin:14px auto 0;font-weight:400}
+  .pull-section h2 em{font-style:italic}
+  .pull-section .src{margin-top:36px;font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:rgba(241,234,216,.6)}
+
+  /* ───────── Testimonials ───────── */
+  .reviews{background:var(--paper);padding:96px 0 110px}
+  .reviews .head{text-align:center}
+  .reviews h2{font-family:var(--serif);font-size:60px;line-height:1.05;margin-top:14px}
+  .reviews h2 .red{color:var(--accent);font-style:italic}
+  .reviews h2 .grey{color:var(--ink);font-style:italic;font-weight:400}
+  .grid-reviews{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:56px;
+  }
+  .review{
+    background:var(--cream-warm);border-radius:8px;padding:18px;
+    border:1px solid rgba(28,31,21,.05);
+    font-size:12.5px;line-height:1.55;color:var(--ink-soft);
+    display:flex;flex-direction:column;gap:14px;min-height:170px;
+  }
+  .review p{margin:0}
+  .review .who{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);margin-top:auto}
+  .review .who span{color:var(--ink-soft);font-weight:400}
+  .reviews-tags{
+    display:flex;justify-content:center;gap:18px;margin-top:48px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);
+  }
+  .reviews-tags span{opacity:.7}
+  .reviews-tags .sep{opacity:.3}
+
+  /* ───────── Free CTA ───────── */
+  .free{
+    position:relative;background:#3a4530;color:var(--cream);
+    padding:130px 0 140px;text-align:center;overflow:hidden;
+  }
+  .free::before{
+    content:"";position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, rgba(58,69,48,.55), rgba(58,69,48,.85)),
+      radial-gradient(ellipse 80% 50% at 50% 100%, #6f7f52, transparent 70%),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.02) 0 1px, transparent 1px 4px);
+  }
+  .free .inner{position:relative}
+  .free h2{font-family:var(--serif);font-size:78px;line-height:1.02;letter-spacing:-.01em;font-weight:400}
+  .free h2 em{font-style:italic}
+  .free p{margin-top:18px;font-size:13.5px;color:rgba(241,234,216,.65);font-family:var(--mono);letter-spacing:.06em}
+  .free .btn{margin-top:36px;background:transparent;border-color:rgba(241,234,216,.4);color:var(--cream);padding:13px 22px}
+  .free .btn:hover{background:var(--cream);color:var(--ink)}
+
+  /* ───────── Sprout / outro ───────── */
+  .sprout{background:var(--paper);padding:120px 0 60px;text-align:center;position:relative}
+  .sprout svg{width:48px;height:auto;margin:0 auto;display:block}
+  .sprout .label{margin-top:22px;font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft)}
+  .sprout .ghost{
+    position:absolute;left:0;right:0;bottom:-30px;
+    font-family:var(--serif);font-style:italic;font-size:240px;color:rgba(28,31,21,.05);
+    text-align:center;line-height:1;letter-spacing:-.02em;pointer-events:none;
+  }
+
+  /* ───────── Footer ───────── */
+  footer{background:var(--paper);padding:60px 0 40px;border-top:1px solid var(--rule)}
+  .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;align-items:start}
+  .foot-grid h5{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 12px;font-weight:500}
+  .foot-grid ul{list-style:none;margin:0;padding:0;font-size:13px;color:var(--ink);display:grid;gap:6px}
+  .foot-brand{font-family:var(--serif);font-size:22px;display:flex;align-items:center;gap:10px}
+  .foot-brand small{font-family:var(--serif);font-style:italic;color:var(--ink-soft);font-size:13px}
+  .foot-tag{margin-top:10px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
+  .foot-blurb{margin-top:14px;font-family:var(--serif);font-style:italic;font-size:14px;color:var(--ink-soft);max-width:300px;line-height:1.5}
+  .legal{margin-top:36px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);border-top:1px solid var(--rule);padding-top:18px}
+
+  /* small helpers */
+  .pad-y{padding:48px 0}
+
+  @media (max-width:960px){
+    .wrap{padding:0 24px}
+    .hero-grid,.hear-grid,.volumes-row,.cards,.grid-reviews,.foot-grid,.manifesto .points{grid-template-columns:1fr;gap:32px}
+    .hero h1{font-size:48px}
+    .hero-card{aspect-ratio:16/10}
+    .nav-links{display:none}
+    .stats-grid{grid-template-columns:repeat(2,1fr)}
+    .rewilded h2,.volumes h2,.free h2{font-size:48px}
+    .hear h2{font-size:42px}
+    .reviews h2,.pull-section h2{font-size:32px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ╔══ NAV ══╗ -->
+<header class="nav" data-screen-label="00 Nav">
+  <div class="nav-inner">
+    <a href="#" class="brand">
+      <span class="mark"></span>
+      <b>System</b><small>+ Ecosystem</small>
+    </a>
+    <nav class="nav-links">
+      <a href="#books">Books</a>
+      <a href="#audio">Audiobooks</a>
+      <a href="#about">About</a>
+      <a href="#request">Request Free Hardcopies</a>
+    </nav>
+    <div class="nav-right">
+      <span class="lang">EN / English</span>
+      <button class="btn btn-primary">Request Free Hardcopies</button>
+    </div>
+  </div>
+</header>
+
+<!-- ╔══ HERO ══╗ -->
+<section class="hero" data-screen-label="01 Hero">
+  <span class="edge-label">Index — 01 / Hero</span>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">An Action-Toolkit For Changing The World</span>
+        <h1 style="margin-top:24px;">
+          Jesus the<br/>
+          Designer's Plan<br/>
+          <span class="it">to Change</span><br/>
+          <span class="it">the World.</span>
+        </h1>
+        <p class="lede">A fresh look at how Jesus takes His crew — from chaos into community, from community into world-changing.</p>
+        <p class="quote-line">"from mundane to mountain-movers"</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary">Request FREE Hardcopies</button>
+          <a href="#" class="play-link"><span class="pdot"></span>Listen Free</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="frame-bar">
+          <i></i><i></i><i></i>
+          <span>Vol. 01 — System / Trailer</span>
+        </div>
+        <div class="corner-tags">
+          <span>03 : 12</span>
+          <span>HD · 1080</span>
+        </div>
+        <div class="photo"></div>
+        <div class="system-overlay">System</div>
+        <div class="play"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔══ STATS ══╗ -->
+<section class="stats" data-screen-label="02 Stats">
+  <span class="edge-label light">Index — 02 / Numbers</span>
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat"><div class="num">2</div><div class="lab">2 Volumes</div></div>
+      <div class="stat"><div class="num">3</div><div class="lab">3 Languages</div></div>
+      <div class="stat"><div class="num">100%</div><div class="lab">100% Free · No Strings</div></div>
+      <div class="stat"><div class="num">360<sup>°</sup></div><div class="lab">Faith Rewilded</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔══ MARQUEE ══╗ -->
+<section class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>from struggling to legendary</span><span class="dot"></span>
+    <span>from needy to noteworthy</span><span class="dot"></span>
+    <span>from mundane to mountain-movers</span><span class="dot"></span>
+    <span>from chaos to community</span><span class="dot"></span>
+    <span>from struggling to legendary</span><span class="dot"></span>
+    <span>from needy to noteworthy</span><span class="dot"></span>
+    <span>from mundane to mountain-movers</span><span class="dot"></span>
+    <span>from chaos to community</span><span class="dot"></span>
+  </div>
+</section>
+
+<!-- ╔══ MANIFESTO ══╗ -->
+<section class="manifesto" data-screen-label="03 Manifesto">
+  <span class="edge-label light">Index — 03 / Manifesto</span>
+  <div class="wrap">
+    <div class="inner">
+      <span class="eyebrow center" style="color:rgba(241,234,216,.65)">Faith, Rewilded</span>
+      <h2>The way Jesus builds <em>world-changers</em> hasn't aged a day. He refines ordinary people for <em>Jesus-sized outcomes.</em> This is a raw and honest look at how Jesus turns chaos into His community.</h2>
+      <div class="points">
+        <div class="point"><b>Jesus doesn't build systems.</b>He grows stories that move.</div>
+        <div class="point"><b>Jesus restores what structure forgot.</b>Faith rewilded.</div>
+        <div class="point"><b>Where faith stops performing</b>and starts breathing.</div>
+        <div class="point"><b>Jesus redefines growth</b>— from algorithm to organism.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔══ HEAR IT ══╗ -->
+<section class="hear" data-screen-label="04 Hear It">
+  <span class="edge-label">Index — 04 / Voices</span>
+  <div class="wrap">
+    <div class="hear-grid">
+      <div>
+        <div class="reel">
+          <div class="leaves"></div>
+          <div class="portrait">PORTRAIT</div>
+          <div class="play-fab"></div>
+        </div>
+        <div class="reel-foot">
+          <span>Play the message</span>
+          <span>Vertical · 0:42</span>
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow">A Word From The Author</span>
+        <h2 style="margin-top:18px;">Hear it<br/><em class="serif-italic">from him directly.</em></h2>
+        <div class="quote-mark">"</div>
+        <p class="pull">He refines ordinary people for Jesus-sized outcomes.</p>
+        <p class="attrib">— Volume One</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔══ VOLUMES ══╗ -->
+<section class="volumes" data-screen-label="05 Volumes">
+  <span class="edge-label light">Index — 05 / Volumes</span>
+  <div class="wrap">
+    <span class="eyebrow">02 — 2 Volumes</span>
+    <h2 style="margin-top:18px;">The Two<br/><em>Volumes.</em></h2>
+    <div class="volumes-row">
+      <div class="book-frame">
+        <div class="book">
+          <div>
+            <h3>The<br/>System</h3>
+          </div>
+          <div class="berries"></div>
+          <div>
+            <div class="or">or</div>
+            <h4>The<br/>Ecosystem</h4>
+            <div class="sub">Jesus the Designer's Plan<br/>to Change the World</div>
+          </div>
+        </div>
+      </div>
+      <div class="book-frame">
+        <div class="book v2">
+          <div>
+            <h3>The<br/>System</h3>
+          </div>
+          <div class="berries"></div>
+          <div>
+            <div class="or">or</div>
+            <h4>The<br/>Ecosystem</h4>
+            <div class="sub">Jesus the Designer's Plan<br/>to Change the World</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔══ FAITH REWILDED ══╗ -->
+<section class="rewilded" data-screen-label="06 Faith Rewilded">
+  <span class="edge-label">Index — 06 / Pillars</span>
+  <div class="wrap">
+    <span class="eyebrow center">06 — Faith Rewilded</span>
+    <h2 style="margin-top:18px;">Faith,<br/><em>Rewilded.</em></h2>
+    <div class="cards">
+      <div class="card c1">
+        <div class="img" data-cap="01 / Roots"></div>
+        <h3>Living Roots</h3>
+        <p>Down to the original text — not free-text editing.</p>
+      </div>
+      <div class="card c2">
+        <div class="img" data-cap="02 / Canopy"></div>
+        <h3>Open Canopy</h3>
+        <p>Light cuts through where structure is symbolic.</p>
+      </div>
+      <div class="card c3">
+        <div class="img" data-cap="03 / Order"></div>
+        <h3>Wild Order</h3>
+        <p>There is deep, intentional intent.</p>
+      </div>
+      <div class="card c4">
+        <div class="img" data-cap="04 / Air"></div>
+        <h3>Mutual Air</h3>
+        <p>What we breathe in, and breathe out is.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔══ PULL QUOTE ══╗ -->
+<section class="pull-section" data-screen-label="07 Pull Quote">
+  <span class="edge-label light">Index — 07 / Quote</span>
+  <div class="wrap">
+    <div class="qm">"</div>
+    <h2>Religion is typically about a club, a vibe,<br/>and rules — <em>Jesus came to blow that up.</em></h2>
+    <div class="src">From Volume One</div>
+  </div>
+</section>
+
+<!-- ╔══ REVIEWS ══╗ -->
+<section class="reviews" data-screen-label="08 Reviews">
+  <span class="edge-label">Index — 08 / Reviews</span>
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow center">What Readers Are Saying</span>
+      <h2 style="margin-top:14px;"><span class="red">They read.</span><br/><span class="grey">Then they wrote back.</span></h2>
+    </div>
+    <div class="grid-reviews">
+      <div class="review">
+        <p>"Thank you SO much. I just finished, and it was the best thing to read on paper. I really feel like it's exactly what I would say if I were to write a book."</p>
+        <p class="who">Kemen <span>· Lagos, NG</span></p>
+      </div>
+      <div class="review">
+        <p>"I read this in the breakfast room and it was the best I had since I came over."</p>
+        <p class="who">Ololade <span>· Yaba, NG</span></p>
+      </div>
+      <div class="review">
+        <p>"Sending you something special, brother. Everyone is gonna want their own."</p>
+        <p class="who">Pastor Sammie <span>· Berea</span></p>
+      </div>
+      <div class="review">
+        <p>"THANK YOU SO MUCH for this material, bro! I would love to read on paper. I would not stop following. I say YES with love. Thank you."</p>
+        <p class="who">Eunice <span>· Lagos</span></p>
+      </div>
+      <div class="review">
+        <p>"I've been reading the chapter you mentioned. I appreciate the original brand of Word I would call my own."</p>
+        <p class="who">Daniel <span>· Lagos</span></p>
+      </div>
+      <div class="review">
+        <p>"Finished both volumes in one weekend. The PDF I've been hiding under is divinity."</p>
+        <p class="who">Tobi <span>· Yaba, NG</span></p>
+      </div>
+      <div class="review">
+        <p>"He sent samples at the same time. Hand to hand of his behalf, kept."</p>
+        <p class="who">Daniel <span>· Lagos</span></p>
+      </div>
+      <div class="review">
+        <p>"I keep coming back to chapter five, brooding about. Together to organize. It really is they I could sit with."</p>
+        <p class="who">Daniel <span>· Lagos</span></p>
+      </div>
+      <div class="review">
+        <p>"My husband loves to read aloud. He read this. Twice."</p>
+        <p class="who">Olajide <span>· Lekki</span></p>
+      </div>
+      <div class="review">
+        <p>"I have not heard him so blissed about. Lots, even reading something so cool."</p>
+        <p class="who">Daniel <span>· Lagos</span></p>
+      </div>
+      <div class="review">
+        <p>"Once knew real and his identity. Its readable, it carried me. The Lord used it to shift something in me that I have been wrestling with for years."</p>
+        <p class="who">Bisola <span>· Lagos</span></p>
+      </div>
+      <div class="review">
+        <p>"Finished by His Holiness."</p>
+        <p class="who">Olawale <span>· Ibadan</span></p>
+      </div>
+    </div>
+    <div class="reviews-tags">
+      <span>Lagos</span><span class="sep">/</span>
+      <span>Berea</span><span class="sep">/</span>
+      <span>Lekki</span><span class="sep">/</span>
+      <span>Ibadan</span><span class="sep">/</span>
+      <span>Yaba</span><span class="sep">/</span>
+      <span>Online</span>
+    </div>
+  </div>
+</section>
+
+<!-- ╔══ FREE CTA ══╗ -->
+<section class="free" data-screen-label="09 Free">
+  <span class="edge-label light">Index — 09 / Get It</span>
+  <div class="wrap">
+    <div class="inner">
+      <span class="eyebrow center" style="color:rgba(241,234,216,.7)">100% Free · No Strings</span>
+      <h2 style="margin-top:18px;">Get the books, free, in<br/><em>your hands.</em></h2>
+      <p>100% free hardcopies. Worldwide shipping. No strings.</p>
+      <button class="btn btn-light">Request FREE Hardcopies</button>
+    </div>
+  </div>
+</section>
+
+<!-- ╔══ SPROUT OUTRO ══╗ -->
+<section class="sprout" data-screen-label="10 Sprout">
+  <div class="wrap">
+    <svg viewBox="0 0 60 90" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M30 88 L30 48" stroke="#3f4a26" stroke-width="2" stroke-linecap="round"/>
+      <path d="M30 60 C18 56, 12 44, 14 34 C24 36, 30 46, 30 60 Z" fill="#5e6b3d"/>
+      <path d="M30 52 C42 48, 48 36, 46 26 C36 28, 30 38, 30 52 Z" fill="#7a8a4d"/>
+    </svg>
+    <div class="label">Faith, Rewilded</div>
+    <div class="ghost">Ecosystem</div>
+  </div>
+</section>
+
+<!-- ╔══ FOOTER ══╗ -->
+<footer data-screen-label="11 Footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><span class="mark" style="display:inline-block;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#8a9a5b,#3f4a26 70%)"></span><b style="font-weight:500">System</b><small>+ Ecosystem</small></div>
+        <div class="foot-blurb">Jesus the Designer's Plan to change the world, kept in your hands — free.</div>
+      </div>
+      <div>
+        <h5>Read</h5>
+        <ul>
+          <li>Books</li>
+          <li>Audiobooks</li>
+        </ul>
+      </div>
+      <div>
+        <h5>More</h5>
+        <ul>
+          <li>About</li>
+          <li>Contact</li>
+          <li>Request Free Hardcopies</li>
+        </ul>
+      </div>
+      <div>
+        <h5>Languages</h5>
+        <ul>
+          <li>EN — English</li>
+          <li>FR — Français</li>
+          <li>ES — Español</li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 System + Ecosystem · All rights reserved.</span>
+      <span>Crafted with care · Faith, Rewilded</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
