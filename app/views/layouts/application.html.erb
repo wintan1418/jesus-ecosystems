@@ -21,7 +21,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="<%= t('site.name') %>">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#D9D9CC">
+    <meta name="theme-color" content="#f7f1df">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -45,27 +45,6 @@
   <body class="bg-eco-cream text-eco-ink font-sans antialiased min-h-screen flex flex-col">
     <div class="scroll-progress"></div>
     <div class="cursor-spotlight"></div>
-
-    <%# ── Page-wide colour palette toggle (client review tool) ── %>
-    <div class="page-theme-toggle" data-controller="theme-toggle" aria-label="Choose page colour palette">
-      <span class="page-theme-toggle-label">Palette</span>
-      <button type="button"
-              class="page-theme-swatch is-active"
-              data-action="click->theme-toggle#pickA"
-              data-theme-toggle-target="optionA"
-              title="Cool Sage — #D9D9CC / #DED9D1">
-        <span class="swatch" style="background:#D9D9CC;"></span>
-        <span class="name">Cool Sage</span>
-      </button>
-      <button type="button"
-              class="page-theme-swatch"
-              data-action="click->theme-toggle#pickB"
-              data-theme-toggle-target="optionB"
-              title="Warm Cream — #f7f1df / #fbf6e6">
-        <span class="swatch" style="background:#f7f1df;"></span>
-        <span class="name">Warm Cream</span>
-      </button>
-    </div>
 
     <%= render "shared/site_header" %>
     <%= render "shared/section_rail" %>
