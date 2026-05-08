@@ -8,9 +8,9 @@
    The Volumes section is intentionally a touch more saturated than the rest.
 */
 @theme {
-  /* ── New canonical names (HANDOFF.md §1) ── */
-  --color-eco-cream:        #D9D9CC;             /* primary page bg — hero (design spec) */
-  --color-eco-paper:        #DED9D1;             /* lightest paper sections (design spec) */
+  /* ── New canonical names (HANDOFF.md §1) — Warm Cream (Andrew picked this) ── */
+  --color-eco-cream:        #f7f1df;             /* primary page bg — hero */
+  --color-eco-paper:        #fbf6e6;             /* lightest paper sections */
   --color-eco-cream-warm:   #f0e7cd;             /* warm card bg */
   --color-eco-bone:         #ece2c4;             /* deeper warm bone */
 
@@ -30,8 +30,8 @@
   --color-eco-rule-light:   rgba(247, 241, 223, 0.22);
 
   /* ── Legacy aliases (so existing inner-page eco-* classes still resolve) ── */
-  --color-eco-bg:           #D9D9CC;             /* was forest-dark; now cool sage */
-  --color-eco-surface:      #DED9D1;             /* was olive-leaf; now paper */
+  --color-eco-bg:           #f7f1df;             /* warm cream */
+  --color-eco-surface:      #fbf6e6;             /* warm paper */
   --color-eco-border:       rgba(42, 47, 32, 0.14);
   --color-eco-green:        #8a9a68;             /* sage — was neon-ish */
   --color-eco-green-light:  #7c8d5a;             /* deeper sage for emphasis on cream */
