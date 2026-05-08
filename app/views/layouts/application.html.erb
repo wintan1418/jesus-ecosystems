@@ -22,6 +22,7 @@
     <meta name="application-name" content="<%= t('site.name') %>">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#f7f1df">
+    <meta name="view-transition" content="same-origin">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -42,7 +43,8 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-eco-cream text-eco-ink font-sans antialiased min-h-screen flex flex-col">
+  <body class="bg-eco-cream text-eco-ink font-sans antialiased min-h-screen flex flex-col"
+        data-page="<%= controller_name == 'chapters' ? 'chapter' : controller_name %>">
     <div class="scroll-progress"></div>
     <div class="cursor-spotlight"></div>
 

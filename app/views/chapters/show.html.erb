@@ -37,6 +37,12 @@
     <%= link_to book_path(@book.slug), class: "font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink-soft hover:text-eco-ink inline-flex items-center gap-2" do %>
       <span aria-hidden="true">←</span> <%= t("chapters.show.back") %>
     <% end %>
-    <%= link_to t("home.cta_request"), request_free_copy_path, class: "eco-btn-primary" %>
+    <%= link_to t("home.cta_request"), request_free_copy_path, class: "eco-btn-primary", data: { controller: "magnetic" } %>
   </footer>
 </article>
+
+<%# Sticky mini-CTA — fades in past 30% scroll (driven by --scroll-progress) %>
+<%= link_to request_free_copy_path, class: "eco-chapter-cta" do %>
+  <span><%= t("home.cta_request") %></span>
+  <span aria-hidden="true">→</span>
+<% end %>

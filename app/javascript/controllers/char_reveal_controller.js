@@ -9,12 +9,19 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static values = {
     delay:   { type: Number, default: 0 },
-    stagger: { type: Number, default: 22 }
+    stagger: { type: Number, default: 22 },
+    mode:    { type: String, default: "char" }
   }
 
   connect() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
     this.counter = 0
+    if (this.modeValue === "word") {
+      this.element.dataset.revealMode = "word"
+      // Default to a slower, more deliberate stagger when the caller hasn't
+      // explicitly set one — words read frantic at char-stagger speeds.
+      if (!this.element.dataset.charRevealStaggerValue) this.staggerValue = 140
+    }
     this.split(this.element)
     this.element.dataset.charRevealReady = "true"
   }
@@ -46,13 +53,22 @@ export default class extends Controller {
 
       const wordSpan = document.createElement("span")
       wordSpan.className = "char-reveal-word"
-      for (const ch of part) {
-        const span = document.createElement("span")
-        span.className = "char-reveal-char"
-        span.style.animationDelay = `${this.delayValue + this.counter * this.staggerValue}ms`
-        span.textContent = ch
-        wordSpan.appendChild(span)
+
+      if (this.modeValue === "word") {
+        // Whole word animates as one unit — slower, calmer pacing.
+        wordSpan.style.animationDelay =
+          `${this.delayValue + this.counter * this.staggerValue}ms`
+        wordSpan.textContent = part
         this.counter++
+      } else {
+        for (const ch of part) {
+          const span = document.createElement("span")
+          span.className = "char-reveal-char"
+          span.style.animationDelay = `${this.delayValue + this.counter * this.staggerValue}ms`
+          span.textContent = ch
+          wordSpan.appendChild(span)
+          this.counter++
+        }
       }
       frag.appendChild(wordSpan)
     }

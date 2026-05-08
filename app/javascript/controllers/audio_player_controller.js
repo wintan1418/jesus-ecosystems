@@ -163,10 +163,26 @@ export default class extends Controller {
   }
 
   onKey(e) {
-    if (e.code === "Space" && document.activeElement.tagName !== "INPUT") {
+    const tag = document.activeElement.tagName
+    if (tag === "INPUT" || tag === "TEXTAREA" || document.activeElement.isContentEditable) return
+
+    if (e.code === "Space") {
       e.preventDefault()
       this.toggle()
+    } else if (e.code === "ArrowRight") {
+      e.preventDefault()
+      this.skip(15)
+    } else if (e.code === "ArrowLeft") {
+      e.preventDefault()
+      this.skip(-15)
     }
+  }
+
+  skip(seconds) {
+    const a = this.audioTarget
+    if (!a.duration || isNaN(a.duration)) return
+    a.currentTime = Math.max(0, Math.min(a.duration, a.currentTime + seconds))
+    this.tick()
   }
 
   fmt(secs) {

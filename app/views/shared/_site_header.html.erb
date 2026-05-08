@@ -20,7 +20,8 @@
     <div class="flex items-center gap-4">
       <%= render "shared/language_switcher" %>
       <%= link_to t("nav.request"), request_free_copy_path,
-                  class: "hidden lg:inline-flex eco-btn-primary" %>
+                  class: "hidden lg:inline-flex eco-btn-primary",
+                  data: { controller: "magnetic" } %>
 
       <%# Mobile hamburger %>
       <button class="mobile-menu-btn md:hidden" aria-expanded="false" aria-label="Open menu"

@@ -36,7 +36,7 @@
     <div class="space-y-6 min-w-0">
       <p class="eco-eyebrow"><%= cms("hero_eyebrow", default: t("home.eyebrow")) %></p>
 
-      <h1 class="eco-display" data-controller="char-reveal">
+      <h1 class="eco-display" data-controller="char-reveal" data-char-reveal-mode-value="word" data-char-reveal-stagger-value="120">
         <%= cms_lines("hero_headline_1", default: "Jesus the\nDesigner's Plan") %><br>
         <span class="it"><%= cms_lines("hero_headline_2", default: "to Change\nthe World.") %></span>
       </h1>
@@ -50,7 +50,7 @@
       </p>
 
       <div class="flex flex-wrap items-center gap-5 pt-2">
-        <%= link_to cms("hero_cta_primary", default: t("home.cta_request")), request_free_copy_path, class: "eco-btn-primary" %>
+        <%= link_to cms("hero_cta_primary", default: t("home.cta_request")), request_free_copy_path, class: "eco-btn-primary", data: { controller: "magnetic" } %>
         <%= link_to audiobooks_path, class: "eco-play-link" do %>
           <span class="pdot"></span><%= cms("hero_cta_ghost", default: t("home.cta_listen")) %>
         <% end %>
@@ -129,7 +129,7 @@
 </section>
 
 <%# ─── 03 · MARQUEE (olive-deep) ───────────────────────────────────────── %>
-<section class="eco-marquee relative">
+<section class="eco-marquee relative" data-controller="marquee">
   <span class="eco-edge-label light">03 — Refrain</span>
   <%
     phrases = [
@@ -139,7 +139,7 @@
       "from chaos to community",
     ]
   %>
-  <div class="eco-marquee-track">
+  <div class="eco-marquee-track" data-marquee-target="track">
     <% 2.times do %>
       <% phrases.each do |p| %>
         <span><%= p %></span>
@@ -256,7 +256,10 @@
           <%= link_to book_path(vol[:slug]), class: "eco-book-frame" do %>
             <img src="<%= vol[:image] %>"
                  alt="<%= t("home.volumes.#{vol[:key]}") %>"
-                 loading="lazy">
+                 loading="lazy"
+                 decoding="async"
+                 onload="this.dataset.loaded='true'"
+                 onerror="this.dataset.loaded='true'">
           <% end %>
           <p class="eco-volume-blurb">
             <%= t("home.subhead").to_s.split(/[—,]/).first.to_s.strip %>
@@ -334,6 +337,6 @@
       Get the books, free, in<br>your hands.
     </h2>
     <p class="sub">100% free hardcopies. Worldwide shipping. No strings.</p>
-    <%= link_to t("nav.request"), request_free_copy_path, class: "eco-btn-sage" %>
+    <%= link_to t("nav.request"), request_free_copy_path, class: "eco-btn-sage", data: { controller: "magnetic" } %>
   </div>
 </section>

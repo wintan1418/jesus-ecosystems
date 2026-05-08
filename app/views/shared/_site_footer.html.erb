@@ -1,12 +1,12 @@
 <%# ── Sprout outro section (HANDOFF §2.12) ─────────────────────────────── %>
-<section class="eco-sprout-outro">
+<section class="eco-sprout-outro" data-controller="plant-grow">
   <div class="relative z-10">
-    <%# Sprout SVG (stem + 2 leaves, sage tones) — 48px %>
+    <%# Sprout SVG (stem + 2 leaves, sage tones) — 48px, draws in on scroll %>
     <svg class="sprout" viewBox="0 0 48 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M24 54 V20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      <path d="M24 28 C18 24 12 22 8 22 C10 28 16 32 24 32" fill="currentColor" opacity=".75"/>
-      <path d="M24 24 C30 18 36 16 40 16 C38 22 32 28 24 28" fill="currentColor" opacity=".9"/>
-      <ellipse cx="24" cy="54" rx="14" ry="2" fill="currentColor" opacity=".15"/>
+      <path class="sprout-stem"      d="M24 54 V20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path class="sprout-leaf-left" d="M24 28 C18 24 12 22 8 22 C10 28 16 32 24 32" fill="currentColor" opacity=".75"/>
+      <path class="sprout-leaf-right" d="M24 24 C30 18 36 16 40 16 C38 22 32 28 24 28" fill="currentColor" opacity=".9"/>
+      <ellipse class="sprout-shadow" cx="24" cy="54" rx="14" ry="2" fill="currentColor" opacity=".15"/>
     </svg>
     <p class="eco-eyebrow center"><%= cms("footer_tagline", default: t("site.tagline", default: "Faith, Rewilded")) %></p>
   </div>
