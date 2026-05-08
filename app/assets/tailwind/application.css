@@ -3405,43 +3405,10 @@ body[data-page="chapter"] .scroll-progress::after {
   }
 }
 
-/* ─── Book cover skeleton + hover-tilt ──────────────────────────────────── */
+/* ─── Book cover backdrop + hover-tilt ──────────────────────────────────── */
 .eco-book-frame {
   background: linear-gradient(135deg, var(--color-eco-cream-warm) 0%, var(--color-eco-bone) 100%);
   position: relative;
-}
-.eco-book-frame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    110deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.35) 50%,
-    transparent 70%
-  );
-  background-size: 200% 100%;
-  animation: eco-cover-shimmer 1.8s linear infinite;
-  pointer-events: none;
-  opacity: 1;
-  transition: opacity 0.4s ease-out;
-}
-.eco-book-frame img {
-  opacity: 0;
-  transition: opacity 0.6s ease-out;
-}
-.eco-book-frame img.is-loaded,
-.eco-book-frame img[data-loaded="true"] {
-  opacity: 1;
-}
-.eco-book-frame:has(img.is-loaded)::before,
-.eco-book-frame:has(img[data-loaded="true"])::before {
-  opacity: 0;
-  animation: none;
-}
-@keyframes eco-cover-shimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
 }
 
 /* Volumes-row covers tilt slightly on hover — only on the home volumes row,
@@ -3459,6 +3426,5 @@ body[data-page="chapter"] .scroll-progress::after {
   transform: rotate(1.5deg) scale(1.04);
 }
 @media (prefers-reduced-motion: reduce) {
-  .eco-book-frame::before { animation: none; }
   .eco-volumes-row .eco-volume-card .eco-book-frame:hover { transform: none; }
 }

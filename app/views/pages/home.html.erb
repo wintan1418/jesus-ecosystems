@@ -257,9 +257,7 @@
             <img src="<%= vol[:image] %>"
                  alt="<%= t("home.volumes.#{vol[:key]}") %>"
                  loading="lazy"
-                 decoding="async"
-                 onload="this.dataset.loaded='true'"
-                 onerror="this.dataset.loaded='true'">
+                 decoding="async">
           <% end %>
           <p class="eco-volume-blurb">
             <%= t("home.subhead").to_s.split(/[—,]/).first.to_s.strip %>
