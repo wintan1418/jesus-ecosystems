@@ -34,7 +34,7 @@ gem "devise"
 gem "pundit"
 
 # ─── Content / models ─────────────────────────────────────────────────────────
-gem "friendly_id", "~> 5.5"
+gem "friendly_id", "~> 5.7"
 gem "acts_as_list"
 gem "view_component"
 

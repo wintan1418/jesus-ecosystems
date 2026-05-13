@@ -131,7 +131,7 @@ GEM
     base64 (0.3.0)
     bcrypt (3.1.22)
     bcrypt_pbkdf (1.1.2)
-    bigdecimal (4.1.1)
+    bigdecimal (4.1.2)
     bindex (0.8.1)
     bootsnap (1.23.0)
       msgpack (~> 1.2)
@@ -192,7 +192,7 @@ GEM
     ffi (1.17.4-arm-linux-musl)
     ffi (1.17.4-x86_64-linux-gnu)
     ffi (1.17.4-x86_64-linux-musl)
-    friendly_id (5.6.0)
+    friendly_id (5.7.0)
       activerecord (>= 4.0.0)
     fugit (1.12.1)
       et-orbi (~> 1.4)
@@ -225,7 +225,7 @@ GEM
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
     jmespath (1.6.2)
-    json (2.19.3)
+    json (2.19.5)
     kamal (2.11.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -260,7 +260,7 @@ GEM
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
-    minitest (6.0.4)
+    minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
     msgpack (1.8.0)
@@ -538,7 +538,7 @@ DEPENDENCIES
   devise
   factory_bot_rails
   faker
-  friendly_id (~> 5.5)
+  friendly_id (~> 5.7)
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
