@@ -194,25 +194,17 @@
   <span class="eco-edge-label">05 — Hear It</span>
   <div class="max-w-[1240px] mx-auto px-6 md:px-14 eco-hear-grid">
 
-    <%# Left — vertical reel with the Cloudinary mp4 %>
-    <div data-controller="reveal shoutout-player" class="shoutout-vertical-wrap">
+    <%# Left — 16:9 horizontal poster opens vertical video in a lightbox.
+        (Andrew 2026-05-18: thumbnail must be 16:9, video popup stays vertical.) %>
+    <div data-controller="reveal shoutout-lightbox" class="shoutout-thumb-wrap">
       <button type="button"
-              class="shoutout-vertical"
-              style="border-radius: 18px; aspect-ratio: 9/16;"
-              data-shoutout-player-target="trigger"
-              data-action="click->shoutout-player#start"
+              class="shoutout-thumb"
+              data-action="click->shoutout-lightbox#open"
               aria-label="Play the message">
         <img class="shoutout-poster"
              src="<%= shoutout_poster %>"
-             alt="A word from the author"
-             data-shoutout-player-target="poster">
-        <video class="shoutout-vertical-video"
-               src="<%= shoutout_video %>"
-               playsinline
-               preload="metadata"
-               controlslist="nodownload"
-               data-shoutout-player-target="video"></video>
-        <span class="shoutout-play-badge" data-shoutout-player-target="badge">
+             alt="A word from the author">
+        <span class="shoutout-play-badge">
           <span class="shoutout-play-icon">▶</span>
         </span>
       </button>
@@ -220,6 +212,25 @@
         <span>Play the message</span>
         <span>Vertical · 0:42</span>
       </div>
+
+      <%# Vertical-video lightbox %>
+      <dialog class="shoutout-dialog"
+              data-shoutout-lightbox-target="dialog"
+              data-action="click->shoutout-lightbox#backdropClose">
+        <div class="shoutout-dialog-inner">
+          <button type="button"
+                  class="shoutout-dialog-close"
+                  data-action="click->shoutout-lightbox#close"
+                  aria-label="Close">&times;</button>
+          <video class="shoutout-dialog-video"
+                 src="<%= shoutout_video %>"
+                 playsinline
+                 preload="metadata"
+                 controls
+                 controlslist="nodownload"
+                 data-shoutout-lightbox-target="video"></video>
+        </div>
+      </dialog>
     </div>
 
     <%# Right — copy %>
