@@ -2748,53 +2748,12 @@ body[data-page="chapter"] .scroll-progress::after {
   aspect-ratio: 11 / 6;
   box-shadow: 0 30px 60px -30px rgba(42, 47, 32, 0.25);
 }
-.eco-hero-card .frame-bar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 34px;
-  background: rgba(20, 24, 14, 0.55);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 14px;
-  z-index: 4;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-.eco-hero-card .frame-bar i {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.18);
-  font-style: normal;
-}
-.eco-hero-card .frame-bar span {
-  margin-left: auto;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: rgba(255, 255, 255, 0.55);
-  text-transform: uppercase;
-}
-.eco-hero-card .corner-tags {
-  position: absolute;
-  left: 14px;
-  right: 14px;
-  top: 46px;
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  color: rgba(241, 234, 216, 0.6);
-  text-transform: uppercase;
-  z-index: 4;
-}
+/* Stage fills the entire card now that the .frame-bar chrome is gone.
+   Andrew 2026-05-18 round 3: removing the inset 34px top reservation that was
+   silently clipping the bottom of the video. */
 .eco-hero-card .stage {
   position: absolute;
-  inset: 34px 0 0 0;
+  inset: 0;
   z-index: 1;
   background: #2c3522;
 }
@@ -2806,21 +2765,6 @@ body[data-page="chapter"] .scroll-progress::after {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-.eco-hero-card .system-overlay {
-  position: absolute;
-  left: 50%;
-  top: 54%;
-  transform: translate(-50%, -50%);
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(48px, 8vw, 84px);
-  color: var(--color-eco-cream);
-  text-shadow: 0 6px 40px rgba(0, 0, 0, 0.55), 0 0 1px rgba(0, 0, 0, 0.3);
-  letter-spacing: -0.01em;
-  z-index: 3;
-  pointer-events: none;
 }
 .eco-hero-card .play-fab {
   position: absolute;
