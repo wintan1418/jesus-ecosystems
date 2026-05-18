@@ -29,7 +29,10 @@
          class="relative pt-32 pb-20 md:pt-36 md:pb-24"
          style="background: var(--color-eco-cream);">
 
-  <div class="max-w-[1240px] mx-auto px-6 md:px-14 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-16 items-center">
+  <%# Andrew 2026-05-18 (round 3): tip the grid toward the video so it actually
+      grows — the previous 1.05fr/1fr capped the right column at ~520px and made
+      the max-w-[900px] on the hero card meaningless. %>
+  <div class="max-w-[1360px] mx-auto px-6 md:px-14 grid lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-16 items-center">
 
     <%# Left column %>
     <div class="space-y-6 min-w-0">
@@ -61,7 +64,7 @@
       <%# Andrew 2026-05-18 (round 3): video bigger, all text overlays gone —
           no fake browser chrome, no corner timestamps, no italic wordmark.
           Just the clean video inside the sage rounded frame. %>
-      <div class="eco-hero-card max-w-[900px] mx-auto"
+      <div class="eco-hero-card w-full mx-auto"
            data-controller="hls-video"
            data-hls-video-src-value="<%= hero_video %>">
 
@@ -192,11 +195,6 @@
           <span class="shoutout-play-icon">▶</span>
         </span>
       </button>
-      <div class="mt-4 flex justify-between font-mono text-[10px] tracking-[0.2em] uppercase text-eco-ink-soft">
-        <span>Play the message</span>
-        <span>Vertical · 0:42</span>
-      </div>
-
       <%# Vertical-video lightbox %>
       <dialog class="shoutout-dialog"
               data-shoutout-lightbox-target="dialog"

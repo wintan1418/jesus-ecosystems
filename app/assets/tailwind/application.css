@@ -2738,13 +2738,14 @@ body[data-page="chapter"] .scroll-progress::after {
 
 /* ─── New components for the home rebuild ──────────────────────────────── */
 
-/* Hero card — 11:5 sage frame holding the HLS video (Andrew 2026-05-18) */
+/* Hero card — sage frame holding the HLS video.
+   Andrew 2026-05-18 round 2: 11:5.   Round 3 nudge: a touch more height. */
 .eco-hero-card {
   position: relative;
   border-radius: 14px;
   overflow: hidden;
   background: #3d4a30;
-  aspect-ratio: 11 / 5;
+  aspect-ratio: 11 / 6;
   box-shadow: 0 30px 60px -30px rgba(42, 47, 32, 0.25);
 }
 .eco-hero-card .frame-bar {
