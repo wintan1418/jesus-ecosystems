@@ -2942,10 +2942,12 @@ body[data-page="chapter"] .scroll-progress::after {
 }
 
 /* Hear It (HANDOFF §2.6) */
+/* Andrew 2026-05-18 (round 3): shoutout thumbnail must claim at least half
+   the horizontal space — flip the 280/1fr split to a balanced 1fr/1fr. */
 .eco-hear-grid {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 80px;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
   align-items: center;
 }
 @media (max-width: 860px) {

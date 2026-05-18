@@ -28,7 +28,6 @@
 <section id="hero" data-rail-label="Intro"
          class="relative pt-32 pb-20 md:pt-36 md:pb-24"
          style="background: var(--color-eco-cream);">
-  <span class="eco-edge-label">01 — Intro</span>
 
   <div class="max-w-[1240px] mx-auto px-6 md:px-14 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-16 items-center">
 
@@ -59,21 +58,12 @@
 
     <%# Right column — hero card with HLS video %>
     <div class="relative w-full min-w-0" data-controller="reveal">
-      <div class="eco-hero-card max-w-[600px] mx-auto"
+      <%# Andrew 2026-05-18 (round 3): video bigger, all text overlays gone —
+          no fake browser chrome, no corner timestamps, no italic wordmark.
+          Just the clean video inside the sage rounded frame. %>
+      <div class="eco-hero-card max-w-[900px] mx-auto"
            data-controller="hls-video"
            data-hls-video-src-value="<%= hero_video %>">
-
-        <%# Top bar with dot dummies + meta %>
-        <div class="frame-bar">
-          <i></i><i></i><i></i>
-          <span><%= t("site.name") %> · Trailer</span>
-        </div>
-
-        <%# Corner tags %>
-        <div class="corner-tags">
-          <span>03 : 12</span>
-          <span>HD · 1080</span>
-        </div>
 
         <%# Stage — slideshow as poster, video on top when playing %>
         <div class="stage">
@@ -91,9 +81,6 @@
                  muted playsinline preload="metadata" disablepictureinpicture></video>
         </div>
 
-        <%# Italic "System" overlay (HANDOFF spec) %>
-        <span class="system-overlay"><%= t("site.name").split.first %></span>
-
         <%# Cream play FAB — also unmutes %>
         <button class="play-fab"
                 data-action="click->hls-video#toggleMute"
@@ -106,20 +93,20 @@
 
 <%# ─── 02 · STATS BAND (sage olive) ────────────────────────────────────── %>
 <section id="stats" data-rail-label="Stats" class="eco-stats-band relative">
-  <span class="eco-edge-label light">02 — Stats</span>
   <div class="max-w-[1240px] mx-auto px-6 md:px-14">
     <div class="eco-stats-grid">
+      <%# Andrew 2026-05-18 (round 3): dropped the ° suffix on the 4th stat — just 360. %>
       <% [
         { to: 2,    suffix: "",  label: t("home.stats.volumes") },
         { to: 3,    suffix: "",  label: t("home.stats.languages") },
         { to: 100,  suffix: "%", label: t("free_copy.badge") },
-        { to: 360,  suffix: "°", label: t("home.pillars_title") },
+        { to: 360,  suffix: "",  label: t("home.pillars_title") },
       ].each do |c| %>
         <div class="stat" data-controller="counter"
              data-counter-to-value="<%= c[:to] %>"
              data-counter-suffix-value="<%= c[:suffix] %>">
           <p class="num">
-            <span data-counter-target="value">0</span><% if c[:suffix] == "°" %><sup>°</sup><% end %>
+            <span data-counter-target="value">0</span>
           </p>
           <p class="lab"><%= c[:label] %></p>
         </div>
@@ -130,7 +117,6 @@
 
 <%# ─── 03 · MARQUEE (olive-deep) ───────────────────────────────────────── %>
 <section class="eco-marquee relative" data-controller="marquee">
-  <span class="eco-edge-label light">03 — Refrain</span>
   <%
     phrases = [
       "from struggling to legendary",
@@ -159,7 +145,6 @@
   <div class="absolute inset-0 z-0"
        style="background: linear-gradient(180deg, rgba(74,85,56,0.78) 0%, rgba(74,85,56,0.55) 50%, rgba(74,85,56,0.85) 100%);"></div>
 
-  <span class="eco-edge-label light">04 — Manifesto</span>
   <div class="inner max-w-[760px] mx-auto px-6 relative z-10">
     <p class="eco-eyebrow center light">Faith, Rewilded</p>
     <h2>
@@ -191,7 +176,6 @@
 
 <%# ─── 05 · HEAR IT (paper) ────────────────────────────────────────────── %>
 <section id="hear" data-rail-label="Hear It" class="relative" style="background: var(--color-eco-paper); padding: 110px 0;">
-  <span class="eco-edge-label">05 — Hear It</span>
   <div class="max-w-[1240px] mx-auto px-6 md:px-14 eco-hear-grid">
 
     <%# Left — 16:9 horizontal poster opens vertical video in a lightbox.
@@ -251,7 +235,6 @@
 
 <%# ─── 06 · VOLUMES (olive-deep, brighter — Andrew's note) ─────────────── %>
 <section id="volumes" data-rail-label="Volumes" class="bg-eco-volumes-section relative" style="padding: 110px 0 130px;">
-  <span class="eco-edge-label light">06 — Volumes</span>
   <div class="max-w-[1240px] mx-auto px-6 md:px-14">
     <p class="eco-eyebrow light">02 — 2 Volumes</p>
     <h2 class="font-display text-[clamp(48px,7vw,78px)] leading-[1] mt-4 text-eco-cream">
@@ -285,7 +268,6 @@
 
 <%# ─── 07 · FAITH, REWILDED (paper) ─────────────────────────────────────── %>
 <section id="pillars" data-rail-label="Pillars" class="relative" style="background: var(--color-eco-paper); padding: 110px 0;">
-  <span class="eco-edge-label">07 — Pillars</span>
   <div class="max-w-[1240px] mx-auto px-6 md:px-14">
     <div class="text-center max-w-2xl mx-auto mb-14" data-controller="reveal">
       <p class="eco-eyebrow center">06 — Faith Rewilded</p>
@@ -318,7 +300,6 @@
 
 <%# ─── 08 · PULL QUOTE (forest) ────────────────────────────────────────── %>
 <section id="quote" data-rail-label="Pull Quote" class="eco-pullquote relative">
-  <span class="eco-edge-label light">08 — Quote</span>
   <div class="max-w-[1240px] mx-auto px-6 md:px-14">
     <span class="mark">“</span>
     <h2 data-controller="reveal">
@@ -339,7 +320,6 @@
   <div class="absolute inset-0 z-0"
        style="background: linear-gradient(180deg, rgba(40,52,32,0.62) 0%, rgba(40,52,32,0.32) 50%, rgba(40,52,32,0.72) 100%);"></div>
 
-  <span class="eco-edge-label light">10 — Get the Books</span>
   <div class="inner relative z-10" data-controller="reveal">
     <span class="eco-pill-eyebrow">✦ 100% Free · No Strings ✦</span>
     <h2>
