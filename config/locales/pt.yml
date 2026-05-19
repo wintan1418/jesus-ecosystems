@@ -20,6 +20,11 @@ pt:
       - "de necessitados a notáveis"
       - "de comuns a movedores de montanhas"
       - "de em-luta a lendários"
+    marquee_phrases:
+      - "de em-luta a lendários"
+      - "de necessitados a notáveis"
+      - "de comuns a movedores de montanhas"
+      - "do caos à comunidade"
     cta_explore: "Explore os livros"
     cta_listen: "Ouça grátis"
     cta_request: "Solicitar cópia GRÁTIS"

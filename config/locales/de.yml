@@ -20,6 +20,11 @@ de:
       - "vom Bedürftigen zum Bemerkenswerten"
       - "vom Alltäglichen zum Berge-Versetzer"
       - "vom Kämpfen zur Legende"
+    marquee_phrases:
+      - "vom Kämpfen zur Legende"
+      - "vom Bedürftigen zum Bemerkenswerten"
+      - "vom Alltäglichen zum Berge-Versetzer"
+      - "vom Chaos zur Gemeinschaft"
     cta_explore: "Bücher entdecken"
     cta_listen: "Kostenlos hören"
     cta_request: "KOSTENLOSE Exemplare anfordern"

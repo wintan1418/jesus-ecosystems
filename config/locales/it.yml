@@ -20,6 +20,11 @@ it:
       - "da bisognosi a notevoli"
       - "da comuni a smuovi-montagne"
       - "da combattenti a leggendari"
+    marquee_phrases:
+      - "da combattenti a leggendari"
+      - "da bisognosi a notevoli"
+      - "da comuni a smuovi-montagne"
+      - "dal caos alla comunità"
     cta_explore: "Esplora i libri"
     cta_listen: "Ascolta gratis"
     cta_request: "Richiedi copie GRATUITE"

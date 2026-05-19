@@ -122,14 +122,7 @@
 
 <%# ─── 03 · MARQUEE (olive-deep) ───────────────────────────────────────── %>
 <section class="eco-marquee relative" data-controller="marquee">
-  <%
-    phrases = [
-      "from struggling to legendary",
-      "from needy to noteworthy",
-      "from mundane to mountain-movers",
-      "from chaos to community",
-    ]
-  %>
+  <% phrases = t("home.marquee_phrases", default: []) %>
   <div class="eco-marquee-track" data-marquee-target="track">
     <% 2.times do %>
       <% phrases.each do |p| %>

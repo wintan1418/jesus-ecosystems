@@ -20,6 +20,11 @@ en:
       - "from needy to noteworthy"
       - "from mundane to mountain-movers"
       - "from struggling to legendary"
+    marquee_phrases:
+      - "from struggling to legendary"
+      - "from needy to noteworthy"
+      - "from mundane to mountain-movers"
+      - "from chaos to community"
     cta_explore: "Explore the Books"
     cta_listen: "Listen Free"
     cta_request: "Request FREE Hardcopies"

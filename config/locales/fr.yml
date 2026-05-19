@@ -20,6 +20,11 @@ fr:
       - "du besoin à la renommée"
       - "du commun aux déplaceurs de montagnes"
       - "de la lutte à la légende"
+    marquee_phrases:
+      - "de la lutte à la légende"
+      - "du besoin à la renommée"
+      - "du commun aux déplaceurs de montagnes"
+      - "du chaos à la communauté"
     cta_explore: "Explorer les livres"
     cta_listen: "Écouter gratuitement"
     cta_request: "Demander des exemplaires GRATUITS"

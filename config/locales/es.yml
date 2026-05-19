@@ -20,6 +20,11 @@ es:
       - "de necesitados a notables"
       - "de comunes a mueve-montañas"
       - "de luchadores a legendarios"
+    marquee_phrases:
+      - "de luchadores a legendarios"
+      - "de necesitados a notables"
+      - "de comunes a mueve-montañas"
+      - "del caos a la comunidad"
     cta_explore: "Explora los libros"
     cta_listen: "Escucha gratis"
     cta_request: "Solicitar copia GRATIS"
