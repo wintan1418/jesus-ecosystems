@@ -24,9 +24,11 @@ class ApplicationController < ActionController::Base
     I18n.available_locales
   end
 
-  # After admin sign-in, land on the Avo dashboard instead of the site root.
+  # After admin sign-in, land on the custom admin dashboard at /admin.
+  # (Avo gem is in the Gemfile but never mounted; the real admin is the
+  #  Admin::* controllers under namespace :admin in routes.rb.)
   def after_sign_in_path_for(resource)
-    resource.is_a?(Admin) ? "/avo" : super
+    resource.is_a?(Admin) ? admin_root_path : super
   end
 
   # After admin sign-out, bounce back to the sign-in page.
