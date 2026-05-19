@@ -202,11 +202,14 @@ class HandoffExporter
     # hreflang URLs all point at the dev server and only `en` actually ships.
     html.gsub!(/\s*<link rel="alternate" hreflang="[^"]+"[^>]*>\s*\n?/, "")
 
-    # Language switcher: drop the /es and /pt entries since translations
-    # aren't in this bundle. Leaves only the active EN row.
+    # Language switcher + footer locale list: keep all rows so the receiving
+    # team sees the full multi-language UX. Non-EN hrefs point at dev-server
+    # locales that won't resolve in a static bundle — neutralize every `href`
+    # that starts with `/es`, `/pt`, `/fr`, `/de`, or `/it` to `#` so the
+    # dropdown/footer demos the list without 404ing on click.
     html.gsub!(
-      /<li role="none">\s*<a role="menuitem"[^>]*href="\/(?:es|pt)"[^>]*>.*?<\/a>\s*<\/li>/m,
-      ""
+      /href="\/(?:es|pt|fr|de|it)(?:[\/?][^"]*)?"/,
+      'href="#"'
     )
 
     # Strip Rails-specific attributes and meta tags

@@ -1,0 +1,37 @@
+de:
+  site:
+    name: "SystemOrEcosystem"
+    tagline: "Der Glaube, wieder verwildert."
+  nav:
+    home: "Start"
+    books: "Bücher"
+    volume_one: "Band 1"
+    volume_two: "Band 2"
+    audiobooks: "Hörbücher"
+    request: "KOSTENLOSE Exemplare anfordern"
+    about: "Über"
+    contact: "Kontakt"
+  home:
+    eyebrow: "Ein christliches Aktions-Toolkit in zwei Bänden"
+    headline_1: "Jesus, der Designer, und sein Plan"
+    headline_2: "die Welt zu verändern"
+    subhead: "Ein frischer Blick darauf, wie Jesus seine Leute formt…"
+    rotators:
+      - "vom Bedürftigen zum Bemerkenswerten"
+      - "vom Alltäglichen zum Berge-Versetzer"
+      - "vom Kämpfen zur Legende"
+    cta_explore: "Bücher entdecken"
+    cta_listen: "Kostenlos hören"
+    cta_request: "KOSTENLOSE Exemplare anfordern"
+    stats:
+      volumes: "2 Bände"
+      languages: "Sprachen"
+      free: "Kostenlose Exemplare weltweit"
+    pillars_title: "Glaube Verwildert"
+    quote: "Religion ist meist ein Club, eine Stimmung und Regeln — Jesus kam, um das zu sprengen."
+    quote_attribution: "Aus Band Eins"
+  footer:
+    rights: "Alle Rechte vorbehalten."
+    languages: "Sprachen"
+  free_copy:
+    badge: "100% Kostenlos · Keine Verpflichtung"

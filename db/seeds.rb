@@ -161,7 +161,19 @@ home_content = {
 
   # Stats — editable so the languages count tracks whatever the CMS publishes
   # without redeploying (Andrew 2026-05-19).
-  "stats_languages"  => "5",
+  "stats_languages"  => "6",
+
+  # Dropdown entries. JSON list of { code, name }. Codes matching an
+  # available_locale route live; the rest fall back to the default locale
+  # so the dropdown never produces a 404 while translations are being prepared.
+  "languages" => [
+    { code: "en", name: "English"    },
+    { code: "es", name: "Español"    },
+    { code: "pt", name: "Português"  },
+    { code: "fr", name: "Français"   },
+    { code: "de", name: "Deutsch"    },
+    { code: "it", name: "Italiano"   }
+  ].to_json,
 
   # Manifesto
   "manifesto_headline" => "Faith, Rewilded.",

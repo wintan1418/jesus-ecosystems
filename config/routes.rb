@@ -56,7 +56,7 @@ Rails.application.routes.draw do
   }
 
   # ─── Public, locale-prefixed ───────────────────────────────────────────────
-  scope ":locale", locale: /en|es|pt/ do
+  scope ":locale", locale: /en|es|pt|fr|de|it/ do
     get "/", to: "pages#home", as: :locale_root
 
     get "/about",   to: "pages#about",   as: :about

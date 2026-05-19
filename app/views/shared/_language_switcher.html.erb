@@ -1,17 +1,28 @@
 <%
-  # Human-readable labels keyed by locale. The designer will expand this to
-  # 12+ languages on their end; we just need the UX pattern (dropdown) right.
-  language_labels = {
-    en: "English",
-    es: "Español",
-    pt: "Português"
-  }
-  current_label = language_labels[I18n.locale] || I18n.locale.to_s.upcase
+  # 2026-05-19: dropdown is now CMS-driven via the `languages` JSON setting so
+  # admins can add/remove languages without touching code. Each entry is
+  # { code, name }. If `code` matches a real available_locale, the link routes
+  # to that locale; otherwise it falls back to the default locale so the
+  # dropdown never produces a 404 even while a translation is still being
+  # prepared.
+  cms_languages = cms_json("languages", default: [
+    { "code" => "en", "name" => "English" },
+    { "code" => "es", "name" => "Español" },
+    { "code" => "pt", "name" => "Português" },
+    { "code" => "fr", "name" => "Français" },
+    { "code" => "de", "name" => "Deutsch" },
+    { "code" => "it", "name" => "Italiano" }
+  ])
+
+  available = available_locales.map(&:to_s)
+  current   = I18n.locale.to_s
+  current_entry = cms_languages.find { |l| l["code"] == current }
+  current_label = current_entry ? current_entry["name"] : current.upcase
 %>
 
 <details class="lang-dropdown" aria-label="Language">
   <summary class="lang-dropdown-button">
-    <span class="lang-dropdown-code"><%= I18n.locale.to_s.upcase %></span>
+    <span class="lang-dropdown-code"><%= current.upcase %></span>
     <span class="lang-dropdown-label"><%= current_label %></span>
     <svg class="lang-dropdown-caret" viewBox="0 0 12 8" fill="none" aria-hidden="true">
       <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -19,14 +30,18 @@
   </summary>
 
   <ul class="lang-dropdown-menu" role="menu">
-    <% available_locales.each do |loc| %>
-      <% active = (loc == I18n.locale) %>
+    <% cms_languages.each do |entry| %>
+      <% code     = entry["code"].to_s %>
+      <% name     = entry["name"].to_s %>
+      <% live     = available.include?(code) %>
+      <% target   = live ? url_for(locale: code, only_path: true) : url_for(locale: I18n.default_locale, only_path: true) %>
+      <% active   = (code == current) %>
       <li role="none">
-        <%= link_to url_for(locale: loc, only_path: true),
+        <%= link_to target,
                     role: "menuitem",
-                    class: "lang-dropdown-option #{'is-active' if active}" do %>
-          <span class="lang-dropdown-option-code"><%= loc.to_s.upcase %></span>
-          <span class="lang-dropdown-option-label"><%= language_labels[loc] || loc.to_s.upcase %></span>
+                    class: "lang-dropdown-option #{'is-active' if active} #{'is-pending' unless live}" do %>
+          <span class="lang-dropdown-option-code"><%= code.upcase %></span>
+          <span class="lang-dropdown-option-label"><%= name %></span>
           <% if active %>
             <span class="lang-dropdown-check" aria-hidden="true">✓</span>
           <% end %>

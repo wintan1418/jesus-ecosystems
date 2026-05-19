@@ -65,15 +65,27 @@
         </ul>
       </div>
 
-      <%# Languages %>
+      <%# Languages — pulls from the same `languages` CMS list as the header dropdown. %>
+      <% footer_languages = cms_json("languages", default: [
+           { "code" => "en", "name" => "English"   },
+           { "code" => "es", "name" => "Español"   },
+           { "code" => "pt", "name" => "Português" },
+           { "code" => "fr", "name" => "Français"  },
+           { "code" => "de", "name" => "Deutsch"   },
+           { "code" => "it", "name" => "Italiano"  }
+         ])
+         footer_available = available_locales.map(&:to_s) %>
       <div class="eco-footer-col">
         <h4><%= t("footer.languages") %></h4>
         <ul>
-          <% available_locales.each do |loc| %>
+          <% footer_languages.each do |entry| %>
+            <% code   = entry["code"].to_s %>
+            <% name   = entry["name"].to_s %>
+            <% target = footer_available.include?(code) ? url_for(locale: code, only_path: true) : url_for(locale: I18n.default_locale, only_path: true) %>
             <li>
-              <%= link_to url_for(locale: loc, only_path: true) do %>
-                <span class="font-mono text-[11px] tracking-[0.18em] text-eco-ink-soft mr-2"><%= loc.to_s.upcase %></span>
-                <span><%= { en: "English", es: "Español", pt: "Português" }[loc] || loc.to_s.upcase %></span>
+              <%= link_to target do %>
+                <span class="font-mono text-[11px] tracking-[0.18em] text-eco-ink-soft mr-2"><%= code.upcase %></span>
+                <span><%= name %></span>
               <% end %>
             </li>
           <% end %>

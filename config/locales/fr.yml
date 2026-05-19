@@ -1,0 +1,37 @@
+fr:
+  site:
+    name: "SystemOrEcosystem"
+    tagline: "La foi, réensauvagée."
+  nav:
+    home: "Accueil"
+    books: "Livres"
+    volume_one: "Volume 1"
+    volume_two: "Volume 2"
+    audiobooks: "Livres audio"
+    request: "Demander des exemplaires GRATUITS"
+    about: "À propos"
+    contact: "Contact"
+  home:
+    eyebrow: "Une boîte à outils chrétienne en deux volumes"
+    headline_1: "Le plan du Designer Jésus"
+    headline_2: "pour changer le monde"
+    subhead: "Un regard neuf sur la manière dont Jésus forme les siens…"
+    rotators:
+      - "du besoin à la renommée"
+      - "du commun aux déplaceurs de montagnes"
+      - "de la lutte à la légende"
+    cta_explore: "Explorer les livres"
+    cta_listen: "Écouter gratuitement"
+    cta_request: "Demander des exemplaires GRATUITS"
+    stats:
+      volumes: "2 Volumes"
+      languages: "Langues"
+      free: "Copies gratuites dans le monde entier"
+    pillars_title: "Foi Réensauvagée"
+    quote: "La religion est un club, une ambiance et des règles — Jésus est venu faire sauter tout ça."
+    quote_attribution: "Du Volume Un"
+  footer:
+    rights: "Tous droits réservés."
+    languages: "Langues"
+  free_copy:
+    badge: "100% Gratuit · Sans engagement"
