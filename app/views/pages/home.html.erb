@@ -98,12 +98,14 @@
 <section id="stats" data-rail-label="Stats" class="eco-stats-band relative">
   <div class="max-w-[1240px] mx-auto px-6 md:px-14">
     <div class="eco-stats-grid">
-      <%# Andrew 2026-05-18 (round 3): dropped the ° suffix on the 4th stat — just 360. %>
+      <%# Andrew 2026-05-18 (round 3): dropped the ° suffix on the 4th stat — just 360.
+          Andrew 2026-05-19: languages count is CMS-editable (`stats_languages`) so it
+          tracks however many translations the CMS publishes — no redeploy required. %>
       <% [
-        { to: 2,    suffix: "",  label: t("home.stats.volumes") },
-        { to: 3,    suffix: "",  label: t("home.stats.languages") },
-        { to: 100,  suffix: "%", label: t("free_copy.badge") },
-        { to: 360,  suffix: "",  label: t("home.pillars_title") },
+        { to: 2,                                          suffix: "",  label: t("home.stats.volumes") },
+        { to: cms("stats_languages", default: 5).to_i,    suffix: "",  label: t("home.stats.languages") },
+        { to: 100,                                        suffix: "%", label: t("free_copy.badge") },
+        { to: 360,                                        suffix: "",  label: t("home.pillars_title") },
       ].each do |c| %>
         <div class="stat" data-controller="counter"
              data-counter-to-value="<%= c[:to] %>"

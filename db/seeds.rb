@@ -159,6 +159,10 @@ home_content = {
   "hero_cta_primary" => "Request FREE Hardcopies",
   "hero_cta_ghost"   => "Listen Free",
 
+  # Stats — editable so the languages count tracks whatever the CMS publishes
+  # without redeploying (Andrew 2026-05-19).
+  "stats_languages"  => "5",
+
   # Manifesto
   "manifesto_headline" => "Faith, Rewilded.",
   "manifesto_one"   => "The way Jesus builds world-changers hasn't aged a day. He refines ordinary people for Jesus-sized outcomes. This is a raw and honest look at how Jesus turns chaos into His community.",
