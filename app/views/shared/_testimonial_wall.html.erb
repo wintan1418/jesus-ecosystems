@@ -29,10 +29,9 @@
          class="relative py-32 overflow-hidden"
          style="background: var(--color-eco-paper);">
   <div class="relative max-w-[1240px] mx-auto px-6 md:px-14 text-center mb-14" data-controller="reveal">
-    <p class="eco-eyebrow center">What Readers Are Saying</p>
+    <p class="eco-eyebrow center"><%= t("testimonials.eyebrow") %></p>
     <h2 class="font-display text-[clamp(36px,5vw,60px)] leading-[1.1] mt-5">
-      <span class="italic" style="color: var(--color-eco-accent);">They read.</span><br>
-      <em class="text-eco-ink">Then they wrote back.</em>
+      <%= t("testimonials.heading_html").html_safe %>
     </h2>
   </div>
 
@@ -61,7 +60,7 @@
   </div>
 
   <p class="relative text-center mt-12 font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink-soft">
-    <%= letters.size %> letters · rotating · hover to pause
+    <%= t("testimonials.footer", count: letters.size) %>
   </p>
 </section>
 <% end %>

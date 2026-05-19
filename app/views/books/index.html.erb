@@ -26,7 +26,7 @@
             </div>
 
             <div class="pt-7">
-              <p class="font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink-soft">Volume <%= book.volume_number %></p>
+              <p class="font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink-soft"><%= t("shared.volume_label") %> <%= book.volume_number %></p>
               <h2 class="font-display text-3xl md:text-4xl text-eco-ink mt-2" style="font-weight: 500;">
                 <%= book.localized_title(I18n.locale) %>
               </h2>

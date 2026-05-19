@@ -6,7 +6,7 @@
     <span>/</span>
     <%= link_to t("nav.books"), books_path,               class: "hover:text-eco-ink" %>
     <span>/</span>
-    <%= link_to "Vol. #{@book.volume_number}", book_path(@book.slug), class: "hover:text-eco-ink" %>
+    <%= link_to "#{t('shared.volume_abbrev')} #{@book.volume_number}", book_path(@book.slug), class: "hover:text-eco-ink" %>
     <span>/</span>
     <span class="text-eco-ink truncate"><%= @chapter.title %></span>
   </nav>
@@ -28,7 +28,7 @@
     <% if @chapter.body.body.present? %>
       <%= @chapter.body %>
     <% else %>
-      <p class="text-eco-ink-soft italic">— No body content yet.</p>
+      <p class="text-eco-ink-soft italic"><%= t("shared.no_body") %></p>
     <% end %>
   </div>
 

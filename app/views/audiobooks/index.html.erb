@@ -33,7 +33,7 @@
             <p class="eco-eyebrow flex items-center gap-3">
               <span><%= t("audiobooks.show.now_playing") %></span>
               <span class="font-mono text-[10px] tracking-[0.22em] text-eco-ink-soft normal-case ml-auto"
-                    data-audio-player-target="status">idle</span>
+                    data-audio-player-target="status"><%= t("shared.audio_idle") %></span>
             </p>
             <h2 class="font-display text-3xl md:text-4xl text-eco-ink mt-4" style="font-weight: 500;" data-audio-player-target="title">
               <%= @current&.title || "—" %>
@@ -46,7 +46,7 @@
                       style="background: var(--color-eco-cta-tan); color: var(--color-eco-cream); box-shadow: 0 18px 40px -10px rgba(200, 70, 52, 0.5);"
                       data-action="click->audio-player#toggle"
                       data-audio-player-target="playBtn"
-                      aria-label="Play / pause">
+                      aria-label="<%= t('shared.audio_play_pause') %>">
                 <span data-audio-player-target="playIcon">▶</span>
               </button>
               <div class="flex-1 min-w-0">
