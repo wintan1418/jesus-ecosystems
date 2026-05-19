@@ -15,7 +15,7 @@ it:
     eyebrow: "Un toolkit d'azione cristiano in due volumi"
     headline_1: "Il piano del Designer Gesù"
     headline_2: "per cambiare il mondo"
-    subhead: "Uno sguardo fresco su come Gesù forma i suoi…"
+    subhead: "Uno sguardo fresco su come Gesù forma i suoi — dal caos alla comunità, dalla comunità al cambiamento del mondo."
     rotators:
       - "da bisognosi a notevoli"
       - "da comuni a smuovi-montagne"
@@ -28,10 +28,65 @@ it:
       languages: "Lingue"
       free: "Copie gratuite in tutto il mondo"
     pillars_title: "Fede Rinselvatichita"
-    quote: "La religione è un club, un'atmosfera e delle regole — Gesù è venuto a far saltare tutto in aria."
-    quote_attribution: "Dal Volume Uno"
+    manifesto_eyebrow: "Fede, Rinselvatichita"
+    manifesto_lead_html: "Il modo in cui Gesù forma <em>chi cambia il mondo</em> non è invecchiato. Raffina persone comuni per <em>risultati delle dimensioni di Gesù.</em> Uno sguardo crudo e onesto su come Gesù trasforma il caos nella Sua comunità."
+    points:
+      one:
+        title: "Gesù non finanzia i sistemi che i vangeli mostrano."
+        body: "Gesù ricostruisce ciò che la struttura ha dimenticato. Fede rinselvatichita."
+      two:
+        title: "Dove la fede smette di esibirsi e inizia a respirare."
+        body: "Fino al testo originale — senza editing libero."
+      three:
+        title: "Raffina persone comuni per risultati delle dimensioni di Gesù."
+        body: "Dall'algoritmo all'organismo."
+      four:
+        title: "La religione è di solito un club, un'atmosfera e delle regole."
+        body: "Gesù è venuto a far saltare tutto in aria."
+    hear:
+      eyebrow: "Una parola dall'autore"
+      heading_html: "Ascoltalo<br><em>direttamente da lui.</em>"
+      quote: "Raffina persone comuni per risultati delle dimensioni di Gesù."
+      attribution: "— Volume Uno"
+    volumes_section:
+      eyebrow: "02 — 2 Volumi"
+      heading_html: "I Due<br><em>Volumi.</em>"
+    pillars_section:
+      eyebrow: "06 — Fede Rinselvatichita"
+      heading_html: "Fede,<br><em>Rinselvatichita.</em>"
+    pillars:
+      one:
+        cap: "Radici"
+        title: "Radici Vive"
+        body:  "Fino al testo originale — senza editing libero."
+      two:
+        cap: "Chioma"
+        title: "Chioma Aperta"
+        body:  "La luce passa dove la struttura è simbolica."
+      three:
+        cap: "Ordine"
+        title: "Ordine Selvaggio"
+        body:  "C'è un'intenzione profonda e deliberata."
+      four:
+        cap: "Aria"
+        title: "Aria Comune"
+        body:  "Ciò che inspiriamo, ed espiriamo, è."
+    pull_quote:
+      body_html: "La religione è di solito un club, un'atmosfera e delle regole — <em>Gesù è venuto a far saltare tutto in aria.</em>"
+      attribution: "Dal Volume Uno"
+    cta_band:
+      badge: "✦ 100% Gratis · Nessun impegno ✦"
+      heading_html: "Ricevi i libri, gratis,<br>tra le tue mani."
+      headline: "Ricevi i libri, gratis, tra le tue mani"
+      body: "Copie stampate 100% gratis. Spedizione mondiale. Nessun impegno."
+      button: "Richiedi copie GRATUITE"
+    volumes:
+      one: "Volume Uno"
+      two: "Volume Due"
+      read_more: "Leggi di più"
   footer:
     rights: "Tutti i diritti riservati."
     languages: "Lingue"
+    blurb: "Il piano di Gesù il Designer per cambiare il mondo, gratis nelle tue mani."
   free_copy:
     badge: "100% Gratis · Nessun impegno"

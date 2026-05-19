@@ -151,30 +151,18 @@
        style="background: linear-gradient(180deg, rgba(74,85,56,0.78) 0%, rgba(74,85,56,0.55) 50%, rgba(74,85,56,0.85) 100%);"></div>
 
   <div class="inner max-w-[760px] mx-auto px-6 relative z-10">
-    <p class="eco-eyebrow center light">Faith, Rewilded</p>
+    <p class="eco-eyebrow center light"><%= t("home.manifesto_eyebrow") %></p>
     <h2>
-      The way Jesus builds <em>world-changers</em> hasn't aged a day.
-      He refines ordinary people for <em>Jesus-sized outcomes.</em>
-      This is a raw and honest look at how Jesus turns chaos into His community.
+      <%= t("home.manifesto_lead_html").html_safe %>
     </h2>
 
     <div class="points">
-      <div class="eco-point" data-controller="reveal">
-        <b>Jesus doesn't fund systems the gospel stories show.</b>
-        Jesus rebuilds what structure forgot. Faith rewilded.
-      </div>
-      <div class="eco-point" data-controller="reveal">
-        <b>Where faith stops performing and starts breathing.</b>
-        Down to the original text — not free-text editing.
-      </div>
-      <div class="eco-point" data-controller="reveal">
-        <b>He refines ordinary people for Jesus-sized outcomes.</b>
-        From algorithm to organism.
-      </div>
-      <div class="eco-point" data-controller="reveal">
-        <b>Religion is typically about a club, a vibe, and rules.</b>
-        Jesus came to blow that up.
-      </div>
+      <% %w[one two three four].each do |k| %>
+        <div class="eco-point" data-controller="reveal">
+          <b><%= t("home.points.#{k}.title") %></b>
+          <%= t("home.points.#{k}.body") %>
+        </div>
+      <% end %>
     </div>
   </div>
 </section>
@@ -219,16 +207,15 @@
 
     <%# Right — copy %>
     <div data-controller="reveal">
-      <p class="eco-eyebrow">A Word From The Author</p>
+      <p class="eco-eyebrow"><%= t("home.hear.eyebrow") %></p>
       <h2 class="font-display text-[clamp(36px,5vw,64px)] leading-[1.05] mt-6 text-eco-ink">
-        Hear it<br>
-        <em>from him directly.</em>
+        <%= t("home.hear.heading_html").html_safe %>
       </h2>
       <span class="eco-quote-mark block mt-8">“</span>
       <p class="font-display italic text-[22px] leading-[1.45] text-eco-ink max-w-[520px]">
-        He refines ordinary people for Jesus-sized outcomes.
+        <%= t("home.hear.quote") %>
       </p>
-      <p class="mt-5 font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink-soft">— Volume One</p>
+      <p class="mt-5 font-mono text-[10px] tracking-[0.22em] uppercase text-eco-ink-soft"><%= t("home.hear.attribution") %></p>
     </div>
   </div>
 </section>
@@ -236,9 +223,9 @@
 <%# ─── 06 · VOLUMES (olive-deep, brighter — Andrew's note) ─────────────── %>
 <section id="volumes" data-rail-label="Volumes" class="bg-eco-volumes-section relative" style="padding: 110px 0 130px;">
   <div class="max-w-[1240px] mx-auto px-6 md:px-14">
-    <p class="eco-eyebrow light">02 — 2 Volumes</p>
+    <p class="eco-eyebrow light"><%= t("home.volumes_section.eyebrow") %></p>
     <h2 class="font-display text-[clamp(48px,7vw,78px)] leading-[1] mt-4 text-eco-cream">
-      The Two<br><em>Volumes.</em>
+      <%= t("home.volumes_section.heading_html").html_safe %>
     </h2>
 
     <div class="eco-volumes-row">
@@ -270,27 +257,27 @@
 <section id="pillars" data-rail-label="Pillars" class="relative" style="background: var(--color-eco-paper); padding: 110px 0;">
   <div class="max-w-[1240px] mx-auto px-6 md:px-14">
     <div class="text-center max-w-2xl mx-auto mb-14" data-controller="reveal">
-      <p class="eco-eyebrow center">06 — Faith Rewilded</p>
+      <p class="eco-eyebrow center"><%= t("home.pillars_section.eyebrow") %></p>
       <h2 class="font-display text-[clamp(40px,7vw,80px)] leading-[0.98] mt-5 text-eco-ink">
-        Faith,<br><em>Rewilded.</em>
+        <%= t("home.pillars_section.heading_html").html_safe %>
       </h2>
     </div>
 
     <div class="eco-pillar-grid">
       <% [
-        { key: "one",   num: "01", cap: "Roots",   title: "Living Roots", body: "Down to the original text — not free-text editing." },
-        { key: "two",   num: "02", cap: "Canopy",  title: "Open Canopy",  body: "Light cuts through where structure is symbolic." },
-        { key: "three", num: "03", cap: "Order",   title: "Wild Order",   body: "There is deep, intentional intent." },
-        { key: "four",  num: "04", cap: "Air",     title: "Mutual Air",   body: "What we breathe in, and breathe out is." },
+        { key: "one",   num: "01" },
+        { key: "two",   num: "02" },
+        { key: "three", num: "03" },
+        { key: "four",  num: "04" },
       ].each_with_index do |p, i| %>
         <article class="eco-pillar-card" data-controller="reveal" style="transition-delay: <%= i * 80 %>ms">
           <div class="img">
-            <img src="<%= pillar_images[p[:key]] %>" alt="<%= p[:title] %>" loading="lazy">
-            <span class="cap"><%= p[:num] %> / <%= p[:cap] %></span>
+            <img src="<%= pillar_images[p[:key]] %>" alt="<%= t("home.pillars.#{p[:key]}.title") %>" loading="lazy">
+            <span class="cap"><%= p[:num] %> / <%= t("home.pillars.#{p[:key]}.cap") %></span>
           </div>
           <div class="body">
-            <h4><%= p[:title] %></h4>
-            <p><%= p[:body] %></p>
+            <h4><%= t("home.pillars.#{p[:key]}.title") %></h4>
+            <p><%= t("home.pillars.#{p[:key]}.body") %></p>
           </div>
         </article>
       <% end %>
@@ -303,9 +290,9 @@
   <div class="max-w-[1240px] mx-auto px-6 md:px-14">
     <span class="mark">“</span>
     <h2 data-controller="reveal">
-      Religion is typically about a club, a vibe, and rules — <em>Jesus came to blow that up.</em>
+      <%= t("home.pull_quote.body_html").html_safe %>
     </h2>
-    <p class="mt-10 font-mono text-[10px] tracking-[0.22em] uppercase opacity-70">From Volume One</p>
+    <p class="mt-10 font-mono text-[10px] tracking-[0.22em] uppercase opacity-70"><%= t("home.pull_quote.attribution") %></p>
   </div>
 </section>
 
@@ -321,11 +308,11 @@
        style="background: linear-gradient(180deg, rgba(40,52,32,0.62) 0%, rgba(40,52,32,0.32) 50%, rgba(40,52,32,0.72) 100%);"></div>
 
   <div class="inner relative z-10" data-controller="reveal">
-    <span class="eco-pill-eyebrow">✦ 100% Free · No Strings ✦</span>
+    <span class="eco-pill-eyebrow"><%= t("home.cta_band.badge") %></span>
     <h2>
-      Get the books, free, in<br>your hands.
+      <%= t("home.cta_band.heading_html").html_safe %>
     </h2>
-    <p class="sub">100% free hardcopies. Worldwide shipping. No strings.</p>
-    <%= link_to t("nav.request"), request_free_copy_path, class: "eco-btn-sage", data: { controller: "magnetic" } %>
+    <p class="sub"><%= t("home.cta_band.body") %></p>
+    <%= link_to t("home.cta_band.button"), request_free_copy_path, class: "eco-btn-sage", data: { controller: "magnetic" } %>
   </div>
 </section>

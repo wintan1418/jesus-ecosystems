@@ -34,22 +34,55 @@ en:
       languages: "Languages"
       free: "Free copies worldwide"
     pillars_title: "Faith Rewilded"
+    manifesto_eyebrow: "Faith, Rewilded"
+    manifesto_lead_html: "The way Jesus builds <em>world-changers</em> hasn't aged a day. He refines ordinary people for <em>Jesus-sized outcomes.</em> This is a raw and honest look at how Jesus turns chaos into His community."
+    points:
+      one:
+        title: "Jesus doesn't fund systems the gospel stories show."
+        body: "Jesus rebuilds what structure forgot. Faith rewilded."
+      two:
+        title: "Where faith stops performing and starts breathing."
+        body: "Down to the original text — not free-text editing."
+      three:
+        title: "He refines ordinary people for Jesus-sized outcomes."
+        body: "From algorithm to organism."
+      four:
+        title: "Religion is typically about a club, a vibe, and rules."
+        body: "Jesus came to blow that up."
+    hear:
+      eyebrow: "A Word From The Author"
+      heading_html: "Hear it<br><em>from him directly.</em>"
+      quote: "He refines ordinary people for Jesus-sized outcomes."
+      attribution: "— Volume One"
+    volumes_section:
+      eyebrow: "02 — 2 Volumes"
+      heading_html: "The Two<br><em>Volumes.</em>"
+    pillars_section:
+      eyebrow: "06 — Faith Rewilded"
+      heading_html: "Faith,<br><em>Rewilded.</em>"
     pillars:
       one:
+        cap: "Roots"
         title: "Living Roots"
-        body:  "Communities grow from soil, not from scaffolding."
+        body:  "Down to the original text — not free-text editing."
       two:
+        cap: "Canopy"
         title: "Open Canopy"
-        body:  "Light enters where the structure is held lightly."
+        body:  "Light cuts through where structure is symbolic."
       three:
+        cap: "Order"
         title: "Wild Order"
-        body:  "There is design without control."
+        body:  "There is deep, intentional intent."
       four:
+        cap: "Air"
         title: "Mutual Air"
-        body:  "What we breathe out, another breathes in."
-    quote: "Religion is typically about a club, a vibe, and rules — Jesus came to blow that up."
-    quote_attribution: "From Volume One"
+        body:  "What we breathe in, and breathe out is."
+    pull_quote:
+      body_html: "Religion is typically about a club, a vibe, and rules — <em>Jesus came to blow that up.</em>"
+      attribution: "From Volume One"
     cta_band:
+      badge: "✦ 100% Free · No Strings ✦"
+      heading_html: "Get the books, free, in<br>your hands."
       headline: "Get the books, free, in your hands"
       body: "100% free hardcopies. Worldwide shipping. No strings."
       button: "Request FREE Hardcopies"

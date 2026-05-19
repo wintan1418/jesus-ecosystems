@@ -15,7 +15,7 @@ de:
     eyebrow: "Ein christliches Aktions-Toolkit in zwei Bänden"
     headline_1: "Jesus, der Designer, und sein Plan"
     headline_2: "die Welt zu verändern"
-    subhead: "Ein frischer Blick darauf, wie Jesus seine Leute formt…"
+    subhead: "Ein frischer Blick darauf, wie Jesus seine Leute formt — vom Chaos zur Gemeinschaft, von der Gemeinschaft zur Veränderung der Welt."
     rotators:
       - "vom Bedürftigen zum Bemerkenswerten"
       - "vom Alltäglichen zum Berge-Versetzer"
@@ -28,10 +28,65 @@ de:
       languages: "Sprachen"
       free: "Kostenlose Exemplare weltweit"
     pillars_title: "Glaube Verwildert"
-    quote: "Religion ist meist ein Club, eine Stimmung und Regeln — Jesus kam, um das zu sprengen."
-    quote_attribution: "Aus Band Eins"
+    manifesto_eyebrow: "Glaube, Verwildert"
+    manifesto_lead_html: "Wie Jesus <em>Weltveränderer</em> formt, ist nicht gealtert. Er verfeinert gewöhnliche Menschen für <em>Ergebnisse in Jesus-Größe.</em> Ein roher und ehrlicher Blick darauf, wie Jesus Chaos in Seine Gemeinschaft verwandelt."
+    points:
+      one:
+        title: "Jesus finanziert nicht die Systeme, die die Evangelien zeigen."
+        body: "Jesus baut wieder auf, was die Struktur vergaß. Glaube verwildert."
+      two:
+        title: "Wo der Glaube aufhört zu performen und anfängt zu atmen."
+        body: "Bis zum Originaltext — keine freie Bearbeitung."
+      three:
+        title: "Er verfeinert gewöhnliche Menschen für Ergebnisse in Jesus-Größe."
+        body: "Vom Algorithmus zum Organismus."
+      four:
+        title: "Religion ist meist ein Club, eine Stimmung und Regeln."
+        body: "Jesus kam, um das zu sprengen."
+    hear:
+      eyebrow: "Ein Wort vom Autor"
+      heading_html: "Hör es<br><em>direkt von ihm.</em>"
+      quote: "Er verfeinert gewöhnliche Menschen für Ergebnisse in Jesus-Größe."
+      attribution: "— Band Eins"
+    volumes_section:
+      eyebrow: "02 — 2 Bände"
+      heading_html: "Die Zwei<br><em>Bände.</em>"
+    pillars_section:
+      eyebrow: "06 — Glaube Verwildert"
+      heading_html: "Glaube,<br><em>Verwildert.</em>"
+    pillars:
+      one:
+        cap: "Wurzeln"
+        title: "Lebendige Wurzeln"
+        body:  "Bis zum Originaltext — keine freie Bearbeitung."
+      two:
+        cap: "Kronendach"
+        title: "Offenes Kronendach"
+        body:  "Licht dringt durch, wo die Struktur symbolisch ist."
+      three:
+        cap: "Ordnung"
+        title: "Wilde Ordnung"
+        body:  "Es gibt tiefe, bewusste Absicht."
+      four:
+        cap: "Luft"
+        title: "Gemeinsame Luft"
+        body:  "Was wir einatmen, und ausatmen, ist."
+    pull_quote:
+      body_html: "Religion ist meist ein Club, eine Stimmung und Regeln — <em>Jesus kam, um das zu sprengen.</em>"
+      attribution: "Aus Band Eins"
+    cta_band:
+      badge: "✦ 100% Kostenlos · Keine Verpflichtung ✦"
+      heading_html: "Hol dir die Bücher, kostenlos,<br>in deine Hände."
+      headline: "Hol dir die Bücher, kostenlos, in deine Hände"
+      body: "Gedruckte Exemplare 100% kostenlos. Weltweiter Versand. Keine Verpflichtung."
+      button: "KOSTENLOSE Exemplare anfordern"
+    volumes:
+      one: "Band Eins"
+      two: "Band Zwei"
+      read_more: "Weiterlesen"
   footer:
     rights: "Alle Rechte vorbehalten."
     languages: "Sprachen"
+    blurb: "Jesus, des Designers, Plan zur Veränderung der Welt — kostenlos in deinen Händen."
   free_copy:
     badge: "100% Kostenlos · Keine Verpflichtung"

@@ -34,22 +34,55 @@ es:
       languages: "Idiomas"
       free: "Copias gratis en todo el mundo"
     pillars_title: "Fe Resilvestrada"
+    manifesto_eyebrow: "Fe, Resilvestrada"
+    manifesto_lead_html: "La manera en que Jesús forma a <em>los que cambian el mundo</em> no ha envejecido. Refina a personas comunes para <em>resultados del tamaño de Jesús.</em> Una mirada cruda y honesta a cómo Jesús convierte el caos en Su comunidad."
+    points:
+      one:
+        title: "Jesús no financia los sistemas que los relatos del evangelio muestran."
+        body: "Jesús reconstruye lo que la estructura olvidó. Fe resilvestrada."
+      two:
+        title: "Donde la fe deja de actuar y empieza a respirar."
+        body: "Hasta el texto original — sin edición libre."
+      three:
+        title: "Refina a personas comunes para resultados del tamaño de Jesús."
+        body: "Del algoritmo al organismo."
+      four:
+        title: "La religión suele ser un club, una vibra y unas reglas."
+        body: "Jesús vino a volar eso por los aires."
+    hear:
+      eyebrow: "Una palabra del autor"
+      heading_html: "Escúchalo<br><em>directo de él.</em>"
+      quote: "Refina a personas comunes para resultados del tamaño de Jesús."
+      attribution: "— Volumen Uno"
+    volumes_section:
+      eyebrow: "02 — 2 Volúmenes"
+      heading_html: "Los Dos<br><em>Volúmenes.</em>"
+    pillars_section:
+      eyebrow: "06 — Fe Resilvestrada"
+      heading_html: "Fe,<br><em>Resilvestrada.</em>"
     pillars:
       one:
+        cap: "Raíces"
         title: "Raíces Vivas"
-        body:  "Las comunidades crecen del suelo, no del andamio."
+        body:  "Hasta el texto original — sin edición libre."
       two:
+        cap: "Dosel"
         title: "Dosel Abierto"
-        body:  "La luz entra donde la estructura se sostiene con ligereza."
+        body:  "La luz entra donde la estructura es simbólica."
       three:
+        cap: "Orden"
         title: "Orden Salvaje"
-        body:  "Hay diseño sin control."
+        body:  "Hay intención profunda y deliberada."
       four:
+        cap: "Aire"
         title: "Aire Mutuo"
-        body:  "Lo que exhalamos, otro lo respira."
-    quote: "La religión suele ser un club, una vibra y unas reglas — Jesús vino a volar eso por los aires."
-    quote_attribution: "Del Volumen Uno"
+        body:  "Lo que inhalamos, y lo que exhalamos, es."
+    pull_quote:
+      body_html: "La religión suele ser un club, una vibra y unas reglas — <em>Jesús vino a volar eso por los aires.</em>"
+      attribution: "Del Volumen Uno"
     cta_band:
+      badge: "✦ 100% Gratis · Sin compromiso ✦"
+      heading_html: "Recibe los libros, gratis, en<br>tus manos."
       headline: "Recibe los libros, gratis, en tus manos"
       body: "Copias impresas 100% gratis. Envío mundial. Sin compromiso."
       button: "Solicitar copia GRATIS"

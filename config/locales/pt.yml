@@ -34,22 +34,55 @@ pt:
       languages: "Idiomas"
       free: "Cópias grátis no mundo todo"
     pillars_title: "Fé Reflorestada"
+    manifesto_eyebrow: "Fé, Reflorestada"
+    manifesto_lead_html: "A maneira como Jesus forma <em>quem muda o mundo</em> não envelheceu. Ele refina pessoas comuns para <em>resultados do tamanho de Jesus.</em> Um olhar cru e honesto sobre como Jesus transforma o caos em Sua comunidade."
+    points:
+      one:
+        title: "Jesus não financia os sistemas que os evangelhos mostram."
+        body: "Jesus reconstrói o que a estrutura esqueceu. Fé reflorestada."
+      two:
+        title: "Onde a fé para de performar e começa a respirar."
+        body: "Até o texto original — sem edição livre."
+      three:
+        title: "Ele refina pessoas comuns para resultados do tamanho de Jesus."
+        body: "Do algoritmo ao organismo."
+      four:
+        title: "Religião costuma ser um clube, uma vibe e regras."
+        body: "Jesus veio para explodir isso."
+    hear:
+      eyebrow: "Uma palavra do autor"
+      heading_html: "Ouça<br><em>direto dele.</em>"
+      quote: "Ele refina pessoas comuns para resultados do tamanho de Jesus."
+      attribution: "— Volume Um"
+    volumes_section:
+      eyebrow: "02 — 2 Volumes"
+      heading_html: "Os Dois<br><em>Volumes.</em>"
+    pillars_section:
+      eyebrow: "06 — Fé Reflorestada"
+      heading_html: "Fé,<br><em>Reflorestada.</em>"
     pillars:
       one:
+        cap: "Raízes"
         title: "Raízes Vivas"
-        body:  "Comunidades crescem do solo, não do andaime."
+        body:  "Até o texto original — sem edição livre."
       two:
+        cap: "Dossel"
         title: "Dossel Aberto"
-        body:  "A luz entra onde a estrutura é mantida com leveza."
+        body:  "A luz atravessa onde a estrutura é simbólica."
       three:
+        cap: "Ordem"
         title: "Ordem Selvagem"
-        body:  "Há desenho sem controle."
+        body:  "Há intenção profunda e deliberada."
       four:
+        cap: "Ar"
         title: "Ar Mútuo"
-        body:  "O que exalamos, outro respira."
-    quote: "Religião costuma ser um clube, um vibe e regras — Jesus veio para explodir isso."
-    quote_attribution: "Do Volume Um"
+        body:  "O que inspiramos, e o que expiramos, é."
+    pull_quote:
+      body_html: "Religião costuma ser um clube, uma vibe e regras — <em>Jesus veio para explodir isso.</em>"
+      attribution: "Do Volume Um"
     cta_band:
+      badge: "✦ 100% Grátis · Sem compromisso ✦"
+      heading_html: "Receba os livros, grátis, nas<br>suas mãos."
       headline: "Receba os livros, grátis, nas suas mãos"
       body: "Cópias impressas 100% grátis. Envio mundial. Sem compromisso."
       button: "Solicitar cópia GRÁTIS"

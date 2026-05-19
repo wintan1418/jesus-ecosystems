@@ -15,7 +15,7 @@ fr:
     eyebrow: "Une boîte à outils chrétienne en deux volumes"
     headline_1: "Le plan du Designer Jésus"
     headline_2: "pour changer le monde"
-    subhead: "Un regard neuf sur la manière dont Jésus forme les siens…"
+    subhead: "Un regard neuf sur la manière dont Jésus forme les siens — du chaos à la communauté, de la communauté à un monde qui change."
     rotators:
       - "du besoin à la renommée"
       - "du commun aux déplaceurs de montagnes"
@@ -28,10 +28,65 @@ fr:
       languages: "Langues"
       free: "Copies gratuites dans le monde entier"
     pillars_title: "Foi Réensauvagée"
-    quote: "La religion est un club, une ambiance et des règles — Jésus est venu faire sauter tout ça."
-    quote_attribution: "Du Volume Un"
+    manifesto_eyebrow: "Foi, Réensauvagée"
+    manifesto_lead_html: "La façon dont Jésus forme <em>les bâtisseurs du monde</em> n'a pas vieilli. Il raffine des gens ordinaires pour <em>des résultats à la taille de Jésus.</em> Un regard cru et honnête sur la façon dont Jésus transforme le chaos en Sa communauté."
+    points:
+      one:
+        title: "Jésus ne finance pas les systèmes que les évangiles montrent."
+        body: "Jésus reconstruit ce que la structure a oublié. Foi réensauvagée."
+      two:
+        title: "Là où la foi cesse de performer et commence à respirer."
+        body: "Jusqu'au texte original — sans édition libre."
+      three:
+        title: "Il raffine des gens ordinaires pour des résultats à la taille de Jésus."
+        body: "De l'algorithme à l'organisme."
+      four:
+        title: "La religion est souvent un club, une ambiance et des règles."
+        body: "Jésus est venu faire sauter tout ça."
+    hear:
+      eyebrow: "Un mot de l'auteur"
+      heading_html: "Écoutez-le<br><em>directement de lui.</em>"
+      quote: "Il raffine des gens ordinaires pour des résultats à la taille de Jésus."
+      attribution: "— Volume Un"
+    volumes_section:
+      eyebrow: "02 — 2 Volumes"
+      heading_html: "Les Deux<br><em>Volumes.</em>"
+    pillars_section:
+      eyebrow: "06 — Foi Réensauvagée"
+      heading_html: "Foi,<br><em>Réensauvagée.</em>"
+    pillars:
+      one:
+        cap: "Racines"
+        title: "Racines Vivantes"
+        body:  "Jusqu'au texte original — sans édition libre."
+      two:
+        cap: "Canopée"
+        title: "Canopée Ouverte"
+        body:  "La lumière traverse là où la structure est symbolique."
+      three:
+        cap: "Ordre"
+        title: "Ordre Sauvage"
+        body:  "Il y a une intention profonde, délibérée."
+      four:
+        cap: "Air"
+        title: "Air Mutuel"
+        body:  "Ce que nous inspirons, et expirons, est."
+    pull_quote:
+      body_html: "La religion est souvent un club, une ambiance et des règles — <em>Jésus est venu faire sauter tout ça.</em>"
+      attribution: "Du Volume Un"
+    cta_band:
+      badge: "✦ 100% Gratuit · Sans engagement ✦"
+      heading_html: "Recevez les livres, gratuits,<br>entre vos mains."
+      headline: "Recevez les livres, gratuits, entre vos mains"
+      body: "Exemplaires imprimés 100% gratuits. Livraison mondiale. Sans engagement."
+      button: "Demander des exemplaires GRATUITS"
+    volumes:
+      one: "Volume Un"
+      two: "Volume Deux"
+      read_more: "Lire plus"
   footer:
     rights: "Tous droits réservés."
     languages: "Langues"
+    blurb: "Le plan de Jésus le Designer pour changer le monde, entre vos mains — gratuitement."
   free_copy:
     badge: "100% Gratuit · Sans engagement"
