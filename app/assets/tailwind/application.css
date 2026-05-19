@@ -1427,6 +1427,23 @@ h1 em, h2 em, h3 em, h4 em {
 }
 
 /* ─── Admin CMS chrome ──────────────────────────────────────────────────── */
+/* 2026-05-19: admin is now light/cream to match the public site. Scoped
+   variable overrides so every existing `.admin-*` rule below auto-flips. */
+body.admin-body {
+  background: var(--color-eco-cream);
+  color: var(--color-eco-ink);
+  /* Re-point the dark tokens these rules use to the warm palette */
+  --color-eco-bg:         var(--color-eco-cream);
+  --color-eco-surface:    var(--color-eco-cream-warm);
+  --color-eco-border:     var(--color-eco-rule);
+  --color-eco-text:       var(--color-eco-ink);
+  --color-eco-text-muted: var(--color-eco-ink-soft);
+  --color-eco-white:      var(--color-eco-ink);
+  --color-eco-green:      var(--color-eco-olive-deep);
+  --color-eco-green-light: var(--color-eco-forest);
+  --color-eco-green-muted: rgba(90, 107, 72, 0.10);
+}
+
 .admin-shell {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -1442,8 +1459,8 @@ h1 em, h2 em, h3 em, h4 em {
   top: 0;
   height: 100vh;
   padding: 2rem 1.5rem;
-  border-right: 1px solid var(--color-eco-border);
-  background: linear-gradient(180deg, #1f2317 0%, #141810 100%);
+  border-right: 1px solid var(--color-eco-rule);
+  background: linear-gradient(180deg, var(--color-eco-paper) 0%, var(--color-eco-cream-warm) 100%);
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -1467,7 +1484,7 @@ h1 em, h2 em, h3 em, h4 em {
   font-size: 9px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(236, 230, 211, 0.45);
+  color: var(--color-eco-ink-soft);
   margin-bottom: 0.5rem;
   padding-left: 0.75rem;
 }
@@ -1479,22 +1496,22 @@ h1 em, h2 em, h3 em, h4 em {
   padding: 0.6rem 0.75rem;
   border-radius: 10px;
   font-size: 0.875rem;
-  color: rgba(236, 230, 211, 0.75);
+  color: var(--color-eco-ink);
   transition: all 0.2s ease;
   position: relative;
 }
 
 .admin-nav-link:hover {
-  color: var(--color-eco-green-light);
-  background: rgba(163, 191, 100, 0.08);
+  color: var(--color-eco-forest);
+  background: rgba(90, 107, 72, 0.08);
 }
 
 .admin-nav-link--active {
-  background: var(--color-eco-green-muted);
-  color: var(--color-eco-white);
-  border-left: 2px solid var(--color-eco-green);
+  background: rgba(90, 107, 72, 0.12);
+  color: var(--color-eco-forest);
+  border-left: 2px solid var(--color-eco-olive-deep);
   padding-left: calc(0.75rem - 2px);
-  box-shadow: inset 0 0 24px -8px rgba(163, 191, 100, 0.25);
+  box-shadow: inset 0 0 24px -8px rgba(90, 107, 72, 0.20);
 }
 
 .admin-nav-icon {
@@ -1512,8 +1529,8 @@ h1 em, h2 em, h3 em, h4 em {
 
 .admin-nav-badge {
   margin-left: auto;
-  background: var(--color-eco-green);
-  color: var(--color-eco-bg);
+  background: var(--color-eco-olive-deep);
+  color: var(--color-eco-cream);
   font-size: 10px;
   font-weight: 600;
   padding: 0.1rem 0.5rem;
@@ -1534,17 +1551,17 @@ h1 em, h2 em, h3 em, h4 em {
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  background: rgba(163, 191, 100, 0.12);
-  color: var(--color-eco-green-light);
-  border: 1px solid rgba(163, 191, 100, 0.25);
+  background: rgba(90, 107, 72, 0.10);
+  color: var(--color-eco-forest);
+  border: 1px solid rgba(90, 107, 72, 0.25);
   transition: all 0.2s ease;
   text-align: left;
 }
 
 .admin-signout:hover {
-  background: var(--color-eco-green);
-  color: var(--color-eco-bg);
-  border-color: var(--color-eco-green);
+  background: var(--color-eco-forest);
+  color: var(--color-eco-cream);
+  border-color: var(--color-eco-forest);
 }
 
 /* Main content area */
@@ -1590,17 +1607,17 @@ h1 em, h2 em, h3 em, h4 em {
 }
 
 .admin-flash--notice {
-  background: rgba(28, 32, 21, 0.92);
-  border-color: rgba(163, 191, 100, 0.45);
-  color: var(--color-eco-green-light);
+  background: rgba(251, 246, 230, 0.96);
+  border-color: rgba(90, 107, 72, 0.35);
+  color: var(--color-eco-forest);
 }
 
-.admin-flash--notice::before { background: var(--color-eco-green); }
+.admin-flash--notice::before { background: var(--color-eco-olive-deep); }
 
 .admin-flash--alert {
-  background: rgba(28, 32, 21, 0.92);
+  background: rgba(251, 246, 230, 0.96);
   border-color: rgba(220, 38, 38, 0.5);
-  color: #fca5a5;
+  color: #b91c1c;
 }
 
 .admin-flash--alert::before { background: #ef4444; }
@@ -1799,11 +1816,11 @@ h1 em, h2 em, h3 em, h4 em {
   font-size: 10px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--color-eco-text-muted);
+  color: var(--color-eco-ink-soft);
   text-align: left;
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid var(--color-eco-border);
-  background: rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid var(--color-eco-rule);
+  background: rgba(90, 107, 72, 0.05);
 }
 
 .admin-table tbody td {

@@ -55,6 +55,9 @@
 
     <div class="admin-nav-group">
       <p class="admin-nav-group-label">System</p>
+      <%= link_to admin_languages_path, class: admin_nav_class(controller_name == "languages") do %>
+        <span class="admin-nav-icon">🌐</span> Languages
+      <% end %>
       <%= link_to admin_site_settings_path, class: admin_nav_class(controller_name == "site_settings") do %>
         <span class="admin-nav-icon">⚙</span> Site settings
       <% end %>

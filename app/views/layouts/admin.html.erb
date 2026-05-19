@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-eco-bg">
+<html lang="en">
   <head>
     <title><%= content_for(:title) || "Admin · #{t('site.name')}" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="#262b1c">
+    <meta name="theme-color" content="#f7f1df">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -17,7 +17,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-eco-bg text-eco-text font-sans antialiased min-h-screen">
+  <body class="admin-body font-sans antialiased min-h-screen">
     <div class="admin-shell">
       <%= render "admin/shared/sidebar" %>
 

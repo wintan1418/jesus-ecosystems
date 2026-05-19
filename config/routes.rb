@@ -30,6 +30,10 @@ Rails.application.routes.draw do
     resources :email_subscribers, only: [:index, :show, :destroy]
     resources :site_settings
 
+    # Friendly editor wrapping the `languages` JSON SiteSetting.
+    get   "languages", to: "languages#edit",   as: :languages
+    patch "languages", to: "languages#update"
+
     resources :newsletters do
       member do
         post :send_test
