@@ -36,14 +36,14 @@
       <% next if row.empty? %>
       <div class="letter-wall-row" data-direction="<%= i.even? ? 'left' : 'right' %>">
         <div class="letter-wall-track">
-          <%# Duplicate the row twice so the CSS marquee loops seamlessly. %>
-          <% 2.times do %>
-            <% row.each do |l| %>
-              <figure class="letter-card">
-                <blockquote><%= l["quote"] || l[:quote] %></blockquote>
-                <figcaption><%= l["attribution"] || l[:attribution] %></figcaption>
-              </figure>
-            <% end %>
+          <%# Render the row ONCE. The `testimonial-scroll` Stimulus controller
+              clones this set at runtime until the track is wider than the
+              viewport, so the seamless loop works on any screen width. %>
+          <% row.each do |l| %>
+            <figure class="letter-card">
+              <blockquote><%= l["quote"] || l[:quote] %></blockquote>
+              <figcaption><%= l["attribution"] || l[:attribution] %></figcaption>
+            </figure>
           <% end %>
         </div>
       </div>
