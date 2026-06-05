@@ -17,12 +17,8 @@
     row_count  = 3
     slice_size = [(letters.size / row_count.to_f).ceil, 1].max
     rows       = letters.each_slice(slice_size).to_a
-
-    # Marquee speed: ~28 px/sec — readable but never sluggish. Card is 320px
-    # wide + 20px gap. Scroll distance = (cards_per_row * 340). 2x duplication
-    # means the animation traverses cards_per_row * 340 over the full cycle.
-    px_per_sec = 28.0
-    card_pitch = 340 # 320px card + 20px gap
+    # Auto-scroll speed + manual drag/swipe are handled by the
+    # `testimonial-scroll` Stimulus controller (28 px/sec, pauses on touch).
   %>
 
 <section id="letters" data-rail-label="Letters"
@@ -35,16 +31,11 @@
     </h2>
   </div>
 
-  <div class="letter-wall space-y-5">
+  <div class="letter-wall space-y-5" data-controller="testimonial-scroll">
     <% rows.each_with_index do |row, i| %>
       <% next if row.empty? %>
-      <%
-        # Duration scales with row width so 9 letters and 90 letters scroll at
-        # the same readable speed. Floor at 50s so very small walls don't fly.
-        duration_seconds = [(row.size * card_pitch / px_per_sec).round, 50].max
-      %>
       <div class="letter-wall-row" data-direction="<%= i.even? ? 'left' : 'right' %>">
-        <div class="letter-wall-track" style="animation-duration: <%= duration_seconds %>s;">
+        <div class="letter-wall-track">
           <%# Duplicate the row twice so the CSS marquee loops seamlessly. %>
           <% 2.times do %>
             <% row.each do |l| %>

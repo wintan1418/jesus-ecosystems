@@ -939,35 +939,30 @@ h1 em, h2 em, h3 em, h4 em {
   -webkit-mask-image: linear-gradient(90deg, transparent 0, black 80px, black calc(100% - 80px), transparent 100%);
 }
 
+/* Real horizontal scroller: visitor can drag/swipe it; JS auto-advances it.
+   Scrollbar is hidden but native scrolling stays fully functional. */
 .letter-wall-row {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* legacy Edge */
+  cursor: grab;
+}
+
+.letter-wall-row::-webkit-scrollbar {
+  display: none;               /* Chrome / Safari */
+}
+
+.letter-wall-row.is-grabbing {
+  cursor: grabbing;
 }
 
 .letter-wall-track {
   display: inline-flex;
   gap: 1.25rem;
   white-space: nowrap;
-  animation: letter-scroll 68s linear infinite;
-  will-change: transform;
-}
-
-.letter-wall-row[data-direction="right"] .letter-wall-track {
-  animation-name: letter-scroll-reverse;
-  animation-duration: 74s;
-}
-
-.letter-wall:hover .letter-wall-track {
-  animation-play-state: paused;
-}
-
-@keyframes letter-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-@keyframes letter-scroll-reverse {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
+  will-change: scroll-position;
 }
 
 .letter-card {
@@ -1008,12 +1003,7 @@ h1 em, h2 em, h3 em, h4 em {
   color: var(--color-eco-ink);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .letter-wall-track { animation: none; }
-}
-
 @media (max-width: 640px) {
-  .letter-wall-track { animation-duration: 50s; }
   .letter-card { width: min(280px, 82vw); padding: 1.25rem 1.4rem; }
 }
 
